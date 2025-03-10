@@ -60,7 +60,7 @@ app.post('/user', async (req, res) => {
       // await usersCollection.deleteMany({});
       await usersCollection.insertOne(newUser);
       console.log('New user inserted:', newUser);
-      // res.render('user.ejs', { data: newUser });
+      res.render('user.ejs', { data: newUser });
   } catch (error) {
       console.error('Error inserting new user:', error);
       res.status(500).send('Error inserting new user');
