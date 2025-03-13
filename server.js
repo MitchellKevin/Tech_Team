@@ -10,6 +10,7 @@ const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 app.listen(port, () => {
   console.log('Server is running on port 8000');
@@ -23,6 +24,17 @@ app
   .set('view engine', 'ejs')
   .set('views', 'view')
 
+// app.set('trust proxy', 1) 
+// app.use(session
+//   ({
+//     secret: process.env.session_key,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true },
+//     maxAge: 60000
+//   })
+// );
+
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
@@ -35,9 +47,13 @@ app.get('/signup', function(req, res) {
     res.render('signUp.ejs');
 });
 
+// app.get('/dashboard', function(req, res) {
+//     res.render('dashboard.ejs');
+// });
+
 // mongodb
 const {MongoClient, ObjectId, Collection} = require ("mongodb");
-const uri = process.env.URI;
+const uri = process.env.uri;
 
 // console.log("MongoDB URI:", uri);
 
@@ -61,6 +77,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
+    const usersArray = await usersCollection.find({}).toArray();
 
     console.log(req.file);
 
@@ -71,10 +88,13 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     const newUser = {
       name: req.body.name,
       password: hashedPassword, 
-      avatar: req.file.filename,
+      avatar: req.file.path
     };
 
-    await usersCollection.deleteMany({}); 
+    
+    fs.writeFileSync("users.json", JSON.stringify(usersArray, null, 2), "utf-8");
+
+    // await usersCollection.deleteMany({}); 
     await usersCollection.insertOne(newUser);
 
     console.log("New user inserted:", newUser);
@@ -89,9 +109,8 @@ app.post("/login", async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
-
     const user = await usersCollection.findOne({ name: req.body.name });
-
+    
     if (!user) {
       console.log("User not found");
       return res.status(404).send("User not found");
@@ -113,6 +132,8 @@ app.post("/login", async (req, res) => {
   } 
 });
 
+
+
 app.post('/profile' , upload.single('avatar'), (req, res, next) => {
   console.log(req.file);
   // res.send('File uploaded');
@@ -126,6 +147,19 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
   res.send('Files uploaded');
 });
 
+// app.get("/dashboard", (req, res) => {
+//   if (!req.session.user) {
+//     return res.status(401).send("Je moet inloggen om dit te zien.");
+//     res.redirect("/login");
+//   }res.render("dashboard.ejs");
+//   res.send(`Welkom, ${req.session.user.username}!`);
+// });
+
+// app.post("/logout", (req, res) => {
+//   req.session.destroy(() => {
+//     res.send("Je bent uitgelogd.");
+//   });
+// });
 
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
 const encryptWithSecretKey = (text) => {
