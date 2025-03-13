@@ -23,6 +23,10 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+app.get('/login', function(req, res) {
+    res.render('logIn.ejs');
+});
+
 app.get('/signup', function(req, res) {
     res.render('signUp.ejs');
 });
