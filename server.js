@@ -7,6 +7,8 @@ const app = express ();
 const port = 8000;
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 app.listen(port, () => {
   console.log('Server is running on port 8000');
@@ -54,10 +56,12 @@ async function connectDB() {
 
 connectDB();
 
-app.post("/signup", async (req, res) => {
+app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
+
+    console.log(req.file);
 
     // Hash het wachtwoord met bcrypt
     const saltRounds = 10; // Hoeveelheid hashing-rondes (10 is standaard en veilig)
@@ -66,6 +70,7 @@ app.post("/signup", async (req, res) => {
     const newUser = {
       name: req.body.name,
       password: hashedPassword, // Sla de gehashte versie op!
+      avatar: req.file.avatar
     };
 
     await usersCollection.deleteMany({}); // Verwijder alle gebruikers (voor testdoeleinden, waarschijnlijk niet gewenst in productie)
@@ -104,9 +109,25 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error finding user:", error);
     res.status(500).send("Error finding user");
-  }
+  } 
 });
 
+app.post('/profile' , upload.single('avatar'), (req, res, next) => {
+  console.log(req.file);
+  // res.send('File uploaded');
+});
+
+app.post('/photos/upload', upload.array('photos', 12), (req, res, next) => {
+  console.log(req.files);
+  res.send('Files uploaded');
+});
+
+const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }]);
+app.post('/cool-profile', cpUpload, (req, res, next) => {
+  console.log(req.files);
+  console.log(req.body);
+  res.send('Files uploaded');
+});
 
 // app.post('/login', async (req, res) => {
 //   try {
