@@ -3,6 +3,7 @@ require('dotenv').config();
 
 // express
 const express = require('express');
+const session = require('express-session');
 const app = express ();
 const port = 8000;
 const CryptoJS = require("crypto-js");
@@ -64,16 +65,16 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     console.log(req.file);
 
     // Hash het wachtwoord met bcrypt
-    const saltRounds = 10; // Hoeveelheid hashing-rondes (10 is standaard en veilig)
+    const saltRounds = 10; 
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     const newUser = {
       name: req.body.name,
-      password: hashedPassword, // Sla de gehashte versie op!
+      password: hashedPassword, 
       avatar: req.file.filename,
     };
 
-    await usersCollection.deleteMany({}); // Verwijder alle gebruikers (voor testdoeleinden, waarschijnlijk niet gewenst in productie)
+    await usersCollection.deleteMany({}); 
     await usersCollection.insertOne(newUser);
 
     console.log("New user inserted:", newUser);
