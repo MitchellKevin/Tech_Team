@@ -8,6 +8,7 @@
 	--color-darkblue: #485EA1;
 	--color-lightblue: #2994D7;
 	--color-mutedblue: #B3BEE1;
+    --color-brightblue: #2E4EAE;
 
     
 	--size-xxs: 0.5rem;
@@ -40,6 +41,10 @@ body{
 	font-family: 'Urbanist', Times New Roman ;
 	color:var(--color-text);
     background-color: var(--color-bg);
+}
+
+body p{
+    font-size: 5vw;
 }
 
 img,svg {
@@ -78,9 +83,9 @@ img,svg {
 		max-width: 1024px;
 	}
 
-	.section {
-		margin-top: 10rem;
-	}
+    body p{
+        font-size: 2.344vw;
+    }
 }
 
 /* xl */
@@ -102,11 +107,12 @@ img,svg {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
+	/* padding-left: 0.5rem;
+	padding-right: 0.5rem; */
 	/* border: solid 1px red; */
 }
 
+/* header */
 header {
 	display: flex;
 	justify-content: flex-end;
@@ -115,12 +121,15 @@ header {
     max-width: 100vw;
 }
 
+
+
 nav ul{
 	display: flex;
 	align-items: center;
 	list-style: none;
 	gap: 2em;
-	background-color: var(--color-background);
+    justify-content: center;
+	background-color: var(--color-bg);
 
     position:fixed;
 	left:0;
@@ -164,6 +173,7 @@ nav a {
 	z-index: 10;
 }
 
+
 @media (min-width: 768px) {
 	nav ul{
 		display: flex;
@@ -190,4 +200,74 @@ nav a {
 		
 		padding:0;
 	}
+}
+
+
+/* homepage */
+section{
+    margin-bottom: var(--size-6xl);
+}
+
+.landing {
+    padding: var(--size-4xl) var(--size-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-sm);
+    background-color: #2994D7;
+}
+
+.landing img {
+    border-radius: 10px;
+}
+
+.polaroid{
+    width: 30vw;
+}
+
+.polaroids div{
+    display: flex;
+}
+
+.polaroids span{
+    font-weight: 100;
+    font-style: italic;
+}
+
+.polaroids{
+    display: flex;
+    gap: var(--size-xxs);
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-bg);
+    background-color: var(--color-brightblue);
+    padding: var(--size-4xl) var(--size-lg);
+}
+
+.grid div {
+    position: relative;
+}
+
+.arrow {
+	color: var(--color-bg);
+    background-color: var(--color-lightblue);
+    border-radius: 50em;
+    padding: var(--size-xxs);
+
+	width: var(--size-4xl);
+	height: var(--size-4xl);
+
+	position:absolute;
+	z-index: 10;
+    border: none;
+    right: 0;
+    bottom: 2em
+}
+
+.arrow svg{
+    width: var(--size-xl);
+	height: var(--size-xl);
+    display: block;
+
+    margin-right: auto;
+    margin-left: auto;
 }
