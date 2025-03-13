@@ -6,6 +6,7 @@ const express = require('express');
 const app = express ();
 const port = 8000;
 const CryptoJS = require("crypto-js");
+const bcrypt = require('bcrypt');
 
 app.listen(port, () => {
   console.log('Server is running on port 8000');
@@ -53,36 +54,111 @@ async function connectDB() {
 
 connectDB();
 
-app.post('/user', async (req, res) => {
+app.post("/signup", async (req, res) => {
   try {
-      const database = client.db(process.env.db_name);
-      const usersCollection = database.collection('users');
-      encryptedPW= encryptWithSecretKey(req.body.password);
-      setTimeout(() => {
-        console.log('decryptedPW:', decryptedPW);
-      }, 1000);
-      decryptedPW = decryptWithSecretKey(encryptedPW);
-      const newUser = {
-          name: req.body.name,
-          password: encryptedPW,
-          password2: decryptedPW
-      };
-      // await usersCollection.deleteMany({});
-      await usersCollection.insertOne(newUser);
-      console.log('New user inserted:', newUser);
-      res.render('user.ejs', { data: newUser });
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Hash het wachtwoord met bcrypt
+    const saltRounds = 10; // Hoeveelheid hashing-rondes (10 is standaard en veilig)
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    const newUser = {
+      name: req.body.name,
+      password: hashedPassword, // Sla de gehashte versie op!
+    };
+
+    await usersCollection.deleteMany({}); // Verwijder alle gebruikers (voor testdoeleinden, waarschijnlijk niet gewenst in productie)
+    await usersCollection.insertOne(newUser);
+
+    console.log("New user inserted:", newUser);
+    res.render("user.ejs", { data: newUser });
   } catch (error) {
-      console.error('Error inserting new user:', error);
-      res.status(500).send('Error inserting new user');
+    console.error("Error inserting new user:", error);
+    res.status(500).send("Error inserting new user");
   }
 });
+
+app.post("/login", async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ name: req.body.name });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    // Vergelijk het ingevoerde wachtwoord met de opgeslagen hash
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (isMatch) {
+      console.log("User authenticated");
+      res.status(200).send("Login successful");
+    } else {
+      console.log("Incorrect password");
+      res.status(401).send("Incorrect password");
+    }
+  } catch (error) {
+    console.error("Error finding user:", error);
+    res.status(500).send("Error finding user");
+  }
+});
+
+
+// app.post('/login', async (req, res) => {
+//   try {
+//       const database = client.db(process.env.db_name);
+//       const usersCollection = database.collection('users'); 
+//       const user = await usersCollection.findOne({
+//           name: req.body.name
+//       });
+//       if (user) {
+//           console.log('User found:', user);
+//           if (user.password === encryptWithSecretKey(req.body.password)) {
+//               console.log('User logged in:', user);
+//           } else {
+//               console.log('Invalid password');
+//           }
+//       }
+//   } catch (error) {
+//       console.error('Error finding user:', error);
+//       res.status(500).send('Error finding user');
+//   }
+// });
+
+
+// async function findUser(userName) {
+//   try {
+//     const database = client.db(process.env.db_name);
+//     const usersCollection = database.collection('users');
+//     const user = await usersCollection.findOne({
+//       name: userName
+//     });
+//     console.log('User found:', user);
+//     return user;
+//   } catch (error) {
+//     console.error('Error finding user:', error);
+//   }
+// }
+
+
+// Encryption and decryption functions
+
+// async function hashPassword(text) {
+//   const saltRounds = 10;
+//   return await bcrypt.hash(text, saltRounds);
+// }
+
 
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
 const encryptWithSecretKey = (text) => {
   const secretKey = process.env.security_key?.replace(/\\n/g, "\n");
 
   // Generate a random Initialization Vector (IV) for security
-  const iv = CryptoJS.lib.WordArray.random(16);
+  const iv = (16);
 
   // Encrypt the text using AES with CBC mode and the secret key
   const encrypted = CryptoJS.AES.encrypt(
