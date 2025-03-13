@@ -109,7 +109,6 @@ app.post("/login", async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
-    const user = await usersCollection.findOne({ name: req.body.name });
     
     if (!user) {
       console.log("User not found");
