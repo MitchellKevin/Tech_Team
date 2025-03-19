@@ -24,32 +24,32 @@ app
   .set('view engine', 'ejs')
   .set('views', 'view')
 
-// app.set('trust proxy', 1) 
-// app.use(session
-//   ({
-//     secret: process.env.session_key,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: true },
-//     maxAge: 60000
-//   })
-// );
+app.set('trust proxy', 1) 
+app.use(session
+  ({
+    secret: process.env.session_key,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+    maxAge: 60000
+  })
+);
 
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
 app.get('/login', function(req, res) {
-    res.render('logIn.ejs');
+    res.render('logIn');
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signUp.ejs');
+    res.render('signUp');
 });
 
-// app.get('/dashboard', function(req, res) {
-//     res.render('dashboard.ejs');
-// });
+app.get('/dashboard', function(req, res) {
+    res.render('dashboard');
+});
 
 // mongodb
 const {MongoClient, ObjectId, Collection} = require ("mongodb");
@@ -110,6 +110,9 @@ app.post("/login", async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
     
+    const user = await usersCollection.findOne({ name
+      : req.body.name });
+
     if (!user) {
       console.log("User not found");
       return res.status(404).send("User not found");
@@ -121,6 +124,7 @@ app.post("/login", async (req, res) => {
     if (isMatch) {
       console.log("User authenticated");
       res.status(200).send("Login successful");
+      req.session.user = user;
     } else {
       console.log("Incorrect password");
       res.status(401).send("Incorrect password");
@@ -146,19 +150,20 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
   res.send('Files uploaded');
 });
 
-// app.get("/dashboard", (req, res) => {
-//   if (!req.session.user) {
-//     return res.status(401).send("Je moet inloggen om dit te zien.");
-//     res.redirect("/login");
-//   }res.render("dashboard.ejs");
-//   res.send(`Welkom, ${req.session.user.username}!`);
-// });
+app.get("/dashboard", (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).send("Je moet inloggen om dit te zien.");
+  }
+  else{
+    res.send(`Welkom, ${req.session.user.username}!`);
+  }
+});
 
-// app.post("/logout", (req, res) => {
-//   req.session.destroy(() => {
-//     res.send("Je bent uitgelogd.");
-//   });
-// });
+app.post("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.send("Je bent uitgelogd.");
+  });
+});
 
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
 const encryptWithSecretKey = (text) => {
