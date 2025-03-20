@@ -14,7 +14,9 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lintjs": "npx eslint server.js",
+    "lint": "concurrently \"npm run lintjs\""
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
