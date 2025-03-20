@@ -9,6 +9,7 @@ const express = require('express');
 const app = express ();
 const port = 8000;
 
+
 app.listen(port, () => {
   console.log('Server is running on port 8000');
 });
@@ -26,7 +27,12 @@ app.get('/', function(req, res) {
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signUp.ejs');
+    res.render('signUp');
+});
+
+app.get('/locaties', async function(req, res){
+  const dataString = await travelguideapi(); // Fetch API data
+  res.render('pages/locaties' , { dataString: dataString })
 });
 
 //travel guide api
@@ -42,7 +48,7 @@ params: {noqueue: '1'},
         'Content-Type': 'application/json'
       },
     data: {
-        region: 'London',
+        region: 'Rome',
         language: 'en',
         interests: [
           'historical',
@@ -52,15 +58,15 @@ params: {noqueue: '1'},
     }
 };
 
-async function travelguideapi(){ /*wacht op fetch en dan laat je de results zien in .text(oftewel json) in de console of hij geeft een error terug */
+async function travelguideapi(){ /*request gespecificerde data en return naar een json*/
         try{
             const response = await axios.request(options);
             console.log(response.data);
+            return JSON.stringify(response.data);
         }catch(error){
             console.error(error)
         }
     }
-    travelguideapi();
 
 // mongodb
 const {MongoClient, ObjectId, Collection} = require ("mongodb");
