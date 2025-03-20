@@ -11,11 +11,13 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
+const compression = require('compression');
 
 app.listen(port, () => {
   console.log('Server is running on port 8000');
 });
 
+app.use(compression());
 app.use('/static', express.static('static'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app
   .set('view engine', 'ejs')
   .set('views', 'view')
+
 
 app.set('trust proxy', 1) 
 app.use(session
@@ -37,6 +40,34 @@ app.use(session
 
 app.get('/', function(req, res) {
     res.render('pages/index');
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile');
+});
+
+app.get('/explore', function(req, res) {
+    res.render('explore');
+});
+
+app.get('/favorites', function(req, res) {
+    res.render('favorites');
+});
+
+app.get('/settings', function(req, res) {
+    res.render('settings');
+});
+
+app.get('/quizResults', function(req, res) {
+    res.render('quizResults');
+});
+
+app.get('/quiz', function(req, res) {
+    res.render('quiz');
+});
+
+app.get('/detail', function(req, res) {
+    res.render('detail');
 });
 
 app.get('/search', function(req, res) {
