@@ -92,7 +92,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     };
 
     
-    fs.writeFileSync("users.json", JSON.stringify(usersArray, null, 2), "utf-8");
+    // fs.writeFileSync("users.json", JSON.stringify(usersArray, null, 2), "utf-8");
 
     // await usersCollection.deleteMany({}); 
     await usersCollection.insertOne(newUser);
@@ -153,14 +153,16 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
     return res.status(401).send("Je moet inloggen om dit te zien.");
-  }
-  else{
-    res.send(`Welkom, ${req.session.user.username}!`);
+  } else {
+    res.render('dashboard', { data: req.session.user });
   }
 });
 
 app.post("/logout", (req, res) => {
-  req.session.destroy(() => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Error logging out");
+    }
     res.send("Je bent uitgelogd.");
   });
 });
