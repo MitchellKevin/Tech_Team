@@ -39,6 +39,10 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+app.get('/search', function(req, res) {
+    res.render('search');
+});
+
 app.get('/login', function(req, res) {
     res.render('logIn');
 });

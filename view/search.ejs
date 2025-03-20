@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+</head>
+<body>
+    <div id="nameList">
+        <form id="searchForm">
+            <input class="search" id="searchInput" name="query" placeholder="Zoek een naam">
+            <input id="searchButton" type="submit" value="Zoeken">
+        </form>
+
+        <ul class="list">
+            <li><span class="name">Amsterdam</span></li>
+            <li><span class="name">Albufeira</span></li>
+            <li><span class="name">Athene</span></li>
+            <li><span class="name">Barcelona</span></li>
+            <li><span class="name">Brussel</span></li>
+            <li><span class="name">Berlijn</span></li>
+            <li><span class="name">Kopenhagen</span></li>
+            <li><span class="name">Rome</span></li>
+            <li><span class="name">Monaco</span></li>
+        </ul>
+    </div>
+    <script>
+        var options = {
+            valueNames: ['name']
+        };
+
+        var nameList = new List('nameList', options);
+
+        // Lees de queryparameter uit de URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('query');
+
+        if (query) {
+            document.getElementById('searchInput').value = query;
+            nameList.search(query);
+        }
+
+        // Verwerk het formulier om de zoekopdracht als queryparameter in de URL te plaatsen
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('searchInput').value;
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('query', searchQuery);
+            window.location.href = newUrl;
+        });
+    </script>
+</body>
+</html>
