@@ -9,6 +9,8 @@
 	--color-lightblue: #2994D7;
 	--color-mutedblue: #B3BEE1;
     --color-brightblue: #2E4EAE;
+	--color-gray: #7D848D;
+
 
     
 	--size-xxs: 0.5rem;
@@ -86,7 +88,6 @@ button{
 /* header */
 header {
 	display: flex;
-    flex-direction: column;
 	align-items: center;
     padding: var(--size-4xl) var(--size-lg) 0 var(--size-lg);
     max-width: 100vw;
@@ -107,27 +108,9 @@ nav ul{
     justify-content: center;
 	background-color: var(--color-bg);
 
-    position:fixed;
-	left:0;
-	right:0;
-	top:0;
-	bottom:0;
-
-	translate:0% 100%;
-
     align-items: center;
-	flex-direction: column;
-	padding-left: 0;
 }
 
-
-nav.toonMenu ul {
-	translate:0% 0%;
-	display: flex;
-	align-items: center;
-	list-style: none;
-	gap: 2em;
-}
 
 li{
     list-style: none;
@@ -136,19 +119,29 @@ li{
 
 nav a {
     text-decoration: none;
-    color: var(--color-darkblue);
+	color: var(--color-gray);
 }
 
-.menu {
-	width: var(--size-4xl);
-	height: var(--size-4xl);
-	display: block;
-    border: none;
-    border-radius: 5px;
+.navPhone{
+	display: none;
+	position: absolute;
+}
 
-	position:relative;
-	z-index: 20;
-    padding: var(--size-xxs);
+.nav-search div{
+	background-color: #485EA1;
+	padding: 1em;
+	border-radius: 50%;
+}
+
+li a{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+nav img{
+	width: 24px;
+	height: auto;
 }
 
 .searchBar {
@@ -190,37 +183,74 @@ nav a {
 
 
 
-@media (min-width: 768px) {
+@media (max-width: 425px) {
+	/* .container{
+		max-width: 320px;
+	} */
+
+	header{
+		position: fixed;
+		background-color: var(--color-bg);
+		bottom: 0;
+		padding-bottom: 1em;
+		font-size: var(--size-xs);
+		border-top-left-radius: 25px;
+		border-top-right-radius: 25px;
+		width: 100%;
+		padding-top: 1.5em;
+		z-index: 100;
+
+		box-shadow:  0px 0px 17px 0px rgba(72,94,161,0.4);
+	}
+
+	nav{
+		justify-content: center;
+	}
+
 	nav ul{
 		display: flex;
-		align-items: center;
-		list-style: none;
-		gap: 2em;
-		flex-direction: row;
+		justify-content: space-between;
+		padding: 0;
+    	list-style-type: none;
+		gap: 0;
+		width: 100%;
 	}
 	
-	nav a {
-		font-size: var(--size-md);
-		text-decoration: none;
-		transition: color 0.3s;
+	nav div{
+		width: 52px;
+		height: 52px;
+
 	}
 
-    .menu{
+	.navPhoneWeg{
 		display: none;
+		position: absolute;
 	}
 
-	nav ul {
-		position:static;
-		translate:unset;
-		
-		padding:0;
+	.navPhone{
+		position: static;
+		display: block;
 	}
+
+
+	.navPhone img{
+		display: block;
+		width: 24px;
+		height: 24px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 }
 
 
 /* homepage */
 section{
     margin-bottom: var(--size-6xl);
+}
+
+#searchdiv{
+	padding: var(--size-4xl) var(--size-lg);
 }
 
 .landing {
@@ -735,7 +765,7 @@ section{
         justify-content: space-between;
     }
 
-    .landing, .aanbevolen, .aboutUs, .polaroids{
+    .landing, .aanbevolen, .aboutUs, .polaroids, #searchdiv{
         padding: var(--size-7xl) var(--size-4xl);
     }
 
