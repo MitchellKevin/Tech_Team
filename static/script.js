@@ -1,21 +1,21 @@
-var deButton = document.querySelector(".menu");
+// var deButton = document.querySelector(".menu");
 
-deButton.onclick = toggleMenu;
+// deButton.onclick = toggleMenu;
 
-function toggleMenu() {  
-  var deNav = document.querySelector("nav");
-  deNav.classList.toggle("toonMenu");
-}
+// function toggleMenu() {  
+//   var deNav = document.querySelector("nav");
+//   deNav.classList.toggle("toonMenu");
+// }
 
 
-window.onkeydown = handleKeydown;
+// window.onkeydown = handleKeydown;
 
-function handleKeydown(event) {
-  if (event.key == "Escape") {
-    var deNav = document.querySelector("nav");
-    deNav.classList.remove("toonMenu");
-  }
-}
+// function handleKeydown(event) {
+//   if (event.key == "Escape") {
+//     var deNav = document.querySelector("nav");
+//     deNav.classList.remove("toonMenu");
+//   }
+// }
 
 console.log ("hoi");
 

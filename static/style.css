@@ -505,20 +505,24 @@ section{
     justify-content: space-between;
 }
 
-.aboutUsDiv p{
-    font-size: var(--size-xs);
-    font-weight: 600;
-}
 
 .aboutUsDiv div{ 
     display: flex;
     flex-direction: column;
+	
 
     align-items: center;
     gap: var(--size-xxs);
     width: 32vw;
+	
 }
 
+.aboutUsDiv p{
+    font-size: var(--size-xs);
+    font-weight: 600;
+
+	align-self: center;
+}
 
 /* gids */
 .gids{
@@ -792,9 +796,54 @@ section{
 		max-width: 1024px;
 	}
 
-    body p{
-        font-size: 2.344vw;
+    body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p {
+        font-size: 1.563vw;
     }
+
+	h3{
+		font-size: 1.953vw;
+	}
+	
+	.landing img {
+		width: 50vw;
+	}
+
+	.aanbevolen{
+		max-width: none;
+	}
+
+	.landing, .aanbevolen, .polaroids, #searchdiv{
+        padding: var(--size-7xl) var(--size-7xl);
+    }
+
+	.aboutUs{
+		padding: var(--size-7xl) var(--size-10xl);
+	}
+
+    .gids{
+        padding:var(--size-7xl) var(--size-5xl) var(--size-7xl) var(--size-7xl);
+    }
+
+    header {
+        padding: var(--size-4xl) var(--size-7xl) 0 var(--size-7xl);
+    }
+
+	.V3cityCard{
+        min-width: 20vw;
+        max-width: 20vw;
+    }
+
+	.cityButton {
+		scale: 1.5;
+		bottom: 1.5em;
+		right: 1.5em;
+	}
+
+	.V3cityCardButton{
+		scale: 1.5;
+		bottom: 0.8em;
+		right: 0.8em;
+	}
 }
 
 /* xl */
@@ -802,11 +851,180 @@ section{
 	.container{
 		max-width: 1280px;
 	}
+
+
 }
 
 /* 2xl */
+@media (min-width: 1440px) {
+	.container{
+		max-width: 1440px;
+	}
+
+	body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p {
+        font-size: 1.25vw;
+    }
+
+	body h2{
+		font-size: 3.472vw;
+	}
+
+	h3{
+		font-size: 1.953vw;
+	}
+
+	.landing div{
+		width: 40vw;
+	}
+
+	.landing{
+		gap: var(--size-10xl);
+	}
+	
+	.landing img {
+		width: 50vw;
+	}
+
+	.aanbevolen{
+		max-width: none;
+	}
+
+	.landing, .aanbevolen, .polaroids, #searchdiv, .gids{
+        padding: var(--size-10xl) var(--size-10xl);
+    }
+
+	#searchdiv{
+		padding: var(--size-5xl) var(--size-10xl) 0 var(--size-10xl);
+	}
+
+	.aboutUs{
+		padding: var(--size-10xl) 12rem;
+		gap: var(--size-5xl);
+	}
+
+	div.aboutusdivp{
+		padding: 0 10em 0 10em;
+	}
+
+	.aboutUsDiv img{
+		scale: 1.5;
+		padding: 1.5em;
+	}
+
+
+    header {
+        padding: var(--size-4xl) var(--size-10xl) 0 var(--size-10xl);
+    }
+
+
+	.V3cityCard{
+        min-width: 15vw;
+        max-width: 15vw;
+    }
+
+	.cardScroll{
+		gap: var(--size-3xl);
+	}
+
+	.cityButton {
+		scale: 1.5;
+		bottom: 2em;
+		right: 2em;
+	}
+
+	.V3cityCardButton{
+		scale: 1.5;
+		bottom: 0.8em;
+		right: 0.8em;
+	}
+
+	.polaroids{
+		gap: var(--size-xl);
+	}
+
+	.polaroids div{
+		max-width: 60vw;
+		grid-gap: 2em;
+	}
+
+    
+    .cityCard4 {
+        grid-row: 3/5;
+        grid-column: 1/4;
+		max-height: 52vh;
+    }
+    
+    .cityCard5 {
+        grid-row: 3/5;
+        grid-column: 4/9;
+		max-height: 52vh;
+    }
+
+	
+}
+
+/* 3xl */
 @media (min-width: 1536px) {
 	.container{
 		max-width: 1536px;
 	}
+}
+
+
+/* animatie */
+@keyframes scaling-hover-button-normal{
+	0%{
+		scale: 100%;
+	}
+	
+	100%{
+		scale: 110%;
+	}
+}
+
+@keyframes scaling-hover-city-button{
+	0%{
+		scale: 150%;
+	}
+	
+	100%{
+		scale: 170%;
+	}
+}
+
+@keyframes appear{
+	0%{
+		opacity: 0%;
+		scale: 0.5;
+	}
+	
+	100%{
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+button:hover{
+	background-color: var(--color-lightblue);
+	animation-name: scaling-hover-button-normal;
+	animation-duration: 0.6s;
+	animation-fill-mode: forwards;
+}
+
+.heart:hover, .heartFill:hover{
+	background-color: transparent;
+}
+
+.polaroids img, .aanbevolen img , [class^="cityCard"]{
+	animation-name: appear;
+	animation-duration: 0.6s;
+	animation-fill-mode: forwards;
+	animation-timeline: view();
+	animation-range: entry 0%;
+}
+
+.cityButton:hover, .V3cityCardButton:hover{
+	animation-name: scaling-hover-city-button;
+	animation-duration: 0.6s;
+	animation-fill-mode: forwards;
 }
