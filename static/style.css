@@ -748,7 +748,21 @@ section{
 	color: var(--color-bg);
 }
 
+.quizResult .cityButton2 svg{
+	stroke: var(--color-brightblue);
+}
 
+.cityButton2 svg, .cityButton svg{
+	stroke-width: 3;
+}
+
+.quizResult .cityButton2{
+	background-color: var(--color-bg);
+}
+
+.quizResult .cityButton2:hover{
+	background-color: var(--color-bg);
+}
 
 /* MEDIA QUERIES .container{} */
 
@@ -1107,6 +1121,8 @@ button:hover{
 	animation-name: scaling-hover-button-normal;
 	animation-duration: 0.6s;
 	animation-fill-mode: forwards;
+
+	cursor: pointer;
 }
 
 .heart:hover, .heartFill:hover{
