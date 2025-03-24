@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="quizResult container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <div id="searchdiv">
+        <div class="searchBar">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+    
+        <input type="search" class="search" placeholder="Waar ben je naar op zoek">
+    
+        <button>Zoek</button>
+        </div>
+    </div>
+    
+    <section class="matchResult">
+        <h1>
+            Jouw beste match - <span>Rome</span>
+        </h1>
+
+        <div class="matchResultdiv">
+            <img class="fotoResult" src="../static/images/rome.png" alt="">
+
+            <div>
+                <p>
+                    Rome, de hoofdstad van Italië, is een stad vol geschiedenis, cultuur en charme. Wandel door de eeuwenoude straten en bewonder iconische bezienswaardigheden zoals het Colosseum, de Trevifontein en het Vaticaan. 
+                </p>
+                <p>
+                    Geniet van heerlijke Italiaanse gerechten op sfeervolle pleinen en ervaar de unieke mix van oud en modern. Of je nu komt voor kunst, architectuur of gastronomie, Rome betovert elke bezoeker. Een reis naar deze tijdloze stad is een ervaring om nooit te vergeten!
+                </p>
+        
+                <button>
+                    Lees meer over Rome
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="otherMatches">
+        <h1>Andere matches</h1>
+
+        <div class="cardScroll">
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+            <article class="V3cityCard">
+                <div class="V3cityCardImage">
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="heart">
+                        <img src="../static/images/heart.svg" alt="">
+                    </button>
+
+                    <button class="heartFill">
+                        <img src="../static/images/heartfil.svg" alt="">
+                    </button>
+
+                    <div class="V3cityCardButton">
+                        <button class="cityButton2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                            </svg>
+                        </button>
+
+                        <img src="../static/images/buttonBackground4.svg" alt="">
+                    </div>                  
+                </div>
+
+                <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                        <h3>
+                            Rome
+                        </h3>
+    
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                            <p>4.5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+    
+
+
+
+    
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>

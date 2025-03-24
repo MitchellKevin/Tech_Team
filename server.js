@@ -26,6 +26,10 @@ app.get('/signup', function(req, res) {
     res.render('signUp.ejs');
 });
 
+app.get('/quizresult', function(req, res) {
+  res.render('pages/quizResult.ejs');
+});
+
 // mongodb
 const {MongoClient, ObjectId, Collection} = require ("mongodb");
 const uri = process.env.URI;
