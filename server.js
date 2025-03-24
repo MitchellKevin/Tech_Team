@@ -43,6 +43,10 @@ app.get('/', function(req, res) {
   res.render('pages/index');
 });
 
+app.get('/fav', function(req, res) {
+  res.render('fav');
+});
+
 app.get('/login', function(req, res) {
   res.render('logIn');
 });
@@ -176,6 +180,39 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error finding user:", error);
     res.status(500).send("Error finding user");
+  }
+});
+
+app.post("/fav", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+    
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    const fav = req.body.fav;
+    const favs = user.fav || [];
+
+    if (Array.isArray(fav)) {
+      favs.push(...fav);
+    } else {
+      favs.push(fav);
+    }
+
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { fav: favs } }
+    );
+
+    res.redirect("/fav");
+  } catch (error) {
+    console.error("Error updating favorites:", error);
+    res.status(500).send("Error updating favorites");
   }
 });
 
