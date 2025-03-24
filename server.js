@@ -31,7 +31,7 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/locaties', async function(req, res){
-  const dataString = await travelguideapi(); // Fetch API data
+  const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
 });
 
@@ -48,7 +48,7 @@ params: {noqueue: '1'},
         'Content-Type': 'application/json'
       },
     data: {
-        region: 'Rome',
+        region: 'London',
         language: 'en',
         interests: [
           'historical',
