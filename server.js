@@ -263,3 +263,5 @@ const encryptWithSecretKey = (text) => {
 
   return encryptedBase64;
 };
+
+// Hoi, ik ben een test
