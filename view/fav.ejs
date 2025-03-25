@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Favorites</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+                checkbox.addEventListener('change', (event) => {
+                    const fav = event.target.value;
+                    const checked = event.target.checked;
+
+                    // AJAX request
+                    fetch('/fav', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ fav, checked })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <form actoion="/fav" method="post">
-        <h1>Favorites</h1>
-        <input type="checkbox" name="fav" value="Londen">Londen<br>
-        <input type="checkbox" name="fav" value="Barcelona">Barcelona<br>
-        <input type="checkbox" name="fav" value="Amsterdam">Amsterdam<br>
-        <input type="checkbox" name="fav" value="Kopenhagen">Kopenhagen<br>
-        <input type="checkbox" name="fav" value="Berlijn">Berlijn<br>
-        <input type="submit">
-    </form>
+    <h1>Favorites</h1>
+    <input type="checkbox" name="fav" value="Londen">Londen<br>
+    <input type="checkbox" name="fav" value="Barcelona">Barcelona<br>
+    <input type="checkbox" name="fav" value="Amsterdam">Amsterdam<br>
+    <input type="checkbox" name="fav" value="Kopenhagen">Kopenhagen<br>
+    <input type="checkbox" name="fav" value="Berlijn">Berlijn<br>
 </body>
 </html>

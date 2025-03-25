@@ -195,13 +195,17 @@ app.post("/fav", valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    const fav = req.body.fav;
-    const favs = user.fav || [];
+    const { fav, checked } = req.body;
+    let favs = user.fav || [];
 
-    if (Array.isArray(fav)) {
-      favs.push(...fav);
+    if (checked) {
+      // Add to favorites if checked
+      if (!favs.includes(fav)) {
+        favs.push(fav);
+      }
     } else {
-      favs.push(fav);
+      // Remove from favorites if unchecked
+      favs = favs.filter(item => item !== fav);
     }
 
     await usersCollection.updateOne(
@@ -209,10 +213,10 @@ app.post("/fav", valiadateCookie, async (req, res) => {
       { $set: { fav: favs } }
     );
 
-    res.redirect("/fav");
+    res.json({ message: "Favorites updated successfully" });
   } catch (error) {
     console.error("Error updating favorites:", error);
-    res.status(500).send("Error updating favorites");
+    res.status(500).json({ message: "Error updating favorites" });
   }
 });
 
