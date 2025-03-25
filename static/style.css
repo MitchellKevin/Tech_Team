@@ -167,6 +167,7 @@ nav img{
 .search {
     width: 100%;
     border: none;
+	background-color: var(--color-bg);
 }
 
 
@@ -734,15 +735,13 @@ section{
     background-color: transparent ; 
 }
 
-.quizResult span{
+/* .quizResult span{
 	background: linear-gradient(
-		rotate(10deg),
 		to bottom,
 		transparent 60%,
-		#FFD736 40%,
-		
+		#FFD736 40%		
 	);
-}
+} */
 
 .otherMatches h1{
 	color: var(--color-bg);
