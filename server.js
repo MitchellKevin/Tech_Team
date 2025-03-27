@@ -1,7 +1,7 @@
 // dotenv
 require('dotenv').config();
 
-//axios
+//axios (voor fetch)
 const axios = require('axios')
 
 // express
