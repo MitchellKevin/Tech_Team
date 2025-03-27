@@ -60,7 +60,49 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signUp.ejs');
+    res.render('signUp');
+});
+
+app.get('/locaties', async function(req, res){
+  const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+  res.render('pages/locaties' , { dataString: dataString })
+});
+
+//travel guide api
+const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
+const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
+const options = {
+    method: "POST",
+    url: 'https://travel-guide-api-city-guide-top-places.p.rapidapi.com/check',
+params: {noqueue: '1'},
+    headers: {
+        'x-rapidapi-host': host,
+        'x-rapidapi-key': apikey,
+        'Content-Type': 'application/json'
+      },
+    data: {
+        region: 'London',
+        language: 'en',
+        interests: [
+          'historical',
+          'cultural',
+          'food'
+        ]
+    }
+};
+
+async function travelguideapi(){ /*request gespecificerde data en return naar een json*/
+        try{
+            const response = await axios.request(options);
+            console.log(response.data);
+            return JSON.stringify(response.data);
+        }catch(error){
+            console.error(error)
+        }
+    }
+
+app.get('/quizresult', function(req, res) {
+  res.render('pages/quizResult.ejs');
 });
 
 // mongodb
