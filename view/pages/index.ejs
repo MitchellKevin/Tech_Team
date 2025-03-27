@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <%- include('./partials/head'); %>
+    <%- include('../partials/head'); %>
 </head>
 
 <body class="index container">
     <header>
-        <%- include('./partials/header'); %>
+        <%- include('../partials/header'); %>
     </header>
 
-    <div id="searchdiv">
-        <div class="searchBar">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+    <%- include('../partials/searchBar'); %>
     
-        <input type="search" class="search" placeholder="Waar ben je naar op zoek">
-    
-        <button>Zoek</button>
-        </div>
-    </div>
-    
-
-        
     
     <section class="landing">
-        <h1>
-            Start je reis
-        </h1>
         <img src="../static/images/plane.png" alt="">
-        <p>
-            Met onze matchingtool ontdek jij in een paar klikken welke stad het beste aansluit bij jouw interesses, budget en reisstijl.
-            
-            Beantwoord een paar korte vragen en krijg een stad aanbevolen die bij jou past!
-        </p>
 
-        <button>
-            Vind jouw perfecte stad!
-        </button>
+        <div>
+            <div>
+                <h1>
+                    Start je reis
+                </h1>
+                <p>
+                    Met onze matchingtool ontdek jij in een paar klikken welke stad het beste aansluit bij jouw interesses, budget en reisstijl.
+                </p>
+                <p>
+                    Beantwoord een paar korte vragen en krijg een stad aanbevolen die bij jou past!
+                </p>
+            </div>
+            
+            <button>
+                Vind jouw perfecte stad!
+            </button>
+        </div>
+        
     </section>
 
     <section class="polaroids">
@@ -45,9 +42,6 @@
         <p>De meest gezochte steden</p>
 
         <div>
-            <img class = "polaroid" src="../static/images/polaroid.png" alt="">
-            <img class = "polaroid" src="../static/images/polaroid.png" alt="">
-            <img class = "polaroid" src="../static/images/polaroid.png" alt="">
             <img class = "polaroid" src="../static/images/polaroid.png" alt="">
             <img class = "polaroid" src="../static/images/polaroid.png" alt="">
             <img class = "polaroid" src="../static/images/polaroid.png" alt="">
@@ -177,40 +171,23 @@
     <section class="gids">
         <h2>Gids</h2>
         <div class="cardScroll">
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %> 
+            <%- include('../partials/cityCard'); %>
+            <%- include('../partials/cityCard'); %>
+            <%- include('../partials/cityCard'); %>
+            <%- include('../partials/cityCard'); %>
+            <%- include('../partials/cityCard'); %>
+            <%- include('../partials/cityCard'); %> 
 
-        </div>
-    <section class="grid">
-        <h1>Aanbevolen voor jou</h1>
-        <div>
-            <div>
-                <img src="../static/images/amsterdam.png" alt="">
-                <button class="arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                  </button>
-            </div>
         </div>
     </section>
 
 
 
     
-
-
-
-    
     <footer>
-        <%- include('./partials/footer'); %>
+        <%- include('../partials/footer'); %>
     </footer>
 
     <script src="../static/script.js"></script>
 </body>
 </html>
-
