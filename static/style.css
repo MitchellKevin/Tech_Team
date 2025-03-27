@@ -167,6 +167,7 @@ nav img{
 .search {
     width: 100%;
     border: none;
+	background-color: var(--color-bg);
 }
 
 
@@ -700,8 +701,67 @@ section{
     opacity: 100%;
 }
 
+/* quizResult */
+.matchResult, .matchResult div, .otherMatches{
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-base);
+}
 
 
+.matchResult{
+	padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
+}
+
+.otherMatches{
+	padding: var(--size-4xl) 0 var(--size-4xl) var(--size-lg);
+	background-color: var(--color-brightblue);
+}
+
+.quizResult h1{
+	font-size: var(--size-3xl);
+}
+
+.otherMatches h2, .otherMatches p, .otherMatches h3, .otherMatches svg{
+	color: var(--color-bg);
+	fill: var(--color-bg);
+}
+
+.otherMatches .V3cityCardButton img{
+	filter: brightness(0) saturate(100%) invert(23%) sepia(24%) saturate(5277%) hue-rotate(213deg) brightness(97%) contrast(88%);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent ; 
+}
+
+/* .quizResult span{
+	background: linear-gradient(
+		to bottom,
+		transparent 60%,
+		#FFD736 40%		
+	);
+} */
+
+.otherMatches h1{
+	color: var(--color-bg);
+}
+
+.quizResult .cityButton2 svg{
+	stroke: var(--color-brightblue);
+}
+
+.cityButton2 svg, .cityButton svg{
+	stroke-width: 3;
+}
+
+.quizResult .cityButton2{
+	background-color: var(--color-bg);
+}
+
+.quizResult .cityButton2:hover{
+	background-color: var(--color-bg);
+}
 
 /* MEDIA QUERIES .container{} */
 
@@ -769,7 +829,7 @@ section{
         justify-content: space-between;
     }
 
-    .landing, .aanbevolen, .aboutUs, .polaroids, #searchdiv{
+    .landing, .aanbevolen, .aboutUs, .polaroids, #searchdiv, .matchResult, .otherMatches{
         padding: var(--size-7xl) var(--size-4xl);
     }
 
@@ -788,6 +848,16 @@ section{
     .polaroids div{
         max-width: 60vw;
     }
+
+	.fotoResult{
+		height: 60vh;
+		object-fit: cover;
+		border-radius: 16px;
+	}
+	
+	.otherMatches{
+		margin-bottom: 0;
+	}
 }
 
 /* lg */
@@ -796,7 +866,7 @@ section{
 		max-width: 1024px;
 	}
 
-    body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p {
+    body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p, .quizResult, .otherMatches p {
         font-size: 1.563vw;
     }
 
@@ -812,7 +882,7 @@ section{
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, #searchdiv{
+	.landing, .aanbevolen, .polaroids, #searchdiv, .matchResult, .otherMatches{
         padding: var(--size-7xl) var(--size-7xl);
     }
 
@@ -844,6 +914,41 @@ section{
 		bottom: 0.8em;
 		right: 0.8em;
 	}
+
+	.cityButton, .V3cityCardButton {
+		animation-name: scaling-unhover-city-button;
+		animation-duration: 0.6s;
+		animation-fill-mode: forwards;
+	}	
+
+	.cityButton:hover, .V3cityCardButton:hover{
+	animation-name: scaling-hover-city-button;
+	animation-duration: 0.6s;
+	animation-fill-mode: forwards;
+	}
+
+	/* quizresult */
+	div.matchResultdiv {
+		display: flex;
+		flex-direction: row;
+		gap: var(--size-4xl);
+
+		position: relative;
+	}
+
+	.matchResultdiv button{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+
+	.matchResult h1{
+		display: block;
+		margin: 0 auto var(--size-4xl) auto;
+	}
+
+
+
 }
 
 /* xl */
@@ -861,7 +966,7 @@ section{
 		max-width: 1440px;
 	}
 
-	body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p {
+	body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p, .quizResult, .otherMatches p{
         font-size: 1.25vw;
     }
 
@@ -869,9 +974,15 @@ section{
 		font-size: 3.472vw;
 	}
 
+	.quizResult h1{
+		font-size: 2.7vw;
+	}
+	
+
 	h3{
 		font-size: 1.953vw;
 	}
+	
 
 	.landing div{
 		width: 40vw;
@@ -889,7 +1000,7 @@ section{
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, #searchdiv, .gids{
+	.landing, .aanbevolen, .polaroids, #searchdiv, .gids, .matchResult, .otherMatches{
         padding: var(--size-10xl) var(--size-10xl);
     }
 
@@ -934,8 +1045,8 @@ section{
 
 	.V3cityCardButton{
 		scale: 1.5;
-		bottom: 0.8em;
-		right: 0.8em;
+		bottom: 0.65em;
+		right: 0.65em;
 	}
 
 	.polaroids{
@@ -1009,6 +1120,8 @@ button:hover{
 	animation-name: scaling-hover-button-normal;
 	animation-duration: 0.6s;
 	animation-fill-mode: forwards;
+
+	cursor: pointer;
 }
 
 .heart:hover, .heartFill:hover{
@@ -1023,8 +1136,16 @@ button:hover{
 	animation-range: entry 0%;
 }
 
-.cityButton:hover, .V3cityCardButton:hover{
-	animation-name: scaling-hover-city-button;
-	animation-duration: 0.6s;
-	animation-fill-mode: forwards;
+
+@keyframes scaling-unhover-city-button {
+    0% {
+        scale: 170%;
+    }
+    
+    100% {
+        scale: 150%;
+    }
 }
+
+
+

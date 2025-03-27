@@ -100,6 +100,10 @@ async function travelguideapi(){ /*request gespecificerde data en return naar ee
         }
     }
 
+app.get('/quizresult', function(req, res) {
+  res.render('pages/quizResult.ejs');
+});
+
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const uri = process.env.URI;
