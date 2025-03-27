@@ -9,7 +9,7 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8001;
+const port = 8000;
 app.use(express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
