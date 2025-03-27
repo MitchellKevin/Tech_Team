@@ -63,6 +63,10 @@ app.get('/signup', function(req, res) {
     res.render('signUp');
 });
 
+app.get('/searchResult', function(req, res) {
+  res.render('searchResult');
+});
+
 app.get('/locaties', async function(req, res){
   const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
@@ -164,17 +168,29 @@ connectDB();
 
 app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
-      const database = client.db(process.env.db_name);
-      const usersCollection = database.collection('users');
-      
-      const newUser = {
-          name: req.body.name,
-          surname: req.body.surname,
-      };
-      // await usersCollection.deleteMany({});
-      await usersCollection.insertOne(newUser);
-      console.log('New user inserted:', newUser);
-      res.render('user.ejs', { data: newUser });
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+    const usersArray = await usersCollection.find({}).toArray();
+
+    console.log(req.file);
+
+    // Hash het wachtwoord met bcrypt
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    const newUser = {
+      name: req.body.name,
+      password: hashedPassword,
+      avatar: req.file.path
+    };
+
+    // fs.writeFileSync("users.json", JSON.stringify(usersArray, null, 2), "utf-8");
+
+    // await usersCollection.deleteMany({});
+    await usersCollection.insertOne(newUser);
+
+    console.log("New user inserted:", newUser);
+    res.render("user.ejs", { data: newUser });
   } catch (error) {
     console.error("Error inserting new user:", error);
     res.status(500).send("Error inserting new user");
