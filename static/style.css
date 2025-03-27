@@ -1299,3 +1299,227 @@ button:hover{
 
 
 
+/* quiz pagina */
+
+.quiz h1 {
+    color: #3b5998;
+    margin-top: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.vraag {
+    display: none;
+    align-items: center;
+   
+}
+.vraag.actief {
+    display: block;
+    align-items: center;
+ }
+
+ #vragenlijst {
+    background-color: white;
+    width: 50%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    font-size: 20px;
+    text-align: center;
+    
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:first-of-type {
+    background-color: white;
+    color: #3b5998;
+    border: 2px solid #3b5998;
+}
+
+button:last-of-type {
+    background-color: #3b5998;
+    color: white;
+}
+
+/* detail pagina */
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap');
+        
+
+/* Algemene stijlen */
+body {
+    font-family: 'Urbanist', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.content {
+    display: flex;
+    align-items: center; /* Zorgt dat tekst en afbeelding netjes uitgelijnd zijn */
+    justify-content: space-between; /* Houdt wat ruimte tussen de tekst en afbeelding */
+    max-width: 1200px; /* Voorkomt dat het te breed wordt */
+    margin: 0 auto; /* Centreert de content op de pagina */
+
+    gap: 40px; /* Ruimte tussen de tekst en afbeelding */
+}
+
+/* Introsectie */
+.intro {
+    flex: 1;
+    max-width: 50%;
+}
+
+h1 {
+    color: #485EA1; /* Juiste blauwe kleur */
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Afbeelding */
+.image {
+    flex: 1;
+    max-width: 50%;
+    text-align: right; /* Zorgt dat de afbeelding netjes rechts staat */
+    
+}
+
+.image img {
+    width: 100%;
+    max-width: 500px; /* Zorgt dat de afbeelding niet te groot wordt */
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Categorieën */
+.categories {
+    display: flex;
+    gap: 400px; /* Grote afstand tussen categorieën op desktop */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.categories a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: black;
+    font-weight: bold;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+.categories a.active, 
+.categories a:hover {
+    color: #485EA1; /* Blauwe kleur */
+    border-bottom: 3px solid #485EA1;
+}
+
+/* Filter opties */
+.filters {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.filters button {
+    background-color: #485EA1; /* Blauwe kleur */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.filters button:hover {
+    background-color: #3b4e8c; /* Iets donkerdere tint bij hover */
+}
+
+/* Favorieten knop */
+.favorite {
+    background-color: #485EA1;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.favorite:hover {
+    background-color: #3b4e8c;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro, .image {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .categories {
+        flex-direction: column; /* Zet de items onder elkaar */
+        gap: 10px; /* Kleine afstand tussen categorieën op mobiel */
+        align-items: center; /* Centreert de tekst */
+    }
+}
+
+
+
+.option-button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #4a6ee0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Geselecteerde knop krijgt een donkere kleur */
+.option-button.selected {
+    background-color: #485EA1;
+}
+
+/* Hover-effect alleen voor geselecteerde optie */
+.option-button.selected:hover {
+    background-color: #485EA1;
+}
+
+button {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
