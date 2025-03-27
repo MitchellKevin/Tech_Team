@@ -104,6 +104,10 @@ app.get('/quizresult', function(req, res) {
   res.render('pages/quizResult.ejs');
 });
 
+app.get('/searchResult', function(req, res) {
+  res.render('pages/searchResult.ejs');
+});
+
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const uri = process.env.URI;
