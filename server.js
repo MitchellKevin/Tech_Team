@@ -9,7 +9,7 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8001;
+const port = 8000;
 app.use(express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
@@ -176,7 +176,133 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
       console.log('New user inserted:', newUser);
       res.render('user.ejs', { data: newUser });
   } catch (error) {
-      console.error('Error inserting new user:', error);
-      res.status(500).send('Error inserting new user');
+    console.error("Error inserting new user:", error);
+    res.status(500).send("Error inserting new user");
   }
 });
+
+app.post("/login", async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ name: req.body.name });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    // Vergelijk het ingevoerde wachtwoord met de opgeslagen hash
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (isMatch) {
+      console.log(req.sessionID);
+      console.log("User authenticated");
+      const token = jwt.sign({ name: user.name }, process.env.session_key, { expiresIn: "1h" });
+      req.session.user = user;
+      req.session.authenticated = true;
+      res.cookie('session_id', req.sessionID, { maxAge: 1000 * 60 * 60 });
+      res.status(200).json({ token });
+      console.log(token);
+    } else {
+      console.log("Incorrect password");
+      res.status(401).send("Incorrect password");
+    }
+  } catch (error) {
+    console.error("Error finding user:", error);
+    res.status(500).send("Error finding user");
+  }
+});
+
+app.post("/fav", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+    
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    const { fav, checked } = req.body;
+    let favs = user.fav || [];
+
+    if (checked) {
+      // Add to favorites if checked
+      if (!favs.includes(fav)) {
+        favs.push(fav);
+      }
+    } else {
+      // Remove from favorites if unchecked
+      favs = favs.filter(item => item !== fav);
+    }
+
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { fav: favs } }
+    );
+
+    res.json({ message: "Favorites updated successfully" });
+  } catch (error) {
+    console.error("Error updating favorites:", error);
+    res.status(500).json({ message: "Error updating favorites" });
+  }
+});
+
+app.post('/profile', upload.single('avatar'), (req, res, next) => {
+  console.log(req.file);
+  // res.send('File uploaded');
+});
+
+const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }]);
+app.post('/cool-profile', cpUpload, (req, res, next) => {
+  console.log(req.files);
+  console.log(req.body);
+  res.send('Files uploaded');
+});
+
+app.get("/dashboard", (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).send("Je moet inloggen om dit te zien.");
+  } else {
+    res.render('dashboard', { user: req.session.user });
+  }
+});
+
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Error logging out");
+    }
+    res.send("Je bent uitgelogd.");
+  });
+});
+
+// https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
+const encryptWithSecretKey = (text) => {
+  const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
+
+  // Generate a random Initialization Vector (IV) for security
+  const iv = CryptoJS.lib.WordArray.random(16);
+
+  // Encrypt the text using AES with CBC mode and the secret key
+  const encrypted = CryptoJS.AES.encrypt(
+    text,
+    CryptoJS.enc.Hex.parse(secretKey),
+    {
+      iv: iv,
+      padding: CryptoJS.pad.Pkcs7,
+      mode: CryptoJS.mode.CBC,
+    }
+  );
+
+  // Concatenate IV and ciphertext and encode in Base64 format
+  const encryptedBase64 = CryptoJS.enc.Base64.stringify(
+    iv.concat(encrypted.ciphertext)
+  );
+
+  return encryptedBase64;
+};
