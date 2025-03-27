@@ -285,7 +285,7 @@ app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
     return res.status(401).send("Je moet inloggen om dit te zien.");
   } else {
-    res.render('dashboard', { data: req.session.user });
+    res.render('dashboard', { user: req.session.user });
   }
 });
 
