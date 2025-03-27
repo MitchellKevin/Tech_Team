@@ -64,7 +64,7 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/searchResult', function(req, res) {
-  res.render('searchResult');
+  res.render('pages/searchResult');
 });
 
 app.get('/locaties', async function(req, res){
