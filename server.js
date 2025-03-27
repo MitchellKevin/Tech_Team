@@ -44,7 +44,7 @@ app.use(session({
 }));
 
 app.get('/', function(req, res) {
-  res.render('pages/index');
+  res.render('index');
 });
 
 app.get('/fav', function(req, res) {
