@@ -12,7 +12,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 const compression = require('compression');
-
+// wdfegrht
 app.listen(port, () => {
   console.log('Server is running on port 8000');
 });
