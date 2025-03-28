@@ -6,43 +6,37 @@
     <title>Favorites</title>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const usersList = document.getElementById('users-list');
+            const usersList = document.getElementById('users-list'); // Div waar matches worden weergegeven
 
-            const updateUsersList = () => {
-                // Collect all checked favorites
-                const selectedFavorites = Array.from(checkboxes)
-                    .filter(checkbox => checkbox.checked)
-                    .map(checkbox => checkbox.value);
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+                checkbox.addEventListener('change', (event) => {
+                    const fav = event.target.value; // Waarde van de checkbox
+                    const checked = event.target.checked; // Of de checkbox is aangevinkt
 
-                // Send the selected favorites to the server
-                fetch('/fav/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ favs: selectedFavorites })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Clear the current list
-                    usersList.innerHTML = `<h3>Users who like ${selectedFavorites.join(", ")}:</h3>`;
-                    
-                    // Populate the list with users
-                    data.users.forEach(user => {
-                        const userItem = document.createElement('div');
-                        userItem.textContent = user.name;
-                        usersList.appendChild(userItem);
+                    // Stuur een POST-verzoek naar de server
+                    fetch('/fav', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ fav, checked })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Favorites updated:', data);
+
+                        // Werk de lijst met matches bij
+                        usersList.innerHTML = `<h3>Potential Matches:</h3>`;
+                        data.potentialMatches.forEach(match => {
+                            const userItem = document.createElement('div');
+                            userItem.textContent = `${match.name} - Favorites: ${match.fav.join(", ")}`;
+                            usersList.appendChild(userItem);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error updating favorites:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching users:', error);
                 });
-            };
-
-            // Add event listeners to all checkboxes
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateUsersList);
             });
         });
     </script>
