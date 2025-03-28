@@ -187,9 +187,6 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
-    const usersArray = await usersCollection.find({}).toArray();
-
-    console.log(req.file);
 
     // Hash het wachtwoord met bcrypt
     const saltRounds = 10;
@@ -198,12 +195,10 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     const newUser = {
       name: req.body.name,
       password: hashedPassword,
-      avatar: req.file.path
+      avatar: req.file.path,
+      fav: [] // Voeg een leeg fav veld toe
     };
 
-    // fs.writeFileSync("users.json", JSON.stringify(usersArray, null, 2), "utf-8");
-
-    // await usersCollection.deleteMany({});
     await usersCollection.insertOne(newUser);
 
     console.log("New user inserted:", newUser);
@@ -264,12 +259,10 @@ app.post("/fav", valiadateCookie, async (req, res) => {
     let favs = user.fav || [];
 
     if (checked) {
-      // Add to favorites if checked
       if (!favs.includes(fav)) {
         favs.push(fav);
       }
     } else {
-      // Remove from favorites if unchecked
       favs = favs.filter(item => item !== fav);
     }
 
@@ -278,7 +271,7 @@ app.post("/fav", valiadateCookie, async (req, res) => {
       { $set: { fav: favs } }
     );
 
-    res.json({ message: "Favorites updated successfully" });
+    res.json({ message: "Favorites updated successfully", favs });
   } catch (error) {
     console.error("Error updating favorites:", error);
     res.status(500).json({ message: "Error updating favorites" });
