@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="loginBody container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <section class="loginDiv">
+        <div class="loginSide">
+            <img src="../static/images/travel2.jpg" alt="">
+        </div>
+
+        <form class="loginform" action="/login" method="post">
+            
+            <div class="formInputs">
+                <div>
+                    <h1>Log in</h1>
+                    <p>Log in om gebruik te maken van
+                        alle functies
+                    </p>
+                </div>
+
+                <div>
+                    <label for="name">Username</label>
+                    <input class="forminput" type="text" name="name" placeholder="Naam" required>
+                </div>
+                
+                <div>
+                    <label for="password">Wachtwoord</label>
+                    <input class="forminput" type="password" name="password" placeholder="Wachtwoord" required>
+                </div>
+            </div>
+
+            <div class="loginButtonDiv">
+                <button type="submit" class="loginButton">
+                    Log in
+                </button>
+                <p>Heb je nog geen account? <a href="/signUp">Account aanmaken</a></p>
+            </div>
+        </form>
+
+
+
+        <!-- <p>
+            <input type="text" name="name" placeholder="Naam">
+        </p>
+
+        <p>
+            <input type="password" name="password" placeholder="Wachtwoord">
+        </p>
+        
+        <p>
+            <input type="submit">
+        </p> -->
+
+        <!-- <button class="loginButton">
+                <input type="submit" placeholder="Log in">
+            </button> -->
+    </section>
+
+    
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>

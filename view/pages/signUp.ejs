@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="loginBody container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <section class="loginDiv">
+        <div class="loginSide">
+            <img src="../static/images/travel2.jpg" alt="">
+        </div>
+
+        <form class="loginform" action="/signup" method="post" enctype="multipart/form-data">
+            
+            <div class="formInputs">
+                <div>
+                    <h1>Sign up</h1>
+                    <p>Vul de velden in om een account 
+                        aan te maken.
+                    </p>
+                </div>
+
+                <div>
+                    <label for="name">Username</label>
+                    <input class="forminput" type="text" name="name" placeholder="Naam" required>
+                </div>
+                
+                <div>
+                    <label for="password">Wachtwoord</label>
+                    <input class="forminput" type="password" name="password" placeholder="Wachtwoord" required>
+                </div>
+
+                <div>
+                    <input type="file" name="avatar">
+                </div>
+            </div>
+
+            <div class="loginButtonDiv">
+                <button type="submit" class="loginButton">
+                    Sign up
+                </button>
+                <p>Heb je al een account? <a href="/logIn">Log in</a></p>
+            </div>
+        </form>
+
+
+
+
+        <!-- <form action="/signup" method="post" enctype="multipart/form-data">
+            <p><input type="text" name="name" placeholder="Naam"></p>
+            <p>
+                <input type="password" name="password" placeholder="Wachtwoord">
+            </p>
+            <input type="file" name="avatar">
+            <p>
+                <input type="submit">
+            </p>
+        </form> -->
+
+
+    </section>
+
+    
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
