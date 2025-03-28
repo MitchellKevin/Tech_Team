@@ -47,8 +47,25 @@ app.get('/', function(req, res) {
   res.render('pages/index');
 });
 
-app.get('/fav', function(req, res) {
-  res.render('fav');
+app.get('/fav', valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Retrieve the logged-in user's data
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    // Pass the user's favorites to the template
+    res.render("fav", { user: user, favorites: user.fav || [] });
+  } catch (error) {
+    console.error("Error fetching user favorites:", error);
+    res.status(500).send("Error fetching user favorites");
+  }
 });
 
 app.get('/search', function(req, res) {
@@ -268,6 +285,30 @@ app.post("/fav", valiadateCookie, async (req, res) => {
   }
 });
 
+app.post("/fav/users", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const { favs } = req.body; // Expect an array of favorites
+
+    if (!Array.isArray(favs) || favs.length === 0) {
+      return res.status(400).json({ message: "No favorites provided" });
+    }
+
+    // Find users who have all the selected favorites
+    const usersWithFavorites = await usersCollection
+      .find({ fav: { $all: favs } }) // `$all` ensures all favorites are present
+      .project({ name: 1, _id: 0 }) // Only return the user's name
+      .toArray();
+
+    res.json({ users: usersWithFavorites });
+  } catch (error) {
+    console.error("Error fetching users with the same favorites:", error);
+    res.status(500).json({ message: "Error fetching users with the same favorites" });
+  }
+});
+
 app.post('/profile', upload.single('avatar'), (req, res, next) => {
   console.log(req.file);
   // res.send('File uploaded');
@@ -295,6 +336,116 @@ app.post("/logout", (req, res) => {
     }
     res.send("Je bent uitgelogd.");
   });
+});
+
+app.get("/friendlist", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Zoek gebruikers met dezelfde locatievoorkeuren, exclusief de huidige gebruiker
+    const potentialMatches = await usersCollection
+      .find({
+        _id: { $ne: new ObjectId(req.session.user._id) }, // Exclude current user
+        fav: { $in: user.fav }, // Match at least one favorite
+        friends: { $ne: new ObjectId(req.session.user._id) }, // Exclude already friends
+        friendRequests: { $ne: new ObjectId(req.session.user._id) } // Exclude already requested
+      })
+      .project({ name: 1, fav: 1 }) // Return only name and fav
+      .toArray();
+
+    res.render("friendlist", { user, potentialMatches });
+  } catch (error) {
+    console.error("Error fetching friendlist:", error);
+    res.status(500).send("Error fetching friendlist");
+  }
+});
+
+app.post("/friendrequest", valiadateCookie, async (req, res) => {
+  try {
+    const { targetUserId } = req.body;
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Voeg de huidige gebruiker toe aan de friendRequests van de target user
+    await usersCollection.updateOne(
+      { _id: new ObjectId(targetUserId) },
+      { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } } // Prevent duplicates
+    );
+
+    res.json({ message: "Friend request sent successfully" });
+  } catch (error) {
+    console.error("Error sending friend request:", error);
+    res.status(500).json({ message: "Error sending friend request" });
+  }
+});
+
+app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
+  try {
+    const { requesterId, action } = req.body; // `action` is either "accept" or "reject"
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    if (action === "accept") {
+      // Voeg de requester toe aan de vriendenlijst
+      await usersCollection.updateOne(
+        { _id: new ObjectId(req.session.user._id) },
+        {
+          $addToSet: { friends: new ObjectId(requesterId) }, // Add to friends
+          $pull: { friendRequests: new ObjectId(requesterId) } // Remove from friendRequests
+        }
+      );
+
+      // Voeg de huidige gebruiker toe aan de vriendenlijst van de requester
+      await usersCollection.updateOne(
+        { _id: new ObjectId(requesterId) },
+        { $addToSet: { friends: new ObjectId(req.session.user._id) } }
+      );
+    } else if (action === "reject") {
+      // Verwijder de requester uit de friendRequests
+      await usersCollection.updateOne(
+        { _id: new ObjectId(req.session.user._id) },
+        { $pull: { friendRequests: new ObjectId(requesterId) } }
+      );
+    }
+
+    res.json({ message: `Friend request ${action}ed successfully` });
+  } catch (error) {
+    console.error("Error responding to friend request:", error);
+    res.status(500).json({ message: "Error responding to friend request" });
+  }
+});
+
+app.get("/friends", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Haal de vrienden op
+    const friends = await usersCollection
+      .find({ _id: { $in: user.friends } })
+      .project({ name: 1 })
+      .toArray();
+
+    res.render("friends", { user, friends });
+  } catch (error) {
+    console.error("Error fetching friends:", error);
+    res.status(500).send("Error fetching friends");
+  }
 });
 
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
