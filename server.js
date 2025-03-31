@@ -235,7 +235,8 @@ app.post("/login", async (req, res) => {
       const token = jwt.sign({ name: user.name }, process.env.session_key, { expiresIn: "1h" });
       req.session.user = user;
       req.session.authenticated = true;
-      res.render("dashboard", { user: user });
+      res.cookie("session_id", req.sessionID, { maxAge: 1000 * 60 * 60 });
+      res.render("dashboard.ejs", { user: user });
       console.log(token);
     } else {
       console.log("Incorrect password");
