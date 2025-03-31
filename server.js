@@ -282,12 +282,12 @@ app.post("/fav", valiadateCookie, async (req, res) => {
     // Bereken de nieuwe matches
     const potentialMatches = await usersCollection
       .find({
-        _id: { $ne: new ObjectId(req.session.user._id) }, // Exclude current user
-        fav: { $in: favs }, // Match at least one favorite
-        friends: { $ne: new ObjectId(req.session.user._id) }, // Exclude already friends
-        friendRequests: { $ne: new ObjectId(req.session.user._id) } // Exclude already requested
+        _id: { $ne: new ObjectId(req.session.user._id) },
+        fav: { $in: favs }, 
+        friends: { $ne: new ObjectId(req.session.user._id) },
+        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
       })
-      .project({ name: 1, fav: 1 }) // Return only name and fav
+      .project({ name: 1, fav: 1 }) 
       .toArray();
 
     res.json({ message: "Favorites updated successfully", favs, potentialMatches });
@@ -302,7 +302,7 @@ app.post("/fav/users", valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    const { favs } = req.body; // Expect an array of favorites
+    const { favs } = req.body; 
 
     if (!Array.isArray(favs) || favs.length === 0) {
       return res.status(400).json({ message: "No favorites provided" });
@@ -310,8 +310,8 @@ app.post("/fav/users", valiadateCookie, async (req, res) => {
 
     // Find users who have all the selected favorites
     const usersWithFavorites = await usersCollection
-      .find({ fav: { $all: favs } }) // `$all` ensures all favorites are present
-      .project({ name: 1, _id: 0 }) // Only return the user's name
+      .find({ fav: { $all: favs } }) 
+      .project({ name: 1, _id: 0 }) 
       .toArray();
 
     res.json({ users: usersWithFavorites });
@@ -364,12 +364,12 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
     // Zoek gebruikers met dezelfde locatievoorkeuren, exclusief de huidige gebruiker
     const potentialMatches = await usersCollection
       .find({
-        _id: { $ne: new ObjectId(req.session.user._id) }, // Exclude current user
-        fav: { $in: user.fav }, // Match at least one favorite
-        friends: { $ne: new ObjectId(req.session.user._id) }, // Exclude already friends
-        friendRequests: { $ne: new ObjectId(req.session.user._id) } // Exclude already requested
+        _id: { $ne: new ObjectId(req.session.user._id) },
+        fav: { $in: user.fav },
+        friends: { $ne: new ObjectId(req.session.user._id) }, 
+        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
       })
-      .project({ name: 1, fav: 1 }) // Return only name and fav
+      .project({ name: 1, fav: 1 }) //
       .toArray();
 
     res.render("friendlist", { user, potentialMatches });
@@ -389,7 +389,7 @@ app.post("/friendrequest", valiadateCookie, async (req, res) => {
     // Voeg de huidige gebruiker toe aan de friendRequests van de target user
     await usersCollection.updateOne(
       { _id: new ObjectId(targetUserId) },
-      { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } } // Prevent duplicates
+      { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } }
     );
 
     res.json({ message: "Friend request sent successfully" });
@@ -401,7 +401,7 @@ app.post("/friendrequest", valiadateCookie, async (req, res) => {
 
 app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
   try {
-    const { requesterId, action } = req.body; // `action` is either "accept" or "reject"
+    const { requesterId, action } = req.body;
 
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
@@ -411,8 +411,8 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
       await usersCollection.updateOne(
         { _id: new ObjectId(req.session.user._id) },
         {
-          $addToSet: { friends: new ObjectId(requesterId) }, // Add to friends
-          $pull: { friendRequests: new ObjectId(requesterId) } // Remove from friendRequests
+          $addToSet: { friends: new ObjectId(requesterId) },
+          $pull: { friendRequests: new ObjectId(requesterId) } 
         }
       );
 
