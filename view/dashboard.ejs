@@ -1,14 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <%- include('./partials/head'); %>
 </head>
-<body>
-    <h1>Welcome, <%= user.name %>!</h1>
-    <form action="/logout" method="post">
-        <input type="submit" value="Uitloggen">
-    </form>
+
+<body class="dashboardbody container">
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+
+    <h1>Account</h1>
+
+    <section class="dashboard">
+
+        <div class="profileDiv">
+            <div class="profileImage">
+                <img src="./static/images/profiel.png" alt="">
+            </div>
+            <div>
+                <h2><%= user.name %></h2>
+                <p>Nederland</p>
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="dashboardDiv">
+            <div class="dashboardsvg">
+                <img src="./static/images/setting.svg" alt="">
+            </div>
+            <div>
+                <h3>Instellingen</h3>
+                <p>E-mail • Wachtwoord wijzigen</p>
+            </div>
+
+            <div class="arrow">
+                <img src="./static/images/arrow.svg" alt="">
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- <div class="dashboardDiv">
+            <div class="dashboardsvg">
+                <img src="./static/images/save.svg" alt="">
+            </div>
+
+            <div>
+                <h3>Favorieten</h3>
+                <p>Collecties • notities</p>
+            </div>
+
+            <div class="arrow">
+                <img src="./static/images/arrow.svg" alt="">
+            </div>
+        </div>
+
+        <hr> -->
+    </section>
+
+    <section class="laatstBezochtSection">
+        <div>
+            <h3>Favorieten</h3>
+            <img src="./static/images/travelicon.svg" alt="">
+        </div>
+
+        <!-- <div class="laatstBezochtButton">
+            <button class="ActiveButton">
+                Steden
+            </button>
+            <button>
+                Activiteiten
+            </button>
+        </div> -->
+        
+    </section>
+
+    <section class="laatstBezochtDiv">
+        <div class="searchResultdiv">
+            <%- include('./partials/cityCard'); %>
+            <%- include('./partials/cityCard'); %>
+            <%- include('./partials/cityCard'); %>
+            <%- include('./partials/cityCard'); %>
+            <%- include('./partials/cityCard'); %>
+            <%- include('./partials/cityCard'); %>
+        </div>
+
+        <button class="logoutButton">
+            <form action="/logout" method="post">
+                <input type="submit" value="Uitloggen">
+            </form>
+        </button>
+    </section>
+    
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
 </body>
 </html>

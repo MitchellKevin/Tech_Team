@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // var deButton = document.querySelector(".menu");
 
 // deButton.onclick = toggleMenu;
@@ -57,10 +56,10 @@ function clickHeart() {
 hearts.forEach(function(heart) {
   heart.addEventListener('click', clickHeart);
 });
-=======
+
 var deButton = document.querySelector(".menu");
 
-deButton.onclick = toggleMenu;
+// deButton.onclick = toggleMenu;
 
 function toggleMenu() {  
   var deNav = document.querySelector("nav");
@@ -78,4 +77,3 @@ function handleKeydown(event) {
 }
 
 console.log ("hoi");
->>>>>>> Account

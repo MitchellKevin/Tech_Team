@@ -14,6 +14,10 @@
             <img src="../static/images/travel2.jpg" alt="">
         </div>
 
+        <div class="backArrow">
+            <a href="/"><img src="../static/images/backArrow.png" alt=""></a>
+        </div>
+
         <form class="loginform" action="/signup" method="post" enctype="multipart/form-data">
             
             <div class="formInputs">
@@ -35,7 +39,13 @@
                 </div>
 
                 <div>
-                    <input type="file" name="avatar">
+                    <label for="phone">Telefoonnummer</label>
+                    <input class="forminput" type="tel" name="phone" placeholder="Telefoonnummer" required>
+                </div>
+
+                <div>
+                    <label for="avatar">Profielfoto</label>
+                    <input class="forminput" type="file" name="avatar">
                 </div>
             </div>
 
