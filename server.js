@@ -335,7 +335,7 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
 
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
-    return res.status(401).send("Je moet inloggen om dit te zien.");
+    return res.render("logIn")
   } else {
     res.render('dashboard', { user: req.session.user });
   }
@@ -481,6 +481,47 @@ app.post("/delete-account", valiadateCookie, async (req, res) => {
   } catch (error) {
     console.error("Error deleting account:", error);
     res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+  }
+});
+
+app.post("/change-password", valiadateCookie, async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
+    }
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Vind de huidige gebruiker
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("Gebruiker niet gevonden.");
+    }
+
+    // Controleer of het huidige wachtwoord correct is
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Huidig wachtwoord is onjuist.");
+    }
+
+    // Hash het nieuwe wachtwoord
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update het wachtwoord in de database
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { password: hashedPassword } }
+    );
+
+    res.send("Wachtwoord succesvol gewijzigd.");
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
   }
 });
 
