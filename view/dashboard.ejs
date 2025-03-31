@@ -6,9 +6,16 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome, <%= user.name %>!</h1>
+    <h1>Welkom, <%= user.name %>!</h1>
+
+    <!-- Uitlogformulier -->
     <form action="/logout" method="post">
         <input type="submit" value="Uitloggen">
+    </form>
+
+    <!-- Verwijder account formulier -->
+    <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
+        <input type="submit" value="Verwijder Account">
     </form>
 </body>
 </html>

@@ -460,6 +460,30 @@ app.get("/friends", valiadateCookie, async (req, res) => {
   }
 });
 
+app.post("/delete-account", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Verwijder de gebruiker uit de database
+    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+
+    // Vernietig de sessie
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+      }
+
+      // Stuur een bevestiging naar de gebruiker
+      res.send("Je account is succesvol verwijderd.");
+    });
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+  }
+});
+
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
 const encryptWithSecretKey = (text) => {
   const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
