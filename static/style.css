@@ -695,6 +695,10 @@ section{
     background-color: transparent;
 }
 
+input[type="checkbox"]{
+    display: none;
+}
+
 .heartFill{
     position: absolute;
     top: 0;
