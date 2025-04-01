@@ -77,8 +77,9 @@ app.get('/search', async (req, res) => {
     const results = await destinationsCollection
       .find({ city: { $regex: query, $options: "i" } })
       .toArray();
-
-    res.render("searchResults", { query, results });
+        const cityData = await fetchdbdata(results[0].city);
+        const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+    res.render("searchResults", { dataString: dataString , query, results });
   } catch (error) {
     console.error("Error handling search:", error);
     res.status(500).send("Error handling search");
@@ -98,9 +99,9 @@ app.get('/searchResult', function(req, res) {
 });
 
 app.get('/locaties', async function(req, res){
-  const cityData = await fetchdbdata("Amsterdam");
-  const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
-  res.render('pages/locaties' , { dataString: dataString })
+  //const cityData = await fetchdbdata(results);
+  //const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+  res.render('pages/locaties' /*, { dataString: dataString }*/)
 });
 
 //travel guide api
@@ -118,7 +119,7 @@ params: {noqueue: '1'},
         'Content-Type': 'application/json'
       },
     data: {
-        region: cityData.city ,
+        region: cityData ,
         language: 'en',
         interests: [
           'historical',
@@ -127,6 +128,7 @@ params: {noqueue: '1'},
         ]
     }
 };
+console.log(options);
   try{
       const response = await axios.request(options);
       console.log(response.data);
@@ -155,6 +157,7 @@ app.get('/quizresult', function(req, res) {
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const { json } = require('stream/consumers');
+const { Result } = require('express-validator');
 const uri = process.env.URI;
 
 const client = new MongoClient(uri);
