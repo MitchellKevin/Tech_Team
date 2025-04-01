@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorites</title>
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const usersList = document.getElementById('users-list'); // Div waar matches worden weergegeven
+
             document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
                 checkbox.addEventListener('change', (event) => {
-                    const fav = event.target.value;
-                    const checked = event.target.checked;
+                    const fav = event.target.value; // Waarde van de checkbox
+                    const checked = event.target.checked; // Of de checkbox is aangevinkt
 
-                    // AJAX request
+                    // Stuur een POST-verzoek naar de server
                     fetch('/fav', {
                         method: 'POST',
                         headers: {
@@ -21,10 +23,18 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Success:', data);
+                        console.log('Favorites updated:', data);
+
+                        // Werk de lijst met matches bij
+                        usersList.innerHTML = `<h3>Potential Matches:</h3>`;
+                        data.potentialMatches.forEach(match => {
+                            const userItem = document.createElement('div');
+                            userItem.textContent = `${match.name} - Favorites: ${match.fav.join(", ")}`;
+                            usersList.appendChild(userItem);
+                        });
                     })
                     .catch((error) => {
-                        console.error('Error:', error);
+                        console.error('Error updating favorites:', error);
                     });
                 });
             });
@@ -33,10 +43,12 @@
 </head>
 <body>
     <h1>Favorites</h1>
-    <input type="checkbox" name="fav" value="Londen">Londen<br>
-    <input type="checkbox" name="fav" value="Barcelona">Barcelona<br>
-    <input type="checkbox" name="fav" value="Amsterdam">Amsterdam<br>
-    <input type="checkbox" name="fav" value="Kopenhagen">Kopenhagen<br>
-    <input type="checkbox" name="fav" value="Berlijn">Berlijn<br>
+    <input type="checkbox" name="fav" value="Londen" <%= favorites.includes("Londen") ? "checked" : "" %>> Londen<br>
+    <input type="checkbox" name="fav" value="Barcelona" <%= favorites.includes("Barcelona") ? "checked" : "" %>> Barcelona<br>
+    <input type="checkbox" name="fav" value="Amsterdam" <%= favorites.includes("Amsterdam") ? "checked" : "" %>> Amsterdam<br>
+    <input type="checkbox" name="fav" value="Kopenhagen" <%= favorites.includes("Kopenhagen") ? "checked" : "" %>> Kopenhagen<br>
+    <input type="checkbox" name="fav" value="Berlijn" <%= favorites.includes("Berlijn") ? "checked" : "" %>> Berlijn<br>
+
+    <div id="users-list"></div>
 </body>
 </html>

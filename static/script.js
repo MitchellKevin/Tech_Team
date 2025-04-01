@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // var deButton = document.querySelector(".menu");
 
 // deButton.onclick = toggleMenu;
@@ -41,6 +40,41 @@ console.log ("hoi");
 
 // heart.addEventListener('click',clickHeart)
 
+document.addEventListener('DOMContentLoaded', () => {
+  const usersList = document.getElementById('users-list'); // Div waar matches worden weergegeven
+
+  document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.addEventListener('change', (event) => {
+          const fav = event.target.value; // Waarde van de checkbox
+          const checked = event.target.checked; // Of de checkbox is aangevinkt
+
+          // Stuur een POST-verzoek naar de server
+          fetch('/fav', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ fav, checked })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Favorites updated:', data);
+
+              // Werk de lijst met matches bij
+              usersList.innerHTML = `<h3>Potential Matches:</h3>`;
+              data.potentialMatches.forEach(match => {
+                  const userItem = document.createElement('div');
+                  userItem.textContent = `${match.name} - Favorites: ${match.fav.join(", ")}`;
+                  usersList.appendChild(userItem);
+              });
+          })
+          .catch((error) => {
+              console.error('Error updating favorites:', error);
+          });
+      });
+  });
+});
+
 let hearts = document.querySelectorAll(".heartFill");
 let heartstatus = true;
 
@@ -57,10 +91,9 @@ function clickHeart() {
 hearts.forEach(function(heart) {
   heart.addEventListener('click', clickHeart);
 });
-=======
 var deButton = document.querySelector(".menu");
 
-deButton.onclick = toggleMenu;
+// // deButton.onclick = toggleMenu;
 
 function toggleMenu() {  
   var deNav = document.querySelector("nav");
@@ -78,4 +111,3 @@ function handleKeydown(event) {
 }
 
 console.log ("hoi");
->>>>>>> Account

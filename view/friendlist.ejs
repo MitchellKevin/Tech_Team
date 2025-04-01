@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Potential Matches</h1>
+<ul>
+  <% potentialMatches.forEach(match => { %>
+    <li>
+      <strong><%= match.name %></strong> - Favorites: <%= match.fav.join(", ") %>
+      <form action="/friendrequest/respond" method="POST">
+        <input type="hidden" name="requesterId" value="<%= match._id %>">
+        <button type="submit" name="action" value="accept">Accept</button>
+        <button type="submit" name="action" value="reject">Reject</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<img src=<%= destination.img %>></img>
+</body>
+</html>

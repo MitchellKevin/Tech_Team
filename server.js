@@ -47,20 +47,50 @@ app.get('/', function(req, res) {
   res.render('pages/index');
 });
 
-app.get('/fav', function(req, res) {
-  res.render('fav');
+app.get('/fav', valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Retrieve the logged-in user's data
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).send("User not found");
+    }
+
+    // Pass the user's favorites to the template
+    res.render("fav", { user: user, favorites: user.fav || [] });
+  } catch (error) {
+    console.error("Error fetching user favorites:", error);
+    res.status(500).send("Error fetching user favorites");
+  }
 });
 
-app.get('/search', function(req, res) {
-    res.render('search');
+app.get('/search', async (req, res) => {
+  try {
+    const query = req.query.q;
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+
+    const results = await destinationsCollection
+      .find({ city: { $regex: query, $options: "i" } })
+      .toArray();
+
+    res.render("searchResults", { query, results });
+  } catch (error) {
+    console.error("Error handling search:", error);
+    res.status(500).send("Error handling search");
+  }
 });
 
 app.get('/login', function(req, res) {
-  res.render('logIn');
+  res.render('pages/logIn');
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signUp');
+    res.render('pages/signUp');
 });
 
 app.get('/searchResult', function(req, res) {
@@ -80,14 +110,17 @@ app.get('/details', function(req, res) {
 });
 
 app.get('/locaties', async function(req, res){
-  const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+  const cityData = await fetchdbdata("Amsterdam");
+  const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
 });
 
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
-const options = {
+
+async function travelguideapi(cityData){ /*request gespecificerde data en return naar een json*/
+  const options = {
     method: "POST",
     url: 'https://travel-guide-api-city-guide-top-places.p.rapidapi.com/check',
 params: {noqueue: '1'},
@@ -97,7 +130,7 @@ params: {noqueue: '1'},
         'Content-Type': 'application/json'
       },
     data: {
-        region: 'London',
+        region: cityData.city ,
         language: 'en',
         interests: [
           'historical',
@@ -106,16 +139,26 @@ params: {noqueue: '1'},
         ]
     }
 };
+  try{
+      const response = await axios.request(options);
+      console.log(response.data);
+      return JSON.stringify(response.data);
+  }catch(error){
+      console.error(error)
+  }
+  console.log(options);
+}
 
-async function travelguideapi(){ /*request gespecificerde data en return naar een json*/
-        try{
-            const response = await axios.request(options);
-            console.log(response.data);
-            return JSON.stringify(response.data);
-        }catch(error){
-            console.error(error)
-        }
-    }
+async function fetchdbdata(cityName) {
+  try{
+  const destinationCollection = db.collection("destinations");
+  const cityData = await destinationCollection.findOne({city: cityName});
+  return cityData;
+  }catch (error){
+    console.error(error)
+  }
+}
+
 
 app.get('/quizresult', function(req, res) {
   res.render('pages/quizResult.ejs');
@@ -123,6 +166,7 @@ app.get('/quizresult', function(req, res) {
 
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
+const { json } = require('stream/consumers');
 const uri = process.env.URI;
 
 const client = new MongoClient(uri);
@@ -193,6 +237,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     const newUser = {
       name: req.body.name,
       password: hashedPassword,
+      tele: req.body.phone,
       avatar: req.file.path
     };
 
@@ -230,8 +275,8 @@ app.post("/login", async (req, res) => {
       const token = jwt.sign({ name: user.name }, process.env.session_key, { expiresIn: "1h" });
       req.session.user = user;
       req.session.authenticated = true;
-      res.cookie('session_id', req.sessionID, { maxAge: 1000 * 60 * 60 });
-      res.status(200).json({ token });
+      res.cookie("session_id", req.sessionID, { maxAge: 1000 * 60 * 60 });
+      res.render("dashboard.ejs", { user: user});
       console.log(token);
     } else {
       console.log("Incorrect password");
@@ -247,11 +292,11 @@ app.post("/fav", valiadateCookie, async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
-    
+
+    // Vind de huidige gebruiker
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
 
     if (!user) {
-      console.log("User not found");
       return res.status(404).send("User not found");
     }
 
@@ -259,24 +304,60 @@ app.post("/fav", valiadateCookie, async (req, res) => {
     let favs = user.fav || [];
 
     if (checked) {
-      // Add to favorites if checked
+      // Voeg toe aan favorieten als het is aangevinkt
       if (!favs.includes(fav)) {
         favs.push(fav);
       }
     } else {
-      // Remove from favorites if unchecked
+      // Verwijder uit favorieten als het is uitgevinkt
       favs = favs.filter(item => item !== fav);
     }
 
+    // Update de favorieten in de database
     await usersCollection.updateOne(
       { _id: new ObjectId(req.session.user._id) },
       { $set: { fav: favs } }
     );
 
-    res.json({ message: "Favorites updated successfully" });
+    // Bereken de nieuwe matches
+    const potentialMatches = await usersCollection
+      .find({
+        _id: { $ne: new ObjectId(req.session.user._id) },
+        fav: { $in: favs }, 
+        friends: { $ne: new ObjectId(req.session.user._id) },
+        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
+      })
+      .project({ name: 1, fav: 1 }) 
+      .toArray();
+
+    res.json({ message: "Favorites updated successfully", favs, potentialMatches });
   } catch (error) {
     console.error("Error updating favorites:", error);
     res.status(500).json({ message: "Error updating favorites" });
+  }
+});
+
+app.post("/fav/users", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const { favs } = req.body; 
+
+    if (!Array.isArray(favs) || favs.length === 0) {
+      return res.status(400).json({ message: "No favorites provided" });
+    }
+
+    // Find users who have all the selected favorites
+    const usersWithFavorites = await usersCollection
+      .find({ fav: { $all: favs } }) 
+      .project({ name: 1, _id: 0 }) 
+      .toArray();
+
+    res.json({ users: usersWithFavorites });
+  } catch (error) {
+    console.error("Error fetching users with the same favorites:", error);
+    res.status(500).json({ message: "Error fetching users with the same favorites" });
   }
 });
 
@@ -294,7 +375,7 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
 
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
-    return res.status(401).send("Je moet inloggen om dit te zien.");
+    return res.render("pages/logIn")
   } else {
     res.render('dashboard', { user: req.session.user });
   }
@@ -307,6 +388,183 @@ app.post("/logout", (req, res) => {
     }
     res.send("Je bent uitgelogd.");
   });
+});
+
+app.get("/friendlist", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+    const destinationCollection= database.collection("destinations");
+
+    const destination= await destinationCollection.findOne({city: "Amsterdam"});
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Zoek gebruikers met dezelfde locatievoorkeuren, exclusief de huidige gebruiker
+    const potentialMatches = await usersCollection
+      .find({
+        _id: { $ne: new ObjectId(req.session.user._id) },
+        fav: { $in: user.fav },
+        friends: { $ne: new ObjectId(req.session.user._id) }, 
+        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
+      })
+      .project({ name: 1, fav: 1, img: 1 }) //
+      .toArray();
+
+    res.render("friendlist", { user, potentialMatches, destination });
+  } catch (error) {
+    console.error("Error fetching friendlist:", error);
+    res.status(500).send("Error fetching friendlist");
+  }
+});
+
+app.post("/friendrequest", valiadateCookie, async (req, res) => {
+  try {
+    const { targetUserId } = req.body;
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Voeg de huidige gebruiker toe aan de friendRequests van de target user
+    await usersCollection.updateOne(
+      { _id: new ObjectId(targetUserId) },
+      { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } }
+    );
+
+    res.json({ message: "Friend request sent successfully" });
+  } catch (error) {
+    console.error("Error sending friend request:", error);
+    res.status(500).json({ message: "Error sending friend request" });
+  }
+});
+
+app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
+  try {
+    const { requesterId, action } = req.body;
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    if (action === "accept") {
+      // Voeg de requester toe aan de vriendenlijst
+      await usersCollection.updateOne(
+        { _id: new ObjectId(req.session.user._id) },
+        {
+          $addToSet: { friends: new ObjectId(requesterId) },
+          $pull: { friendRequests: new ObjectId(requesterId) } 
+        }
+      );
+
+      // Voeg de huidige gebruiker toe aan de vriendenlijst van de requester
+      await usersCollection.updateOne(
+        { _id: new ObjectId(requesterId) },
+        { $addToSet: { friends: new ObjectId(req.session.user._id) } }
+      );
+    } else if (action === "reject") {
+      // Verwijder de requester uit de friendRequests
+      await usersCollection.updateOne(
+        { _id: new ObjectId(req.session.user._id) },
+        { $pull: { friendRequests: new ObjectId(requesterId) } }
+      );
+    }
+
+    res.json({ message: `Friend request ${action}ed successfully` });
+  } catch (error) {
+    console.error("Error responding to friend request:", error);
+    res.status(500).json({ message: "Error responding to friend request" });
+  }
+});
+
+app.get("/friends", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Haal de vrienden op
+    const friends = await usersCollection
+      .find({ _id: { $in: user.friends } })
+      .project({ name: 1 })
+      .toArray();
+
+    res.render("friends", { user, friends });
+  } catch (error) {
+    console.error("Error fetching friends:", error);
+    res.status(500).send("Error fetching friends");
+  }
+});
+
+app.post("/delete-account", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Verwijder de gebruiker uit de database
+    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+
+    // Vernietig de sessie
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+      }
+
+      // Stuur een bevestiging naar de gebruiker
+      res.send("Je account is succesvol verwijderd.");
+    });
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+  }
+});
+
+app.post("/change-password", valiadateCookie, async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
+    }
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    // Vind de huidige gebruiker
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("Gebruiker niet gevonden.");
+    }
+
+    // Controleer of het huidige wachtwoord correct is
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Huidig wachtwoord is onjuist.");
+    }
+
+    // Hash het nieuwe wachtwoord
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update het wachtwoord in de database
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { password: hashedPassword } }
+    );
+
+    res.send("Wachtwoord succesvol gewijzigd.");
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
+  }
 });
 
 // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
