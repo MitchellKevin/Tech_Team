@@ -67,6 +67,18 @@ app.get('/searchResult', function(req, res) {
   res.render('pages/searchResult');
 });
 
+app.get('/quiz', function(req,res){
+  res.render('pages/quiz.ejs');// dotenv
+});
+
+app.get('/details', function(req, res) {
+  res.render('pages/details.ejs');
+});
+
+app.get('/details', function(req, res) {
+  res.render('pages/matchpersoon.ejs');
+});
+
 app.get('/locaties', async function(req, res){
   const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
