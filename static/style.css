@@ -180,6 +180,12 @@ nav img{
 	background-color: var(--color-bg);
 }
 
+.searchBar form{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 
 .search::placeholder{
     color:#485EA1 ;
@@ -1076,6 +1082,62 @@ button.ActiveButton{
 
 .logoutButton:hover{
     background-color: var(--color-darkblue);
+}
+
+.dashboardDiv a{
+    text-decoration: none;
+}
+
+.accountInfo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-base);
+    margin-top: var(--size-xxs);
+}
+
+.wachtwoordWijzigen{
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xs);
+}
+
+.wachtwoordWijzigen div{
+    margin-top: 0.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    font-weight: 600;
+}
+
+.dashboard input{
+    width: fit-content;
+
+    border: none;
+    background-color: #F7F7F9;
+    padding: var(--size-xs);
+    border-radius: 8px;
+}
+
+input.deleteButton{
+    width: fit-content;
+
+    border: none;
+    background-color: #F95B5B;
+    padding: var(--size-xs);
+    border-radius: 8px;
+
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+input.inputbutton{
+    background-color: var(--color-darkblue);
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+input.wachtwoordWijzigen:focus{
+    outline: 1px solid var(--color-darkblue);
 }
 
 

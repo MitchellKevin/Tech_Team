@@ -30,8 +30,10 @@
                 <img src="./static/images/setting.svg" alt="">
             </div>
             <div>
-                <h3>Instellingen</h3>
-                <p>E-mail • Wachtwoord wijzigen</p>
+                <a href="/dashboardSettings">
+                    <h3>Instellingen</h3>
+                    <p>Accountgegevens • Wachtwoord wijzigen</p>
+                </a>
             </div>
 
             
@@ -84,26 +86,5 @@
     </footer>
 
     <script src="../static/script.js"></script>
-<body>
-
-    <!-- Verwijder account formulier -->
-    <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
-        <input type="submit" value="Verwijder Account">
-    </form>
-
-    <!-- Wachtwoord wijzigen formulier -->
-    <h2>Wijzig Wachtwoord</h2>
-    <form action="/change-password" method="post">
-        <label for="currentPassword">Huidig Wachtwoord:</label>
-        <input type="password" id="currentPassword" name="currentPassword" required>
-        <br>
-        <label for="newPassword">Nieuw Wachtwoord:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
-        <br>
-        <label for="confirmPassword">Bevestig Nieuw Wachtwoord:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br>
-        <input type="submit" value="Wijzig Wachtwoord">
-    </form>
 </body>
 </html>

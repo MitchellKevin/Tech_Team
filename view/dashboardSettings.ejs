@@ -22,10 +22,50 @@
                 <p>Nederland</p>
             </div>
         </div>
+
+        <hr>
+
+        <div class="accountInfo">
+            <div>
+                <h3>
+                Accountgegevens
+                </h3>
+                <p>Naam: <%= user.name %></p>
+                <p>Nummer: </p>
+            </div>
+            
+            <div>
+                <!-- Wachtwoord wijzigen formulier -->
+                <h3>Wachtwoord wijzigen</h3>
+
+                <form class="wachtwoordWijzigen" action="/change-password" method="post">
+                    <div>
+                        <label for="currentPassword">Huidig Wachtwoord</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required placeholder="huidig wachtwoord">
+                    </div>
+                
+                    <div>
+                        <label for="newPassword">Nieuw Wachtwoord</label>
+                        <input type="password" id="newPassword" name="newPassword" required placeholder="nieuw wachtwoord">
+                    </div>
+
+                    <div>
+                        <label for="confirmPassword">Bevestig Nieuw Wachtwoord</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="herhaal nieuw wachtwoord">
+                    </div>
+
+                    
+                    <input class="inputbutton" type="submit" value="Wijzig Wachtwoord">
+                </form>
+            </div>
+        </div>
+
+        <!-- Verwijder account formulier -->
+        <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
+            <input class="deleteButton" type="submit" value="Verwijder Account">
+        </form>
+
     </section>
-
-
-
     
     
     <footer>
@@ -33,26 +73,5 @@
     </footer>
 
     <script src="../static/script.js"></script>
-<body>
-
-    <!-- Verwijder account formulier -->
-    <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
-        <input type="submit" value="Verwijder Account">
-    </form>
-
-    <!-- Wachtwoord wijzigen formulier -->
-    <h2>Wijzig Wachtwoord</h2>
-    <form action="/change-password" method="post">
-        <label for="currentPassword">Huidig Wachtwoord:</label>
-        <input type="password" id="currentPassword" name="currentPassword" required>
-        <br>
-        <label for="newPassword">Nieuw Wachtwoord:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
-        <br>
-        <label for="confirmPassword">Bevestig Nieuw Wachtwoord:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br>
-        <input type="submit" value="Wijzig Wachtwoord">
-    </form>
 </body>
 </html>
