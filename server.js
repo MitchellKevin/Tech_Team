@@ -97,8 +97,14 @@ app.get('/searchResult', function(req, res) {
   res.render('pages/searchResult');
 });
 
-app.get('/dashboardSettings',valiadateCookie, function(req, res) {
-  res.render("dashboardSettings.ejs", { user: req.session.user });
+
+
+app.get("/dashboardSettings", (req, res) => {
+  if (!req.session.user) {
+    return res.render("pages/logIn")
+  } else {
+    res.render('dashboardSettings', { user: req.session.user });
+  }
 });
 
 app.get('/locaties', async function(req, res){
