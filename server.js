@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 app.use(express.static('static'));
+app.use('/uploads', express.static('uploads'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -167,6 +168,7 @@ app.get('/quizresult', function(req, res) {
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const { json } = require('stream/consumers');
+const { render } = require('ejs');
 const uri = process.env.URI;
 
 const client = new MongoClient(uri);
@@ -245,7 +247,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
 
     // await usersCollection.deleteMany({});
     await usersCollection.insertOne(newUser);
-
+    res.render("dashboard.ejs", { user: newUser });
     console.log("New user inserted:", newUser);
   } catch (error) {
     console.error("Error inserting new user:", error);
@@ -376,7 +378,7 @@ app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
     return res.render("pages/logIn")
   } else {
-    res.render('dashboard', { user: req.session.user });
+    res.render('dashboard', { user: req.session.user, avvatar: req.session.user.path });
   }
 });
 
