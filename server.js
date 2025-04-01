@@ -98,14 +98,17 @@ app.get('/searchResult', function(req, res) {
 });
 
 app.get('/locaties', async function(req, res){
-  const dataString = await travelguideapi(); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+  const cityData = await fetchdbdata("Amsterdam");
+  const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
 });
 
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
-const options = {
+
+async function travelguideapi(cityData){ /*request gespecificerde data en return naar een json*/
+  const options = {
     method: "POST",
     url: 'https://travel-guide-api-city-guide-top-places.p.rapidapi.com/check',
 params: {noqueue: '1'},
@@ -115,7 +118,7 @@ params: {noqueue: '1'},
         'Content-Type': 'application/json'
       },
     data: {
-        region: 'London',
+        region: cityData.city ,
         language: 'en',
         interests: [
           'historical',
@@ -124,16 +127,26 @@ params: {noqueue: '1'},
         ]
     }
 };
+  try{
+      const response = await axios.request(options);
+      console.log(response.data);
+      return JSON.stringify(response.data);
+  }catch(error){
+      console.error(error)
+  }
+  console.log(options);
+}
 
-async function travelguideapi(){ /*request gespecificerde data en return naar een json*/
-        try{
-            const response = await axios.request(options);
-            console.log(response.data);
-            return JSON.stringify(response.data);
-        }catch(error){
-            console.error(error)
-        }
-    }
+async function fetchdbdata(cityName) {
+  try{
+  const destinationCollection = db.collection("destinations");
+  const cityData = await destinationCollection.findOne({city: cityName});
+  return cityData;
+  }catch (error){
+    console.error(error)
+  }
+}
+
 
 app.get('/quizresult', function(req, res) {
   res.render('pages/quizResult.ejs');
@@ -141,6 +154,7 @@ app.get('/quizresult', function(req, res) {
 
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
+const { json } = require('stream/consumers');
 const uri = process.env.URI;
 
 const client = new MongoClient(uri);
