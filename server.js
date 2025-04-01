@@ -97,6 +97,11 @@ app.get('/searchResult', function(req, res) {
   res.render('pages/searchResult');
 });
 
+app.get('/dashboardSettings',valiadateCookie, function(req, res) {
+  req.session.user = user;
+  res.render("dashboardSettings.ejs", { user: user});
+});
+
 app.get('/locaties', async function(req, res){
   const cityData = await fetchdbdata("Amsterdam");
   const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept

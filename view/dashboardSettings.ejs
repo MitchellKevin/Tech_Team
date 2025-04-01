@@ -22,62 +22,11 @@
                 <p>Nederland</p>
             </div>
         </div>
-        
-        <hr>
-
-        <div class="dashboardDiv">
-            <div class="dashboardsvg">
-                <img src="./static/images/setting.svg" alt="">
-            </div>
-            <div>
-                <h3>Instellingen</h3>
-                <p>E-mail • Wachtwoord wijzigen</p>
-            </div>
-
-            
-            <div class="arrow">
-                <a href="/dashboardSettings">
-                    <img src="./static/images/arrow.svg" alt="">
-                </a>
-            </div>
-        </div>
-
-        <hr>
     </section>
 
-    <section class="laatstBezochtSection">
-        <div>
-            <h3>Favorieten</h3>
-            <img src="./static/images/travelicon.svg" alt="">
-        </div>
 
-        <!-- <div class="laatstBezochtButton">
-            <button class="ActiveButton">
-                Steden
-            </button>
-            <button>
-                Activiteiten
-            </button>
-        </div> -->
-        
-    </section>
 
-    <section class="laatstBezochtDiv">
-        <div class="searchResultdiv">
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-        </div>
-
-        <button class="logoutButton">
-            <form action="/logout" method="post">
-                <input type="submit" value="Uitloggen">
-            </form>
-        </button>
-    </section>
+    
     
     <footer>
         <%- include('./partials/footer'); %>
