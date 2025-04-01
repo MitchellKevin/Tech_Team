@@ -68,8 +68,21 @@ app.get('/fav', valiadateCookie, async (req, res) => {
   }
 });
 
-app.get('/search', function(req, res) {
-    res.render('search');
+app.get('/search', async (req, res) => {
+  try {
+    const query = req.query.q;
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+
+    const results = await destinationsCollection
+      .find({ city: { $regex: query, $options: "i" } })
+      .toArray();
+
+    res.render("searchResults", { query, results });
+  } catch (error) {
+    console.error("Error handling search:", error);
+    res.status(500).send("Error handling search");
+  }
 });
 
 app.get('/login', function(req, res) {
@@ -236,7 +249,7 @@ app.post("/login", async (req, res) => {
       req.session.user = user;
       req.session.authenticated = true;
       res.cookie("session_id", req.sessionID, { maxAge: 1000 * 60 * 60 });
-      res.render("dashboard.ejs", { user: user });
+      res.render("dashboard.ejs", { user: user});
       console.log(token);
     } else {
       console.log("Incorrect password");
@@ -354,7 +367,9 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
+    const destinationCollection= database.collection("destinations");
 
+    const destination= await destinationCollection.findOne({city: "Amsterdam"});
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
 
     if (!user) {
@@ -369,10 +384,10 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
         friends: { $ne: new ObjectId(req.session.user._id) }, 
         friendRequests: { $ne: new ObjectId(req.session.user._id) } 
       })
-      .project({ name: 1, fav: 1 }) //
+      .project({ name: 1, fav: 1, img: 1 }) //
       .toArray();
 
-    res.render("friendlist", { user, potentialMatches });
+    res.render("friendlist", { user, potentialMatches, destination });
   } catch (error) {
     console.error("Error fetching friendlist:", error);
     res.status(500).send("Error fetching friendlist");
