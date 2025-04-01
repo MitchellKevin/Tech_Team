@@ -86,11 +86,11 @@ app.get('/search', async (req, res) => {
 });
 
 app.get('/login', function(req, res) {
-  res.render('logIn');
+  res.render('pages/logIn');
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signUp');
+    res.render('pages/signUp');
 });
 
 app.get('/searchResult', function(req, res) {

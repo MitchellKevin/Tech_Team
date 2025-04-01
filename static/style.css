@@ -1,19 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Sora:wght@100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 *, *::after, *::before {
     box-sizing:border-box;  
-  }
+}
 
 :root {
 	--color-text:#040316;
 	--color-bg:#FFFCF8;
-	--color-darkblue: #0F3A6D;
-    --color-brightblue: #0F3A6D;
+	/* --color-darkblue: #0F3A6D;
+    --color-brightblue: #0F3A6D; */
 	--color-lightblue: #2994D7;
 	--color-mutedblue: #B3BEE1;
 	--color-gray: #7D848D;
 
     /* #0F3A6D */
-    /* --color-brightblue: #2E4EAE;
-    --color-darkblue: #485EA1; */
+    --color-brightblue: #2E4EAE;
+    --color-darkblue: #485EA1;
 
 
     
@@ -218,7 +220,8 @@ nav img{
 
 	nav ul{
 		display: flex;
-		justify-content: space-between;
+		/* justify-content: space-between; */
+        justify-content: space-around;
 		padding: 0;
     	list-style-type: none;
 		gap: 0;
@@ -260,6 +263,10 @@ section{
 
 #searchdiv{
 	padding: var(--size-4xl) var(--size-lg);
+}
+
+div#searchdiv{
+    padding: var(--size-4xl) var(--size-lg) 0 var(--size-lg);
 }
 
 .landing {
@@ -308,6 +315,10 @@ section{
     color: var(--color-bg);
     background-color: var(--color-brightblue);
     padding: var(--size-4xl) var(--size-lg);
+}
+
+.index nav ul li a:nth-of-type(1){
+    color: var(--color-darkblue);
 }
 
 /* aanbevolen */
@@ -699,6 +710,10 @@ input[type="checkbox"]{
     display: none;
 }
 
+input[type=checkbox] {
+    display:none;
+}
+
 .heartFill{
     position: absolute;
     top: 0;
@@ -740,9 +755,9 @@ input[type="checkbox"]{
 }
 
 .otherMatches .V3cityCardButton img{
-	/* filter: brightness(0) saturate(100%) invert(23%) sepia(24%) saturate(5277%) hue-rotate(213deg) brightness(97%) contrast(88%); */
+	filter: brightness(0) saturate(100%) invert(23%) sepia(24%) saturate(5277%) hue-rotate(213deg) brightness(97%) contrast(88%);
 
-    filter: brightness(0) saturate(100%) invert(16%) sepia(82%) saturate(1234%) hue-rotate(191deg) brightness(95%) contrast(97%);
+    /* filter: brightness(0) saturate(100%) invert(16%) sepia(82%) saturate(1234%) hue-rotate(191deg) brightness(95%) contrast(97%); */
 }
 
 ::-webkit-scrollbar-corner {
@@ -834,11 +849,234 @@ input[type="checkbox"]{
     max-width: none;
 }
 
-.searchResult div#searchdiv{
-    padding-top: 0;
+.searchBody div#searchdiv {
+    padding: 0 var(--size-lg) var(--size-2xl) var(--size-lg);
+}
+
+/* login styling */
+
+.loginBody header{
+    display: none;
+}
+
+.loginDiv{
+    margin-bottom: 0;
+}
+
+.formInputs, .formInputs div, .loginform{
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xxs);
+}
+
+.loginform{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    
+    gap: var(--size-xl);
+    padding-bottom: var(--size-4xl);
+}
+
+.loginform p{
+    color: var(--color-gray);
 }
 
 
+.forminput{
+    border: none;
+    background-color: #F7F7F9;
+    padding: var(--size-xs);
+    border-radius: 8px;
+}
+
+.forminput:focus{
+    outline: 1px solid var(--color-darkblue);
+}
+
+.formInputs{
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+    gap: var(--size-xl)
+}
+
+.formInputs div{
+    width: 100%;
+    padding: 0 var(--size-xl);
+}
+
+.formInputs div:nth-child(1){
+    width: 80%;
+    text-align: center;
+}
+
+.formInputs div label{
+    font-weight: 600;
+}
+
+.loginButtonDiv{
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-base);
+    
+    padding: 0 var(--size-xl);
+    width: 100%;
+}
+
+.loginButtonDiv button {
+    width: 100%;
+    font-weight: 600;
+}
+
+.loginButtonDiv p{
+    text-align: center;
+}
+
+.loginSide{
+    display:none;
+
+    /* background-color: var(--color-darkblue); */
+    width: 100%;
+}
+
+::file-selector-button, button input {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--color-bg);
+    background-color: var(--color-darkblue);
+    font-weight: 800;
+    font-family: urbanist;
+}
+
+.backArrow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: var(--size-xs);
+}
+
+/* dashboard css */
+.dashboard, .laatstBezochtSection, .laatstBezochtDiv{
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xxs);
+    padding: var(--size-lg) var(--size-lg) 0 var(--size-lg);
+    margin-bottom: 0;
+}
+
+.dashboardbody h1{
+    text-align: center;
+    font-size: 7.5vw;
+    font-weight: 800;
+    margin-top: var(--size-2xl);
+    color: var(--color-text);
+}
+
+.profileImage{
+    overflow: hidden;
+    object-fit: cover;
+    width: 20vw;
+    height: 20vw;
+}
+
+.profileImage img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.profileDiv{
+    display: flex;
+    gap: var(--size-base);
+    align-items: center;
+    margin-bottom: var(--size-xl);
+}
+
+.dashboardbody h2{
+    color: var(--color-text);
+    font-size: 6.25vw;
+}
+.dashboardbody h3{
+    color: var(--color-text);
+    font-size: 5vw;
+}
+
+.dashboardbody hr{
+    border: 1px solid #CFCFCF;
+}
+
+.dashboardDiv{
+    display: flex;
+    gap: var(--size-base);
+    margin: var(--size-xxs) 0;
+    position: relative;
+}
+
+.dashboardsvg{
+    display: flex;
+    align-self: center;
+
+    width: 8vw;
+    height: 8vw;
+}
+
+.dashboardDiv p{
+    color: var(--color-gray);
+}
+
+.arrow{
+    position: absolute;
+    right: 0;
+
+    width: 6vw;
+    height: 6vw;
+
+    display: flex;
+    align-self: center;
+}
+
+.laatstBezochtSection div{
+    display: flex;
+    align-items: center;
+    gap: var(--size-xxs);
+}
+
+.laatstBezochtSection img{
+    width: 6vw;
+    height: auto;
+}
+
+.laatstBezochtButton button{
+    background-color: var(--color-gray);
+    font-weight: 600;
+    padding: var(--size-xxs) var(--size-lg);
+}
+
+button.ActiveButton{
+    background-color: var(--color-darkblue);
+}
+
+.laatstBezochtDiv{
+    margin-bottom: 7em;
+}
+
+.laatstBezochtDiv h3{
+    color: var(--color-darkblue);
+}
+
+.logoutButton{
+    margin-top: var(--size-xl);
+}
+
+.logoutButton:hover{
+    background-color: var(--color-darkblue);
+}
 
 
 /* MEDIA QUERIES .container{} */
@@ -907,11 +1145,11 @@ input[type="checkbox"]{
         justify-content: space-between;
     }
 
-    .landing, .aanbevolen, .aboutUs, .polaroids, #searchdiv, .matchResult, .otherMatches, .searchResult{
+    .landing, .aanbevolen, .aboutUs, .polaroids,div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section{
         padding: var(--size-7xl) var(--size-4xl);
     }
 
-    .searchBody#searchdiv {
+    .searchBody div#searchdiv {
         padding-bottom: 0;
         width: 80vw;
         position: absolute;
@@ -919,8 +1157,8 @@ input[type="checkbox"]{
         z-index: 20;
     }
 
-    #searchdiv{
-        padding-top: 0;
+    div#searchdiv{
+        padding-top: var(--size-2xl);
         padding-bottom: 0;
     }
 
@@ -962,6 +1200,83 @@ input[type="checkbox"]{
         gap: var(--size-3xl);
     }
 
+    /* login */
+    .loginDiv{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .loginform{
+        margin: 0 auto;
+        height: 90vh;
+    }
+
+    .loginSide{
+        display: block;
+        width: 45vw;
+        margin: var(--size-base);
+        border-radius: 8px;
+        overflow: hidden;
+        max-height: 88vh;
+        
+    }
+
+    .loginSide img{
+        height: 90vh;
+        object-fit: cover;
+    }
+
+    .loginButtonDiv, .formInputs{
+        margin-top: 0;
+    }
+
+    .loginBody header{
+        display: block;
+    }
+
+    .loginBody h1{
+        font-size: 4.2vw;
+    }
+
+    /* dashboard */
+    .dashboardbody h1{
+        display: none;
+    }
+
+    .profileImage{
+        width: 15vw;
+        height: 15vw;
+    }
+    
+    .dashboardbody h3{
+        font-size: 3vw;
+    }
+
+    .dashboardDiv div:nth-child(2){
+        align-self: center;
+    }
+
+    .dashboardbody p{
+        font-size: 1.823vw;
+    }
+
+    .dashboardsvg{
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .arrow, .laatstBezochtSection img{
+        width: 4vw;
+        height: 4vw;
+    }
+
+    section.dashboard, section.laatstBezochtSection{
+        padding-bottom: 0;
+    }
+
+    section.laatstBezochtDiv{
+        padding-top: var(--size-base);
+    }
 
 }
 
@@ -987,18 +1302,17 @@ input[type="checkbox"]{
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, #searchdiv, .matchResult, .otherMatches, .searchResult{
+	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section {
         padding: var(--size-7xl) var(--size-7xl);
     }
 
-    /* .searchbody #searchdiv{
+    .searchBody div#searchdiv{
         padding-bottom: 0;
         transform: translate(12%, -100%);
-    } */
+    }
 
-    #searchdiv{
+    div#searchdiv{
         padding-bottom: 0;
-        padding-top: 0;
     }
 
 
@@ -1043,9 +1357,9 @@ input[type="checkbox"]{
 	}	
 
 	.cityButton:hover, .V3cityCardButton:hover{
-	animation-name: scaling-hover-city-button;
-	animation-duration: 0.6s;
-	animation-fill-mode: forwards;
+	    animation-name: scaling-hover-city-button;
+	    animation-duration: 0.6s;
+	    animation-fill-mode: forwards;
 	}
 
 	/* quizresult */
@@ -1074,6 +1388,45 @@ input[type="checkbox"]{
         gap: var(--size-7xl) var(--size-3xl);
     }
 
+    /* dashboard */
+    .profileImage{
+        width: 10vw;
+        height: 10vw;
+    }
+    .dashboardbody h2{
+        font-size: 4vw;
+    }
+    
+    .dashboardbody h3{
+        font-size: 2vw;
+    }
+
+    .dashboardDiv div:nth-child(2){
+        align-self: center;
+    }
+
+    .dashboardsvg{
+        width: 4vw;
+        height: 4vw;
+    }
+
+    .dashboardbody p{
+        font-size: 1.563vw;
+    }
+
+    .arrow, .laatstBezochtSection img{
+        width: 3vw;
+        height: 3vw;
+    }
+
+    section.dashboard, section.laatstBezochtSection{
+        padding-bottom: 0;
+    }
+
+    section.laatstBezochtDiv{
+        padding-top: var(--size-base);
+    }
+
 
 }
 
@@ -1082,6 +1435,12 @@ input[type="checkbox"]{
 	.container{
 		max-width: 1280px;
 	}
+    
+    /* forminput */
+    .loginform{
+        margin: 0 auto;
+        height: 92vh;
+    }
 
 
 }
@@ -1126,16 +1485,20 @@ input[type="checkbox"]{
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, #searchdiv, .gids, .matchResult, .otherMatches{
+	.aanbevolen, .polaroids, div#searchdiv, .gids, .matchResult, .otherMatches, .dashboardbody section{
         padding: var(--size-10xl) var(--size-10xl);
     }
 
-    #searchdiv{
+    .landing{
+        padding: var(--size-8xl) var(--size-10xl) var(--size-10xl) var(--size-10xl);
+    }
+
+    div#searchdiv{
         padding-bottom: 0;
         padding-top: var(--size-2xl);
     }
 
-    .searchbody #searchdiv{
+    .searchBody div#searchdiv{
         margin-top: var(--size-5xl);
         padding-bottom: 0;
     }
@@ -1151,10 +1514,10 @@ input[type="checkbox"]{
         padding: var(--size-9xl) var(--size-8xl);
    }
 
-	/* .searchbody #searchdiv{
+   .searchBody div#searchdiv{
 		padding: var(--size-5xl) var(--size-10xl) 0 var(--size-10xl);
-        transform: translate(12%, -140%);
-	} */
+        transform: translate(12%, -170%);
+	}
     
 
 	.aboutUs{
@@ -1225,6 +1588,50 @@ input[type="checkbox"]{
         gap: var(--size-7xl) var(--size-3xl);
     }
 
+    /* login */
+    .loginDiv p{
+        font-size: 1.111vw;
+    }
+
+    /* dashboard */
+    .profileImage{
+        width: 7vw;
+        height: 7vw;
+    }
+    .dashboardbody h2{
+        font-size: 3vw;
+    }
+    
+    .dashboardbody h3{
+        font-size: 1.5vw;
+    }
+
+    .dashboardDiv div:nth-child(2){
+        align-self: center;
+    }
+
+    .dashboardsvg{
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+
+    .arrow, .laatstBezochtSection img{
+        width: 1.7vw;
+        height: 1.7vw;
+    }
+
+    .dashboardbody p{
+        font-size: 1.25vw;
+    }
+
+    section.dashboard, section.laatstBezochtSection{
+        padding-bottom: 0;
+        padding-top: var(--size-8xl);
+    }
+
+    section.laatstBezochtDiv{
+        padding-top: var(--size-base);
+    }
 	
 }
 
@@ -1260,7 +1667,7 @@ input[type="checkbox"]{
 @keyframes appear{
 	0%{
 		opacity: 0%;
-		scale: 0.5;
+		scale: 0.1;
 	}
 	
 	100%{
@@ -1300,6 +1707,3 @@ button:hover{
         scale: 150%;
     }
 }
-
-
-

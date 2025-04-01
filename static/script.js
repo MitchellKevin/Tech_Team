@@ -93,7 +93,7 @@ hearts.forEach(function(heart) {
 });
 var deButton = document.querySelector(".menu");
 
-// deButton.onclick = toggleMenu;
+// // deButton.onclick = toggleMenu;
 
 function toggleMenu() {  
   var deNav = document.querySelector("nav");
