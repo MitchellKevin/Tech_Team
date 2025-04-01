@@ -225,6 +225,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     const newUser = {
       name: req.body.name,
       password: hashedPassword,
+      tele: req.body.phone,
       avatar: req.file.path
     };
 
@@ -362,7 +363,7 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
 
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
-    return res.render("logIn")
+    return res.render("pages/logIn")
   } else {
     res.render('dashboard', { user: req.session.user });
   }
