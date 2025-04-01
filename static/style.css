@@ -641,7 +641,8 @@ div#searchdiv{
     display: flex;
     flex-direction: row;
     gap: var(--size-sm);
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
     width: 100%;
     /* overflow-x: hidden; */
 }

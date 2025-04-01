@@ -111,3 +111,16 @@ function handleKeydown(event) {
 }
 
 console.log ("hoi");
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollContainer = document.querySelector('.cardScroll');
+  
+  scrollContainer.addEventListener('wheel', function(e) {
+      // Prevent the default scroll behavior
+      e.preventDefault();
+      
+      // Scroll horizontally instead of vertically
+      this.scrollLeft += e.deltaY;
+  }, { passive: false });
+});
