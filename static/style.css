@@ -1909,8 +1909,8 @@ button:hover{
 
 label {
     font-size: 20px;
-    text-align: center;
-
+    /* text-align: center; */
+    /* deze label moet een class hebben */
 }
 
 button {
