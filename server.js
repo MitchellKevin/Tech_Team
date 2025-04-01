@@ -98,8 +98,7 @@ app.get('/searchResult', function(req, res) {
 });
 
 app.get('/dashboardSettings',valiadateCookie, function(req, res) {
-  req.session.user = user;
-  res.render("dashboardSettings.ejs", { user: user});
+  res.render("dashboardSettings.ejs", { user: req.session.user });
 });
 
 app.get('/locaties', async function(req, res){
@@ -367,7 +366,7 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
 
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
-    return res.render("logIn")
+    return res.render("pages/logIn")
   } else {
     res.render('dashboard', { user: req.session.user });
   }
