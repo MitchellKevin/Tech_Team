@@ -247,7 +247,6 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
     await usersCollection.insertOne(newUser);
 
     console.log("New user inserted:", newUser);
-    res.render("user.ejs", { data: newUser });
   } catch (error) {
     console.error("Error inserting new user:", error);
     res.status(500).send("Error inserting new user");
