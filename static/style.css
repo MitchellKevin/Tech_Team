@@ -1730,13 +1730,13 @@ button:hover{
     max-width: 50%;
 }
 
-h1 {
+.intro h1 {
    color: var(--color-darkblue);
     /* Juiste blauwe kleur */
     font-size: 2.2em;
 }
 
-h2 {
+.intro h2 {
     font-size: 1.2em;
     color: #555;
 }
@@ -1782,7 +1782,7 @@ h2 {
     /* Blauwe kleur */
     border-bottom: 0.052vw
 
-    solid #485EA1;
+    solid var(--color-darkblue);
 }
 
 /* Filter opties */
@@ -1794,7 +1794,7 @@ h2 {
 }
 
 .filters button {
-    background-color: #485EA1;
+    background-color: var(--color-darkblue);
     /* Blauwe kleur */
     color: white;
     border: none;
@@ -1855,7 +1855,7 @@ h2 {
     width: 200px;
     margin: 10px auto;
     padding: 10px;
-    background-color: #4a6ee0;
+    background-color: var(--color-darkblue);
     color: white;
     border: none;
     border-radius: 5px;
@@ -1882,6 +1882,22 @@ button {
 
 
 /* quiz pagina */
+
+#knopterug {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+   margin-top: 2vw;
+   margin-left: 2vw;
+    color: #3b5998;
+}
+
+#terug-link {
+    text-decoration: none;
+    color: #3b5998;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
 
 .quiz h1 {
 
@@ -1956,7 +1972,7 @@ button {
 }
 
 .quiz button:last-of-type {
-    background-color: #3b5998;
+    background-color:var(--color-darkblue);
     color: white;
 }
 
