@@ -412,7 +412,7 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    res.send("Je bent uitgelogd.");
+    res.redirect("/")
   });
 });
 
