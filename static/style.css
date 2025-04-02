@@ -2005,13 +2005,13 @@ progress::-moz-progress-bar {
         padding: 4vw;
     }
 
-    label {
+    .quiz label {
         font-size: var(--size-lg);
         line-height: 8vw;
     }
 
     /* 🔹 Knoppen groter en beter klikbaar */
-    button {
+    .quiz button {
         font-size: 3vw;  /* Grotere tekst */
         padding: 1vw 3vw; /* Meer ruimte binnen de knop */
     }
