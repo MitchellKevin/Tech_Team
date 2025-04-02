@@ -17,6 +17,41 @@
 //   }
 // }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const usersList = document.getElementById('users-list'); // Div waar matches worden weergegeven
+
+  document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.addEventListener('change', (event) => {
+          const fav = event.target.value; // Waarde van de checkbox
+          const checked = event.target.checked; // Of de checkbox is aangevinkt
+
+          // Stuur een POST-verzoek naar de server
+          fetch('/fav', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ fav, checked })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Favorites updated:', data);
+
+              // Werk de lijst met matches bij
+              usersList.innerHTML = `<h3>Potential Matches:</h3>`;
+              data.potentialMatches.forEach(match => {
+                  const userItem = document.createElement('div');
+                  userItem.textContent = `${match.name} - Favorites: ${match.fav.join(", ")}`;
+                  usersList.appendChild(userItem);
+              });
+          })
+          .catch((error) => {
+              console.error('Error updating favorites:', error);
+          });
+      });
+  });
+});
+
 console.log ("hoi");
 
 
@@ -232,3 +267,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   console.log("Script correct geladen!");
 });
+// sorteren
+var options = {
+  valueNames: [ 'name' ]
+};
+
+var charactersList = new List('theList', options);
+charactersList.sort('name', { order: "asc" });
+
+// filteren
+var optionAll = document.querySelector("#filter-all");
+var optionFood = document.querySelector("#filter-food");
+var optionCultural = document.querySelector("#filter-cultural");
+var optionHistory = document.querySelector("#filter-history");
+
+optionAll.addEventListener("change", filterList);
+optionFood.addEventListener("change", filterList);
+optionCultural.addEventListener("change", filterList);
+optionHistory.addEventListener("change", filterList);
+
+
+function filterList(event){
+  let deLijst = document.querySelector(".seachResultdiv ul");
+  let nieuweFilter = event.target.value;
+  deLijst.className = "";
+  deLijst.classList.add(nieuweFilter);
+}

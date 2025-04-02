@@ -30,33 +30,21 @@
                 <img src="./static/images/setting.svg" alt="">
             </div>
             <div>
-                <h3>Instellingen</h3>
-                <p>E-mail • Wachtwoord wijzigen</p>
+                <a href="/dashboardSettings">
+                    <h3>Instellingen</h3>
+                    <p>Accountgegevens • Wachtwoord wijzigen</p>
+                </a>
             </div>
 
+            
             <div class="arrow">
-                <img src="./static/images/arrow.svg" alt="">
+                <a href="/dashboardSettings">
+                    <img src="./static/images/arrow.svg" alt="">
+                </a>
             </div>
         </div>
 
         <hr>
-
-        <!-- <div class="dashboardDiv">
-            <div class="dashboardsvg">
-                <img src="./static/images/save.svg" alt="">
-            </div>
-
-            <div>
-                <h3>Favorieten</h3>
-                <p>Collecties • notities</p>
-            </div>
-
-            <div class="arrow">
-                <img src="./static/images/arrow.svg" alt="">
-            </div>
-        </div>
-
-        <hr> -->
     </section>
 
     <section class="laatstBezochtSection">
@@ -77,14 +65,7 @@
     </section>
 
     <section class="laatstBezochtDiv">
-        <div class="searchResultdiv">
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-            <%- include('./partials/cityCard'); %>
-        </div>
+
 
         <button class="logoutButton">
             <form action="/logout" method="post">
@@ -98,32 +79,5 @@
     </footer>
 
     <script src="../static/script.js"></script>
-<body>
-    <h1>Welkom, <%= user.name %>!</h1>
-
-    <!-- Uitlogformulier -->
-    <form action="/logout" method="post">
-        <input type="submit" value="Uitloggen">
-    </form>
-
-    <!-- Verwijder account formulier -->
-    <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
-        <input type="submit" value="Verwijder Account">
-    </form>
-
-    <!-- Wachtwoord wijzigen formulier -->
-    <h2>Wijzig Wachtwoord</h2>
-    <form action="/change-password" method="post">
-        <label for="currentPassword">Huidig Wachtwoord:</label>
-        <input type="password" id="currentPassword" name="currentPassword" required>
-        <br>
-        <label for="newPassword">Nieuw Wachtwoord:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
-        <br>
-        <label for="confirmPassword">Bevestig Nieuw Wachtwoord:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br>
-        <input type="submit" value="Wijzig Wachtwoord">
-    </form>
 </body>
 </html>
