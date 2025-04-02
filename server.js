@@ -66,24 +66,24 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/fav', valiadateCookie, async (req, res) => {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const usersCollection = database.collection("users");
+// app.get('/fav', valiadateCookie, async (req, res) => {
+//   try {
+//     const database = client.db(process.env.DB_NAME);
+//     const usersCollection = database.collection("users");
 
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+//     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
 
-    if (!user) {
-      console.log("User not found");
-      return res.status(404).send("User not found");
-    }
+//     if (!user) {
+//       console.log("User not found");
+//       return res.status(404).send("User not found");
+//     }
 
-    res.render("fav", { user: user, favorites: user.fav || [] });
-  } catch (error) {
-    console.error("Error fetching user favorites:", error);
-    res.status(500).send("Error fetching user favorites");
-  }
-});
+//     res.render("fav", { user: user, favorites: user.fav || [] });
+//   } catch (error) {
+//     console.error("Error fetching user favorites:", error);
+//     res.status(500).send("Error fetching user favorites");
+//   }
+// });
 
 app.get('/search', async (req, res) => {
   try {
@@ -133,21 +133,21 @@ app.get('/locaties', async function(req, res){
   res.render('pages/locaties' /*, { dataString: dataString }*/)
 });
 
-app.get('/gids', async (req, res) => {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const destinationsCollection = database.collection("destinations");
+// app.get('/gids', async (req, res) => {
+//   try {
+//     const database = client.db(process.env.DB_NAME);
+//     const destinationsCollection = database.collection("destinations");
 
-    const destinations = await destinationsCollection.find().toArray();
+//     const destinations = await destinationsCollection.find().toArray();
 
-    console.log(destinations);
+//     console.log(destinations);
 
-    res.render('pages/gids', { destinations });
-  } catch (error) {
-    console.error("Error fetching destinations:", error);
-    res.status(500).send("Error fetching destinations");
-  }
-});
+//     res.render('pages/gids', { destinations });
+//   } catch (error) {
+//     console.error("Error fetching destinations:", error);
+//     res.status(500).send("Error fetching destinations");
+//   }
+// });
 
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
@@ -448,7 +448,6 @@ app.post("/friendrequest", valiadateCookie, async (req, res) => {
       { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } }
     );
 
-    res.json({ message: "Friend request sent successfully" });
   } catch (error) {
     console.error("Error sending friend request:", error);
     res.status(500).json({ message: "Error sending friend request" });
@@ -481,8 +480,6 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
         { $pull: { friendRequests: new ObjectId(requesterId) } }
       );
     }
-
-    res.json({ message: `Friend request ${action}ed successfully` });
   } catch (error) {
     console.error("Error responding to friend request:", error);
     res.status(500).json({ message: "Error responding to friend request" });
@@ -512,86 +509,28 @@ app.get("/friends", valiadateCookie, async (req, res) => {
   }
 });
 
-app.post("/delete-account", valiadateCookie, async (req, res) => {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const usersCollection = database.collection("users");
+// // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
+// const encryptWithSecretKey = (text) => {
+//   const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
 
-    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+//   // Generate a random Initialization Vector (IV) for security
+//   const iv = CryptoJS.lib.WordArray.random(16);
 
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("Error destroying session:", err);
-        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
-      }
+//   // Encrypt the text using AES with CBC mode and the secret key
+//   const encrypted = CryptoJS.AES.encrypt(
+//     text,
+//     CryptoJS.enc.Hex.parse(secretKey),
+//     {
+//       iv: iv,
+//       padding: CryptoJS.pad.Pkcs7,
+//       mode: CryptoJS.mode.CBC,
+//     }
+//   );
 
-      res.send("Je account is succesvol verwijderd.");
-    });
-  } catch (error) {
-    console.error("Error deleting account:", error);
-    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
-  }
-});
+//   // Concatenate IV and ciphertext and encode in Base64 format
+//   const encryptedBase64 = CryptoJS.enc.Base64.stringify(
+//     iv.concat(encrypted.ciphertext)
+//   );
 
-app.post("/change-password", valiadateCookie, async (req, res) => {
-  try {
-    const { currentPassword, newPassword, confirmPassword } = req.body;
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
-    }
-
-    const database = client.db(process.env.DB_NAME);
-    const usersCollection = database.collection("users");
-
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
-
-    if (!user) {
-      return res.status(404).send("Gebruiker niet gevonden.");
-    }
-
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) {
-      return res.status(401).send("Huidig wachtwoord is onjuist.");
-    }
-
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-
-    await usersCollection.updateOne(
-      { _id: new ObjectId(req.session.user._id) },
-      { $set: { password: hashedPassword } }
-    );
-
-    res.send("Wachtwoord succesvol gewijzigd.");
-  } catch (error) {
-    console.error("Error changing password:", error);
-    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
-  }
-});
-
-// https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
-const encryptWithSecretKey = (text) => {
-  const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
-
-  // Generate a random Initialization Vector (IV) for security
-  const iv = CryptoJS.lib.WordArray.random(16);
-
-  // Encrypt the text using AES with CBC mode and the secret key
-  const encrypted = CryptoJS.AES.encrypt(
-    text,
-    CryptoJS.enc.Hex.parse(secretKey),
-    {
-      iv: iv,
-      padding: CryptoJS.pad.Pkcs7,
-      mode: CryptoJS.mode.CBC,
-    }
-  );
-
-  // Concatenate IV and ciphertext and encode in Base64 format
-  const encryptedBase64 = CryptoJS.enc.Base64.stringify(
-    iv.concat(encrypted.ciphertext)
-  );
-
-  return encryptedBase64;
-};
+//   return encryptedBase64;
+// };
