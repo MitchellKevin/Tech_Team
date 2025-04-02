@@ -1708,6 +1708,7 @@ button:hover{
     }
 }
 
+/* details pagina */
 .content {
     display: flex;
     align-items: center;
@@ -1729,13 +1730,13 @@ button:hover{
     max-width: 50%;
 }
 
-.intro h1 {
-   color: var(--color-brightblue);
+h1 {
+   color: var(--color-darkblue);
     /* Juiste blauwe kleur */
     font-size: 2.2em;
 }
 
-.intro h2 {
+h2 {
     font-size: 1.2em;
     color: #555;
 }
@@ -1754,7 +1755,7 @@ button:hover{
     max-width: 500px;
     /* Zorgt dat de afbeelding niet te groot wordt */
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.521vw;
 }
 
 /* Categorieën */
@@ -1763,7 +1764,7 @@ button:hover{
     gap: 400px;
     /* Grote afstand tussen categorieën op desktop */
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1.042vw;
 }
 
 .categories a {
@@ -1771,21 +1772,23 @@ button:hover{
     font-size: 1.2em;
     color: black;
     font-weight: bold;
-    padding-bottom: 5px;
+    padding-bottom: 0.26vw;
     transition: 0.3s;
 }
 
 .categories a.active,
 .categories a:hover {
-    color: #485EA1;
+    color:var(--color-darkblue);
     /* Blauwe kleur */
-    border-bottom: 1px solid #485EA1;
+    border-bottom: 0.052vw
+
+    solid #485EA1;
 }
 
 /* Filter opties */
 .filters {
     display: flex;
-    gap: 15px;
+    gap: 0.781vw;
     justify-content: center;
     margin-top: 20px;
 }
@@ -1795,8 +1798,8 @@ button:hover{
     /* Blauwe kleur */
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 0.521vw 0.781vw;
+    border-radius: 0.26vw;
     cursor: pointer;
     font-size: 1em;
 }
@@ -1811,11 +1814,11 @@ button:hover{
     background-color: #485EA1;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding:  0.521vw 0.781vw;
+    border-radius: 0.26vw;
     cursor: pointer;
     font-size: 1em;
-    margin-top: 10px;
+    margin-top: 0.521vw;
 }
 
 .favorite:hover {
@@ -1871,9 +1874,10 @@ button:hover{
     background-color: #485EA1;
 }
 
-.intro button {
+button {
     margin-top: 10px;
 }
+
 
 
 
@@ -1881,53 +1885,77 @@ button:hover{
 
 .quiz h1 {
 
-    margin-top: 20px;
-    font-size: 40px;
+    margin-top: 1.042vw;
+    font-size: var(--size-6xl);
     text-align: center;
+    color: #485EA1;
+}
+
+.vraag-teller {
+    font-size: 0.9rem; /* Kleinere tekst */
+    color: gray; /* Grijs maken zoals in jouw afbeelding */
+    margin-bottom: 5px;
 }
 
 .vraag {
     display: none;
     align-items: center;
+    transition: opacity 0.3s ease-in-out;
 
 }
 
 .vraag.actief {
     display: block;
     align-items: center;
+    opacity: 1;
 }
 
 #vragenlijst {
     background-color: white;
-    width: 50%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 60vw;
     margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
+    padding: 1.042vw;
+    border-radius: 0.521vw;
+    box-shadow: 0vw 0.208vw 0.417vw
 
-label {
-    font-size: 20px;
-    /* text-align: center; */
-    /* deze label moet een class hebben */
-}
-
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
+    rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-button:first-of-type {
+.quiz label {
+     text-align: center;
+    font-size: var(--size-xl);
+    line-height: 2vw;
+}
+
+.vraag label {
+    font-size: var(--size-2xl); /* Maak de vraag groter (1.5rem = 24px) */
+   
+   
+   
+}
+
+.vraag input + label {
+    font-size: var(--size-lg); 
+}
+
+
+.quiz button {
+    padding: 0.521vw 0.781vw;
+    font-size: 0.833vw;
+    border: none;
+    border-radius: 0.26vw;
+    cursor: pointer;
+}
+
+.quiz button:first-of-type {
     background-color: white;
     color: #3b5998;
     border: 2px solid #3b5998;
 }
 
-button:last-of-type {
+.quiz:last-of-type {
     background-color: #3b5998;
     color: white;
 }
@@ -1938,33 +1966,130 @@ button:last-of-type {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 20px auto;
+    margin: 1.042vw auto;
     width: 50%; /* Zorgt dat het niet te lang is */
 }
 
 progress {
     width: 80%; /* Past de lengte aan */
-    height: 15px; /* Maakt de balk compacter */
-    border-radius: 10px;
+    height: 0.781vw; /* Maakt de balk compacter */
+    border-radius: 0.521vw;
     overflow: hidden;
     appearance: none; /* Verwijdert standaardstijl */
 }
 
 progress::-webkit-progress-bar {
     background-color: #B3BEE1; /* Achtergrond */
-    border-radius: 10px;
+    border-radius: 0.521vw;
 }
 
 progress::-webkit-progress-value {
     background-color: #3b5998; /* Kleur van de progress */
-    border-radius: 10px;
+    border-radius: 0.521vw;
 }
 
 progress::-moz-progress-bar {
     background-color: #3b5998;
 }
 
-/* matching persoon  */
+/* 📌 Mobiele telefoons */
+@media (max-width: 768px) {
+    .quiz h1 {
+        font-size: var(--size-4xl);
+        margin-bottom: 7vw;
+        margin-top: 4vw;
+    }
+
+    #vragenlijst {
+        max-width: 90vw;
+        padding: 4vw;
+    }
+
+    label {
+        font-size: var(--size-lg);
+        line-height: 8vw;
+    }
+
+    /* 🔹 Knoppen groter en beter klikbaar */
+    button {
+        font-size: 3vw;  /* Grotere tekst */
+        padding: 1vw 3vw; /* Meer ruimte binnen de knop */
+    }
+
+    .progress-container {
+        width: 90%;
+    }
+
+    progress {
+        height: 2vw;
+    }
+}
+
+.overzicht-container h2 {
+    font-size: var(--size-3xl);
+
+}
 
 
+/* Algemene container */
+.match-container {
+    width: 80vw;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+/* Gebruikersprofiel bovenaan */
+.user-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f8f8f8;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+#user-photo {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+#user-name {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#user-country {
+    font-size: 1rem;
+    color: gray;
+}
+
+/* Matches sectie */
+.matches {
+    width: 100%;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.match-item {
+    list-style: none;
+    padding: 1rem;
+    border-bottom: 0.1rem solid #ddd;
+}
+
+/* Optionele afbeelding */
+.destination-img {
+    width: 100%;
+    max-width: 25rem;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+}

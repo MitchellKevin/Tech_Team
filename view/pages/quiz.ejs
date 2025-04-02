@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>quiz</title>
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
 
     <section class="quiz">
         <h1>Vind jouw match </h1>
@@ -21,6 +26,7 @@
         <form action="#" method="post" id="vragenlijst">
             <!-- Vraag 1 -->
             <div class="vraag actief" id="vraag1-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 1 van 6</p>
                 <label for="vraag1">Hoe lang wil je reizen?</label>
                 <br><br>
                 <div id="vraag1">
@@ -37,6 +43,7 @@
 
             <!-- Vraag 2 -->
             <div class="vraag" id="vraag2-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 2 van 6</p>
                 <label for="vraag2">Wat voor soort reis zoek je?</label>
                 <br><br>
                 <div id="vraag2">
@@ -58,6 +65,7 @@
 
             <!-- Vraag 3 -->
             <div class="vraag" id="vraag3-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 3 van 6</p>
                 <label for="vraag3">Met wie reis je?</label>
                 <br><br>
                 <div id="vraag3">
@@ -77,6 +85,7 @@
 
             <!-- Vraag 4 -->
             <div class="vraag" id="vraag4-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 4 van 6</p>
                 <label for="vraag4">Wat is je budget (per dag)?</label>
                 <br><br>
                 <div id="vraag4">
@@ -92,6 +101,7 @@
 
             <!-- Vraag 5 -->
             <div class="vraag" id="vraag5-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 5 van 6</p>
                 <label for="vraag5">Wat is belangrijker voor je?</label>
                 <br><br>
                 <div id="vraag5">
@@ -108,97 +118,22 @@
 
             </div>
 
+
             <!-- Vraag 6 -->
             <div class="vraag" id="vraag6-container">
-                <label for="vraag6">Wat wil je vooral doen tijdens je reis?</label>
-                <br><br>
-                <div id="vraag6">
-                    <input type="radio" id="vraag6-optie1" name="vraag6" value="Musea & historische plekken bezoeken">
-                    <label for="vraag6-optie1">Musea & historische plekken bezoeken</label><br>
-                    <input type="radio" id="vraag6-optie2" name="vraag6" value="Uitgaan en nieuwe mensen ontmoeten">
-                    <label for="vraag6-optie2">Uitgaan en nieuwe mensen ontmoeten</label><br>
-                    <input type="radio" id="vraag6-optie3" name="vraag6" value="Wandelen & natuur ontdekken">
-                    <label for="vraag6-optie3">Wandelen & natuur ontdekken</label><br>
-                    <input type="radio" id="vraag6-optie4" name="vraag6" value="Lokaal eten & nieuwe smaken proberen">
-                    <label for="vraag6-optie4">Lokaal eten & nieuwe smaken proberen</label><br>
-                    <input type="radio" id="vraag6-optie5" name="vraag6" value="Relaxen aan het strand">
-                    <label for="vraag6-optie5">Relaxen aan het strand</label>
-                </div>
-                <br>
-                <button type="button" onclick="vorigeVraag(6)">⬅️ Terug</button>
-                <button type="button" onclick="volgendeVraag(6)">Volgende vraag</button>
-            </div>
-
-            <!-- Vraag 7 -->
-            <div class="vraag" id="vraag7-container">
-                <label for="vraag7">In welk seizoen wil je reizen?</label>
-                <br><br>
-                <div id="vraag7">
-                    <input type="radio" id="vraag7-optie1" name="vraag7" value="Zomer">
-                    <label for="vraag7-optie1">Zomer</label><br>
-                    <input type="radio" id="vraag7-optie2" name="vraag7" value="Herfst">
-                    <label for="vraag7-optie2">Herfst</label><br>
-                    <input type="radio" id="vraag7-optie3" name="vraag7" value="Winter">
-                    <label for="vraag7-optie3">Winter</label><br>
-                    <input type="radio" id="vraag7-optie4" name="vraag7" value="Lente">
-                    <label for="vraag7-optie4">Lente</label>
-                </div>
-                <br>
-                <button type="button" onclick="vorigeVraag(7)">⬅️ Terug</button>
-                <button type="button" onclick="volgendeVraag(7)">Volgende vraag</button>
-            </div>
-
-            <!-- Vraag 8 -->
-            <div class="vraag" id="vraag8-container">
-                <label for="vraag8">Heb je een voorkeur voor klimaat?</label>
-                <br><br>
-                <div id="vraag8">
-                    <input type="radio" id="vraag8-optie1" name="vraag8" value="Warm en zonnig">
-                    <label for="vraag8-optie1">Warm en zonnig</label><br>
-                    <input type="radio" id="vraag8-optie2" name="vraag8" value="Aangenaam">
-                    <label for="vraag8-optie2">Aangenaam</label><br>
-                    <input type="radio" id="vraag8-optie3" name="vraag8" value="Koud en winters">
-                    <label for="vraag8-optie3">Koud en winters</label><br>
-                    <input type="radio" id="vraag8-optie4" name="vraag8" value="Geen voorkeur">
-                    <label for="vraag8-optie4">Geen voorkeur</label>
-                </div>
-                <br>
-                <button type="button" onclick="vorigeVraag(8)">⬅️ Terug</button>
-                <button type="button" onclick="volgendeVraag(8)">Volgende vraag</button>
-            </div>
-
-            <!-- Vraag 9 -->
-            <div class="vraag" id="vraag9-container">
+                <p class="vraag-teller" id="vraag-teller">Vraag 6 van 6</p>
                 <label for="vraag9">Hoe wil je reizen?</label>
                 <br><br>
                 <div id="vraag9">
-                    <input type="radio" id="vraag9-optie1" name="vraag9" value="Met trein">
+                    <input type="radio" id="vraag6-optie1" name="vraag9" value="Met trein">
                     <label for="vraag9-optie1">Met trein</label><br>
-                    <input type="radio" id="vraag9-optie2" name="vraag9" value="Met vliegtuig">
+                    <input type="radio" id="vraag6-optie2" name="vraag9" value="Met vliegtuig">
                     <label for="vraag9-optie2">Met vliegtuig</label><br>
-                    <input type="radio" id="vraag9-optie3" name="vraag9" value="Met auto">
+                    <input type="radio" id="vraag6-optie3" name="vraag9" value="Met auto">
                     <label for="vraag9-optie3">Met auto</label>
                 </div>
                 <br>
-                <button type="button" onclick="vorigeVraag(9)">⬅️ Terug</button>
-                <button type="button" onclick="volgendeVraag(9)">Volgende vraag</button>
-            </div>
-
-            <!-- Vraag 10 -->
-            <div class="vraag" id="vraag10-container">
-                <label for="vraag10">Vraag 10: [Vul hier je vraag in]</label>
-                <br><br>
-                <div id="vraag10">
-                    <input type="radio" id="vraag10-optie1" name="vraag10" value="Optie 1">
-                    <label for="vraag10-optie1">[Antwoord 1]</label><br>
-                    <input type="radio" id="vraag10-optie2" name="vraag10" value="Optie 2">
-                    <label for="vraag10-optie2">[Antwoord 2]</label><br>
-                    <input type="radio" id="vraag10-optie3" name="vraag10" value="Optie 3">
-                    <label for="vraag10-optie3">[Antwoord 3]</label>
-                </div>
-                <br>
-
-                <button type="button" class="vorige" onclick="vorigeVraag(10)">⬅️ Terug</button>
+                <button type="button" onclick="vorigeVraag(6)">⬅ Terug</button>
                 <button type="button" class="volgende" onclick="toonOverzicht()">Toon overzicht</button>
             </div>
 
@@ -213,7 +148,7 @@
 
         </form>
     </section>
-    <script src="/view/pages/script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

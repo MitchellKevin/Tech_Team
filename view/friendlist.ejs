@@ -3,21 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Potential Matches</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Potential Matches</h1>
-<ul>
-  <% potentialMatches.forEach(match => { %>
-    <li>
-      <strong><%= match.name %></strong> - Favorites: <%= match.fav.join(", ") %>
-      <form action="/friendrequest/respond" method="POST">
-        <input type="hidden" name="requesterId" value="<%= match._id %>">
-        <button type="submit" name="action" value="accept">Accept</button>
-        <button type="submit" name="action" value="reject">Reject</button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+
+  <header>
+    <%- include('../partials/header'); %>
+</header>
+
+    <div class="match-container">
+        <!-- Gebruikersinformatie -->
+        <div class="user-info">
+            <img id="user-photo" src="/images/Frame 70.jpg" alt="Profielfoto">
+            <div>
+                <h3 id="user-name">Kelly</h3>
+                <p id="user-country">🇳🇱 Nederland</p>
+            </div>
+        </div>
+
+        <!-- Matches sectie -->
+        <section class="matches">
+            <h1>Potential Matches</h1>
+            <br>
+            <h2>Friendrequest</h2>
+            <br>
+            <ul>
+                <% potentialMatches.forEach(match => { %>
+                    <li class="match-item">
+                        <strong><%= match.name %></strong> - Favorites: <%= match.fav.join(", ") %>
+                        <form action="/friendrequest/respond" method="POST">
+                            <input type="hidden" name="requesterId" value="<%= match._id %>">
+                            <button type="submit" name="action" value="accept">Accept</button>
+                            <button type="submit" name="action" value="reject">Reject</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+
+        <!-- Optionele afbeelding -->
+        <% if (destination && destination.img) { %>
+            <img class="destination-img" src="<%= destination.img %>" alt="Destination">
+        <% } %>
+    </div>
 </body>
 </html>
