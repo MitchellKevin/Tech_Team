@@ -488,6 +488,7 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
         { $pull: { friendRequests: new ObjectId(requesterId) } }
       );
     }
+    res.redirect("/friends");
   } catch (error) {
     console.error("Error responding to friend request:", error);
     res.status(500).json({ message: "Error responding to friend request" });
