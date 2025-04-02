@@ -141,33 +141,13 @@
 
 
     </main> -->
-
+    
+    <p>API data <%- dataString -%></p>
     <footer>
         <%- include('./partials/footer'); %>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
     <script src="./static/script.js"></script>
-</body>
-</html>
-
-
-<!-- <% if (results.length > 0) { %>
-        <ul>
-            <% results.forEach(result => { %>
-                <li>
-                    <h2><%= result.city %> (<%= result.country %>)</h2>
-                    <p><%= result.description %></p>
-                    <% if (result.img) { %>
-                        <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
-                    <% } %>
-                </li>
-            <% }) %>
-        </ul>
-    <% } else { %>
-        <p>No results found for "<%= query %>".</p>
-    <% } %> -->
-    <% } %>
-    <p>API data <%- dataString -%></p>
 </body>
 </html>
