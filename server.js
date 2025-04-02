@@ -14,6 +14,8 @@ app.use(express.static('static'));
 app.use('/uploads', express.static('uploads'));
 app.use('/static', express.static('static'));
 app.use('/static', express.static('static'));
+app.use('/static', express.static('static'));
+app.use('/static', express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -50,15 +52,23 @@ app.get('/', async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const destinationsCollection = database.collection("destinations");
+    const usersCollection = database.collection("users");
 
     // Haal alle bestemmingen op uit de database
     const destinations = await destinationsCollection.find().toArray();
 
-    // Render de index pagina met de bestemmingen
-    res.render('pages/index', { destinations });
+    // Haal de favorieten van de ingelogde gebruiker op
+    let favorites = [];
+    if (req.session.user) {
+      const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+      favorites = user.fav || [];
+    }
+
+    // Render de index pagina met bestemmingen en favorieten
+    res.render('pages/index', { destinations, favorites });
   } catch (error) {
-    console.error("Error fetching destinations:", error);
-    res.status(500).send("Error fetching destinations");
+    console.error("Error fetching destinations or favorites:", error);
+    res.status(500).send("Error fetching destinations or favorites");
   }
 });
 
@@ -322,52 +332,39 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/fav", valiadateCookie, async (req, res) => {
+app.post('/fav', async (req, res) => {
   try {
+    const { city, checked } = req.body;
+
+    // Controleer of de gebruiker is ingelogd
+    const userId = req.session.user._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Gebruiker niet ingelogd." });
+    }
+
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Vind de huidige gebruiker
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
-
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-
-    const { fav, checked } = req.body;
-    let favs = user.fav || [];
-
     if (checked) {
-      // Voeg toe aan favorieten als het is aangevinkt
-      if (!favs.includes(fav)) {
-        favs.push(fav);
-      }
+      // Voeg de stad toe aan de favorieten
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $addToSet: { fav: city } } // Voorkomt duplicaten
+      );
     } else {
-      // Verwijder uit favorieten als het is uitgevinkt
-      favs = favs.filter(item => item !== fav);
+      // Verwijder de stad uit de favorieten
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $pull: { fav: city } }
+      );
     }
 
-    // Update de favorieten in de database
-    await usersCollection.updateOne(
-      { _id: new ObjectId(req.session.user._id) },
-      { $set: { fav: favs } }
-    );
-
-    // Bereken de nieuwe matches
-    const potentialMatches = await usersCollection
-      .find({
-        _id: { $ne: new ObjectId(req.session.user._id) },
-        fav: { $in: favs }, 
-        friends: { $ne: new ObjectId(req.session.user._id) },
-        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
-      })
-      .project({ name: 1, fav: 1 }) 
-      .toArray();
-
-    res.json({ message: "Favorites updated successfully", favs, potentialMatches });
+    // Haal de bijgewerkte favorieten op
+    const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+    res.json({ favorites: user.fav });
   } catch (error) {
     console.error("Error updating favorites:", error);
-    res.status(500).json({ message: "Error updating favorites" });
+    res.status(500).json({ message: "Er is een fout opgetreden bij het bijwerken van favorieten." });
   }
 });
 

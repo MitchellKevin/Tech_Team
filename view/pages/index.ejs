@@ -177,12 +177,15 @@
                   <div class="V3cityCardImage">
                     <img src="<%= destination.img %>" alt="<%= destination.city %>">
                     <label class="heart" for="fav-<%= destination._id %>">
-                      <input type="checkbox" id="fav-<%= destination._id %>" name="fav" value="<%= destination.city %>">
+                      <input 
+                        type="checkbox" 
+                        id="fav-<%= destination._id %>" 
+                        name="fav" 
+                        value="<%= destination.city %>" 
+                        <%= favorites.includes(destination.city) ? "checked" : "" %>
+                      >
                       <img src="../static/images/heart.svg" alt="Heart">
                     </label>
-                    <button class="heartFill">
-                      <img src="../static/images/heartfil.svg" alt="Heart Filled">
-                    </button>
                   </div>
                   <div class="V3cityCardInfo">
                     <div class="V3cityCardTitle">
@@ -199,6 +202,32 @@
         </div>
     </section>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+          checkbox.addEventListener('change', (event) => {
+            const city = event.target.value; // Waarde van de checkbox (stad)
+            const checked = event.target.checked; // Of de checkbox is aangevinkt
+
+            // Stuur een POST-verzoek naar de server
+            fetch('/fav', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ city, checked })
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Favorites updated:', data);
+            })
+            .catch((error) => {
+              console.error('Error updating favorites:', error);
+            });
+          });
+        });
+      });
+    </script>
     
     <footer>
         <%- include('../partials/footer'); %>
