@@ -1,0 +1,86 @@
+<li>
+    <article class="V3cityCard">
+        <div class="V3cityCardImage">
+            <% if (result.img) { %>
+            <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
+            <% } %>
+    
+    
+            <label class="heart" for="fav-rome">
+                <input type="checkbox">
+                <img src="../static/images/heart.svg" alt="">
+            </label>
+    
+            <!-- <label class="heartcontainer">
+                <input class="heart" type="checkbox" >
+                <span class="checkmark"></span>
+                <img src="../static/images/heart.svg" alt="">
+            </label> -->
+    
+            <label class="heart">
+                <input type="checkbox">
+                <img src="../static/images/heart.svg" alt="">
+            </label>
+    
+            <button class="heartFill">
+                <img src="../static/images/heartfil.svg" alt="">
+            </button>
+    
+            <div class="V3cityCardButton">
+                <button class="cityButton2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                </button>
+    
+                <img src="../static/images/buttonBackground4.svg" alt="">
+            </div>                  
+        </div>
+    
+        <div class="V3cityCardInfo">
+            <div class="V3cityCardTitle">
+                <h3 class="name"><%= result.city %> (<%= result.country %>)</h3>
+    
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                    <p>4.5</p>
+                </div>
+            </div>
+    
+            <p><%= result.description %></p>
+        </div>
+    </article>
+</li>
+
+
+
+<!-- <div class="V2cityCard">
+                <div>
+                    <img src="../static/images/rome.png" alt="">
+
+                    <button class="cityButton2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="whiteBorder1">
+                </div>
+                <div class="whiteBorder2">
+                </div>
+
+                <div class="cityDetails">
+                    <h3>
+                        Rome
+                    </h3>
+
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="m305-704 112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Z"/></svg>
+                        <p>4.5</p>
+                    </div>
+                </div>
+                
+                <p>
+                    Rome, de hoofdstad van Italië, is een stad vol geschiedenis...
+                </p>
+            </div> -->

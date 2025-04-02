@@ -20,8 +20,6 @@
             <p>zoekresultaat:</p>
             <h1>"<%= query %>"</h1>
         </div>
-
-
     </section>
 
     <%- include('./partials/searchBar'); %>
@@ -29,29 +27,31 @@
     <section id="theList" class="searchResult">
         <div class="sorteren">
             <button class="sort" data-sort="name" data-default-order='asc'>naam</button>
+
+            <div class="filtering">
+                <div>
+                    <input type="radio" name="filter" value="all" id="filter-all" checked>
+                    <label for="filter-all">alles</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="food" id="filter-food">
+                    <label for="filter-people">food</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="cultural" id="filter-cultural">
+                    <label for="filter-cultural">cultural</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="historical" id="filter-historical">
+                    <label for="filter-historical">historical</label>
+                </div>
+            </div>
         </div>
 
-        <div>
-            <div>
-                <input type="radio" name="filter" value="all" id="filter-all" checked>
-                <label for="filter-all">alles</label>
-            </div>
 
-            <div>
-                <input type="radio" name="filter" value="food" id="filter-food">
-                <label for="filter-people">food</label>
-            </div>
-
-            <div>
-                <input type="radio" name="filter" value="cultural" id="filter-cultural">
-                <label for="filter-cultural">cultural</label>
-            </div>
-
-            <div>
-                <input type="radio" name="filter" value="historical" id="filter-historical">
-                <label for="filter-historical">historical</label>
-            </div>
-        </div>
           
         <div class="searchResultdiv">
             <% if (results.length > 0) { %>
@@ -64,6 +64,7 @@
                             <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
                             <% } %>
                         </li>
+                        
                             <% }) %>
                 </ul>
                 
