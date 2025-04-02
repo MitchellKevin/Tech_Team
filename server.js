@@ -13,9 +13,6 @@ const port = 8000;
 app.use(express.static('static'));
 app.use('/uploads', express.static('uploads'));
 app.use('/static', express.static('static'));
-app.use('/static', express.static('static'));
-app.use('/static', express.static('static'));
-app.use('/static', express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -337,11 +334,11 @@ app.post('/fav', async (req, res) => {
     const { city, checked } = req.body;
 
     // Controleer of de gebruiker is ingelogd
-    const userId = req.session.user._id;
-    if (!userId) {
-      return res.status(401).json({ message: "Gebruiker niet ingelogd." });
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Je moet ingelogd zijn om een stad te liken." });
     }
 
+    const userId = req.session.user._id;
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
