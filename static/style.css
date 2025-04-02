@@ -646,34 +646,21 @@ div#searchdiv{
 
 
 /* V3citycard */
-.V3cityCard {
-    display: flex;
+.V3cityCard{
+    display: flex;    
     flex-direction: column;
-    gap: 0.5rem;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--color-brightblue);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    min-width: 50vw;
+    gap: 0.2em;
+    border-radius: 5px;
 }
 
-.V3cityCardImage img {
-    width: 100%;
-    height: auto;
+.V3cityCard img {
     object-fit: cover;
-}
-
-.V3cityCardInfo {
-    padding: 1rem;
-}
-
-.V3cityCardTitle h3 {
-    font-size: 1.25rem;
-    color: var(--color-darkblue);
-}
-
-.V3cityCardTitle p {
-    font-size: 1rem;
-    color: var(--color-gray);
+    width: 100%;
+    height: 100%;
+    object-position: center center;
+    border-radius: 12px;
 }
 
 .V3cityCardButton img{
@@ -682,6 +669,7 @@ div#searchdiv{
 
 .V3cityCardImage{
     position: relative;
+    height: 40vh;
 }
 
 .V3cityCardButton{
@@ -694,7 +682,7 @@ div#searchdiv{
 
 .V3cityCardTitle{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .V3cityCardTitle div{
@@ -707,8 +695,12 @@ div#searchdiv{
     font-weight: 400;
 }
 
-.V3cityCardTitle p{
+.V3cityCardTitle h3{
     font-weight: 800;
+}
+
+.V3cityCardTitle p:nth-child(2){
+    font-weight:normal;
 }
 
 .heart{
@@ -717,6 +709,10 @@ div#searchdiv{
     right: 0;
     padding: var(--size-xs);
     background-color: transparent;
+}
+
+.heart:hover{
+    cursor: pointer;
 }
 
 input[type="checkbox"]{
