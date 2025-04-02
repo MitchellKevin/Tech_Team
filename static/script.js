@@ -146,3 +146,30 @@ function handleKeydown(event) {
 }
 
 console.log ("hoi");
+
+// sorteren
+var options = {
+  valueNames: [ 'name' ]
+};
+
+var charactersList = new List('theList', options);
+charactersList.sort('name', { order: "asc" });
+
+// filteren
+var optionAll = document.querySelector("#filter-all");
+var optionFood = document.querySelector("#filter-food");
+var optionCultural = document.querySelector("#filter-cultural");
+var optionHistory = document.querySelector("#filter-history");
+
+optionAll.addEventListener("change", filterList);
+optionFood.addEventListener("change", filterList);
+optionCultural.addEventListener("change", filterList);
+optionHistory.addEventListener("change", filterList);
+
+
+function filterList(event){
+  let deLijst = document.querySelector(".seachResultdiv ul");
+  let nieuweFilter = event.target.value;
+  deLijst.className = "";
+  deLijst.classList.add(nieuweFilter);
+}

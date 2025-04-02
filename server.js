@@ -127,6 +127,16 @@ app.get('/details', function(req, res) {
   res.render('pages/matchpersoon.ejs');
 });
 
+
+
+app.get("/dashboardSettings", (req, res) => {
+  if (!req.session.user) {
+    return res.render("pages/logIn")
+  } else {
+    res.render('dashboardSettings', { user: req.session.user });
+  }
+});
+
 app.get('/locaties', async function(req, res){
   //const cityData = await fetchdbdata(results);
   //const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept

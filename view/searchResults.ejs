@@ -1,14 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <%- include('./partials/head'); %>
 </head>
-<body>
-    <h1>Search Results for "<%= query %>"</h1>
 
-    <% if (results.length > 0) { %>
+<body class="searchBody container">
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+
+    
+    <section class="searchResultImg">
+        <img src="../static/images/amsterdam.png" alt="">
+
+        <div class="gradientOverlay2">
+        </div>
+
+        <div>
+            <p>zoekresultaat:</p>
+            <h1>"<%= query %>"</h1>
+        </div>
+    </section>
+
+    <%- include('./partials/searchBar'); %>
+    
+    <section id="theList" class="searchResult">
+        <div class="sorteren">
+            <button class="sort" data-sort="name" data-default-order='asc'>naam</button>
+
+            <div class="filtering">
+                <div>
+                    <input type="radio" name="filter" value="all" id="filter-all" checked>
+                    <label for="filter-all">alles</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="food" id="filter-food">
+                    <label for="filter-people">food</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="cultural" id="filter-cultural">
+                    <label for="filter-cultural">cultural</label>
+                </div>
+    
+                <div>
+                    <input type="radio" name="filter" value="historical" id="filter-historical">
+                    <label for="filter-historical">historical</label>
+                </div>
+            </div>
+        </div>
+
+
+          
+        <div>
+            <% if (results.length > 0) { %>
+                <ul class="searchResultdiv list all">
+                    <% results.forEach(result => { %>
+                        <!-- <li>
+                            <h2 class="name"><%= result.city %> (<%= result.country %>)</h2>
+                            <p><%= result.description %></p>
+                            <% if (result.img) { %>
+                            <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
+                            <% } %>
+                        </li> -->
+
+                        <li>
+                            <article class="V3cityCard">
+                                <div class="V3cityCardImage">
+                                    <% if (result.img) { %>
+                                    <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
+                                    <% } %>
+                            
+                            
+                                    <label class="heart" for="fav-rome">
+                                        <input type="checkbox">
+                                        <img src="../static/images/heart.svg" alt="">
+                                    </label>
+                            
+                                    <label class="heart">
+                                        <input type="checkbox">
+                                        <img src="../static/images/heart.svg" alt="">
+                                    </label>
+                            
+                                    <button class="heartFill">
+                                        <img src="../static/images/heartfil.svg" alt="">
+                                    </button>
+                            
+                                    <div class="V3cityCardButton">
+                                        <button class="cityButton2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                            </svg>
+                                        </button>
+                            
+                                        <img src="../static/images/buttonBackground4.svg" alt="">
+                                    </div>                  
+                                </div>
+                            
+                                <div class="V3cityCardInfo">
+                                    <div class="V3cityCardTitle">
+                                        <h3 class="name"><%= result.city %> (<%= result.country %>)</h3>
+                            
+                                    </div>
+                            
+                                    <p><%= result.description %></p>
+                                </div>
+                            </article>
+                        </li>
+                        
+                            <% }) %>
+                </ul>
+                
+                    <% } else { %>
+                        <p>No results found for "<%= query %>".</p>
+                    <% } %>
+        </div>
+    </section>
+
+    <!-- <main id="theList">
+        <aside>sorteer op: 
+          <button class="sort" data-sort="name" data-default-order='asc'>naam</button>
+        </aside>
+        <% if (results.length > 0) { %>
+        <ul class="list">
+            <% results.forEach(result => { %>
+                <li>
+                    <h2 class="name"><%= result.city %> (<%= result.country %>)</h2>
+                    <p><%= result.description %></p>
+                    <% if (result.img) { %>
+                    <img src="<%= result.img %>" alt="<%= result.city %>" style="max-width: 300px;">
+                    <% } %>
+                </li>
+                    <% }) %>
+        </ul>
+        
+            <% } else { %>
+                <p>No results found for "<%= query %>".</p>
+            <% } %>
+
+
+    </main> -->
+
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+    <script src="./static/script.js"></script>
+</body>
+</html>
+
+
+<!-- <% if (results.length > 0) { %>
         <ul>
             <% results.forEach(result => { %>
                 <li>
@@ -22,6 +166,7 @@
         </ul>
     <% } else { %>
         <p>No results found for "<%= query %>".</p>
+    <% } %> -->
     <% } %>
     <p>API data <%- dataString -%></p>
 </body>

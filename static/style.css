@@ -180,6 +180,12 @@ nav img{
 	background-color: var(--color-bg);
 }
 
+.searchBar form{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 
 .search::placeholder{
     color:#485EA1 ;
@@ -637,7 +643,6 @@ div#searchdiv{
     gap: var(--size-sm);
     overflow: scroll;
     width: 100%;
-    /* overflow-x: hidden; */
 }
 
 .cardScroll::-webkit-scrollbar{
@@ -860,6 +865,10 @@ input[type=checkbox] {
 
 .searchBody div#searchdiv {
     padding: 0 var(--size-lg) var(--size-2xl) var(--size-lg);
+}
+
+.searchBody .V3cityCardImage {
+    height: 25vh;
 }
 
 /* login styling */
@@ -1087,6 +1096,134 @@ button.ActiveButton{
     background-color: var(--color-darkblue);
 }
 
+.dashboardDiv a{
+    text-decoration: none;
+}
+
+.accountInfo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-base);
+    margin-top: var(--size-xxs);
+}
+
+.wachtwoordWijzigen{
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xs);
+}
+
+.wachtwoordWijzigen div{
+    margin-top: 0.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    font-weight: 600;
+}
+
+.dashboard input{
+    width: fit-content;
+
+    border: none;
+    background-color: #F7F7F9;
+    padding: var(--size-xs);
+    border-radius: 8px;
+    
+    margin: var(--size-xxs) 0;
+    padding: var(--size-xs) var(--size-lg);
+}
+
+.wachtwoordWijzigen div input {
+    width: 100%;
+    outline: 1px solid #CFCFCF;
+}
+
+input.deleteButton{
+    width: fit-content;
+
+    border: none;
+    background-color: #F95B5B;
+    /* padding: var(--size-xs); */
+    border-radius: 8px;
+
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+input.inputbutton{
+    background-color: var(--color-darkblue);
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+input.wachtwoordWijzigen:focus{
+    outline: 1px solid var(--color-darkblue);
+}
+
+.accountname{
+    margin: var(--size-xxs) 0;
+    padding: var(--size-xs) var(--size-lg);
+    outline: 1px solid #CFCFCF;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.dashboard{
+    margin-bottom: var(--size-7xl);
+}
+
+/* sorting */
+button.sort.asc,
+button.sort.desc {
+  font-weight:bold;
+}
+
+button.sort.asc::after {
+  content: "(az↓)";
+  padding-left: .25em;
+  font-weight:normal;
+}
+
+button.sort.desc::after {
+  content: "(za↓)";
+  padding-left: .25em;
+  font-weight:normal;
+} 
+
+/* filter */
+ul.food li:not(.food) {
+    display:none;
+}
+  
+  ul.cultural li:not(.cultural) {
+    display:none;
+}
+  
+  ul.historical li:not(.historical) {
+    display:none;
+}
+
+.filtering{
+    display: flex;
+    gap: var(--size-base);
+}
+
+.sorteren{
+    display: flex;
+    align-items: center;
+    gap: var(--size-base);
+    flex-wrap: wrap;
+}
+
+#theList{
+    width: 100%;
+}
+
+.searchResultdiv{
+    margin: var(--size-2xl) 0 0 0;
+    padding: 0;
+}
+
 
 /* MEDIA QUERIES .container{} */
 
@@ -1287,6 +1424,15 @@ button.ActiveButton{
         padding-top: var(--size-base);
     }
 
+
+    .searchBody .V3cityCardImage {
+        height: 35vh;
+    }
+
+    .searchResultdiv .V3cityCard{
+        max-width: 28vw;
+    }
+
 }
 
 /* lg */
@@ -1436,6 +1582,17 @@ button.ActiveButton{
         padding-top: var(--size-base);
     }
 
+    .wachtwoordWijzigen div input, .accountInfo{
+        width: 30vw;
+    } 
+
+    .searchBody .V3cityCardImage {
+        height: 38vh;
+    }
+
+    .searchResultdiv .V3cityCard{
+        max-width: 20vw;
+    }
 
 }
 
@@ -1451,7 +1608,9 @@ button.ActiveButton{
         height: 92vh;
     }
 
-
+    .searchBody .V3cityCardImage {
+        height: 45vh;
+    }
 }
 
 /* 2xl */
@@ -1474,7 +1633,7 @@ button.ActiveButton{
 	
 
 	h3{
-		font-size: 1.953vw;
+		font-size: 1.7vw;
 	}
 	
 
@@ -1686,12 +1845,14 @@ button.ActiveButton{
 }
 
 button:hover{
-	background-color: var(--color-lightblue);
 	animation-name: scaling-hover-button-normal;
 	animation-duration: 0.6s;
 	animation-fill-mode: forwards;
+}
 
-	cursor: pointer;
+button:hover{
+    background-color: var(--color-lightblue);
+    cursor: pointer;
 }
 
 .heart:hover, .heartFill:hover{

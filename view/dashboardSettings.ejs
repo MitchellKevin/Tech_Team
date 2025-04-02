@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body class="dashboardbody container">
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+
+    <h1>Account</h1>
+
+    <section class="dashboard">
+
+        <div class="profileDiv">
+            <div class="profileImage">
+                <img src="./static/images/profiel.png" alt="">
+            </div>
+            <div>
+                <h2><%= user.name %></h2>
+                <p>Nederland</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="accountInfo">
+            <div>
+                <h3>
+                Accountgegevens
+                </h3>
+                <p><strong>Username</strong></p>
+                <p class="accountname"><%= user.name %></p>
+
+                <p><strong>Nummer</strong></p>
+                <p class="accountname">06 00000000</p>
+
+            </div>
+            
+            <div>
+                <!-- Wachtwoord wijzigen formulier -->
+                <h3>Wachtwoord wijzigen</h3>
+
+                <form class="wachtwoordWijzigen" action="/change-password" method="post">
+                    <div>
+                        <label for="currentPassword">Huidig Wachtwoord</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required placeholder="huidig wachtwoord">
+                    </div>
+                
+                    <div>
+                        <label for="newPassword">Nieuw Wachtwoord</label>
+                        <input type="password" id="newPassword" name="newPassword" required placeholder="nieuw wachtwoord">
+                    </div>
+
+                    <div>
+                        <label for="confirmPassword">Bevestig Nieuw Wachtwoord</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="herhaal nieuw wachtwoord">
+                    </div>
+
+                    
+                    <input class="inputbutton" type="submit" value="Wijzig Wachtwoord">
+                </form>
+            </div>
+        </div>
+
+        <!-- Verwijder account formulier -->
+        <form action="/delete-account" method="post" onsubmit="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')">
+            <input class="deleteButton" type="submit" value="Verwijder Account">
+        </form>
+
+    </section>
+    
+    
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
