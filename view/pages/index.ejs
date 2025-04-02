@@ -223,11 +223,10 @@
       document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
           checkbox.addEventListener('change', async (event) => {
-            const city = event.target.value; // Waarde van de checkbox (stad)
-            const checked = event.target.checked; // Of de checkbox is aangevinkt
+            const city = event.target.value; 
+            const checked = event.target.checked; 
 
             try {
-              // Stuur een POST-verzoek naar de server
               const response = await fetch('/fav', {
                 method: 'POST',
                 headers: {
@@ -237,7 +236,6 @@
               });
 
               if (!response.ok) {
-                // Als de status 401 is, toon een melding
                 if (response.status === 401) {
                   alert("Je moet ingelogd zijn om een stad te liken.");
                 }
@@ -247,11 +245,9 @@
               const data = await response.json();
               console.log('Favorites updated:', data);
 
-              // Optioneel: Update de UI als nodig
             } catch (error) {
               console.error('Error updating favorites:', error);
 
-              // Reset de checkbox naar de vorige staat als er een fout is
               event.target.checked = !checked;
             }
           });

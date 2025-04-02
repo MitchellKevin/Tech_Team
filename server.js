@@ -51,17 +51,14 @@ app.get('/', async (req, res) => {
     const destinationsCollection = database.collection("destinations");
     const usersCollection = database.collection("users");
 
-    // Haal alle bestemmingen op uit de database
     const destinations = await destinationsCollection.find().toArray();
 
-    // Haal de favorieten van de ingelogde gebruiker op
     let favorites = [];
     if (req.session.user) {
       const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
       favorites = user.fav || [];
     }
 
-    // Render de index pagina met bestemmingen en favorieten
     res.render('pages/index', { destinations, favorites });
   } catch (error) {
     console.error("Error fetching destinations or favorites:", error);
@@ -74,7 +71,6 @@ app.get('/fav', valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Retrieve the logged-in user's data
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
 
     if (!user) {
@@ -82,7 +78,6 @@ app.get('/fav', valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Pass the user's favorites to the template
     res.render("fav", { user: user, favorites: user.fav || [] });
   } catch (error) {
     console.error("Error fetching user favorites:", error);
@@ -120,7 +115,7 @@ app.get('/searchResult', function(req, res) {
 });
 
 app.get('/quiz', function(req,res){
-  res.render('pages/quiz.ejs');// dotenv
+  res.render('pages/quiz.ejs');
 });
 
 app.get('/details', function(req, res) {
@@ -142,13 +137,10 @@ app.get('/gids', async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const destinationsCollection = database.collection("destinations");
 
-    // Haal alle bestemmingen op uit de database
     const destinations = await destinationsCollection.find().toArray();
 
-    // Log de data om te controleren
     console.log(destinations);
 
-    // Render de gids pagina met de bestemmingen
     res.render('pages/gids', { destinations });
   } catch (error) {
     console.error("Error fetching destinations:", error);
@@ -306,8 +298,6 @@ app.post("/login", async (req, res) => {
       console.log("User not found");
       return res.status(404).send("User not found");
     }
-
-    // Vergelijk het ingevoerde wachtwoord met de opgeslagen hash
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     if (isMatch) {
@@ -333,7 +323,6 @@ app.post('/fav', async (req, res) => {
   try {
     const { city, checked } = req.body;
 
-    // Controleer of de gebruiker is ingelogd
     if (!req.session.user) {
       return res.status(401).json({ message: "Je moet ingelogd zijn om een stad te liken." });
     }
@@ -343,20 +332,17 @@ app.post('/fav', async (req, res) => {
     const usersCollection = database.collection("users");
 
     if (checked) {
-      // Voeg de stad toe aan de favorieten
       await usersCollection.updateOne(
         { _id: new ObjectId(userId) },
-        { $addToSet: { fav: city } } // Voorkomt duplicaten
+        { $addToSet: { fav: city } } 
       );
     } else {
-      // Verwijder de stad uit de favorieten
       await usersCollection.updateOne(
         { _id: new ObjectId(userId) },
         { $pull: { fav: city } }
       );
     }
 
-    // Haal de bijgewerkte favorieten op
     const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
     res.json({ favorites: user.fav });
   } catch (error) {
@@ -376,7 +362,6 @@ app.post("/fav/users", valiadateCookie, async (req, res) => {
       return res.status(400).json({ message: "No favorites provided" });
     }
 
-    // Find users who have all the selected favorites
     const usersWithFavorites = await usersCollection
       .find({ fav: { $all: favs } }) 
       .project({ name: 1, _id: 0 }) 
@@ -431,7 +416,6 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Zoek gebruikers met dezelfde locatievoorkeuren, exclusief de huidige gebruiker
     const potentialMatches = await usersCollection
       .find({
         _id: { $ne: new ObjectId(req.session.user._id) },
@@ -456,7 +440,6 @@ app.post("/friendrequest", valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Voeg de huidige gebruiker toe aan de friendRequests van de target user
     await usersCollection.updateOne(
       { _id: new ObjectId(targetUserId) },
       { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } }
@@ -477,7 +460,6 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
     const usersCollection = database.collection("users");
 
     if (action === "accept") {
-      // Voeg de requester toe aan de vriendenlijst
       await usersCollection.updateOne(
         { _id: new ObjectId(req.session.user._id) },
         {
@@ -486,13 +468,11 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
         }
       );
 
-      // Voeg de huidige gebruiker toe aan de vriendenlijst van de requester
       await usersCollection.updateOne(
         { _id: new ObjectId(requesterId) },
         { $addToSet: { friends: new ObjectId(req.session.user._id) } }
       );
     } else if (action === "reject") {
-      // Verwijder de requester uit de friendRequests
       await usersCollection.updateOne(
         { _id: new ObjectId(req.session.user._id) },
         { $pull: { friendRequests: new ObjectId(requesterId) } }
@@ -517,7 +497,6 @@ app.get("/friends", valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Haal de vrienden op
     const friends = await usersCollection
       .find({ _id: { $in: user.friends } })
       .project({ name: 1 })
@@ -535,17 +514,14 @@ app.post("/delete-account", valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Verwijder de gebruiker uit de database
     await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
 
-    // Vernietig de sessie
     req.session.destroy((err) => {
       if (err) {
         console.error("Error destroying session:", err);
         return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
       }
 
-      // Stuur een bevestiging naar de gebruiker
       res.send("Je account is succesvol verwijderd.");
     });
   } catch (error) {
@@ -565,24 +541,20 @@ app.post("/change-password", valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Vind de huidige gebruiker
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
 
     if (!user) {
       return res.status(404).send("Gebruiker niet gevonden.");
     }
 
-    // Controleer of het huidige wachtwoord correct is
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return res.status(401).send("Huidig wachtwoord is onjuist.");
     }
 
-    // Hash het nieuwe wachtwoord
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-    // Update het wachtwoord in de database
     await usersCollection.updateOne(
       { _id: new ObjectId(req.session.user._id) },
       { $set: { password: hashedPassword } }
