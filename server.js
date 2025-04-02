@@ -94,7 +94,7 @@ app.get('/search', async (req, res) => {
     const results = await destinationsCollection
       .find({ city: { $regex: query, $options: "i" } })
       .toArray();
-        const cityData = await fetchdbdata(results[0].city);
+        const cityData = await fetchdbdata(results[0].city);//zoek naar results en de city naam in de database
         const dataString = await travelguideapi(cityData.city); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
     res.render("searchResults", { dataString: dataString , query, results });
   } catch (error) {
@@ -138,9 +138,7 @@ app.get("/dashboardSettings", (req, res) => {
 });
 
 app.get('/locaties', async function(req, res){
-  //const cityData = await fetchdbdata(results);
-  //const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
-  res.render('pages/locaties' /*, { dataString: dataString }*/)
+  res.render('pages/locaties')
 });
 
 // app.get('/gids', async (req, res) => {
