@@ -646,21 +646,33 @@ div#searchdiv{
 
 
 /* V3citycard */
-.V3cityCard{
-    display: flex;    
+.V3cityCard {
+    display: flex;
     flex-direction: column;
-    
-    min-width: 50vw;
-    gap: 0.2em;
-    border-radius: 5px;
+    gap: 0.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.V3cityCard img {
-    object-fit: cover;
+.V3cityCardImage img {
     width: 100%;
-    height: 100%;
-    object-position: center center;
-    border-radius: 12px;
+    height: auto;
+    object-fit: cover;
+}
+
+.V3cityCardInfo {
+    padding: 1rem;
+}
+
+.V3cityCardTitle h3 {
+    font-size: 1.25rem;
+    color: var(--color-darkblue);
+}
+
+.V3cityCardTitle p {
+    font-size: 1rem;
+    color: var(--color-gray);
 }
 
 .V3cityCardButton img{

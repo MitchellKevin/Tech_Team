@@ -171,17 +171,33 @@
     <section class="gids">
         <h2>Gids</h2>
         <div class="cardScroll">
-            <%- include('../partials/cityCard'); %>
-            <%- include('../partials/cityCard'); %>
-            <%- include('../partials/cityCard'); %>
-            <%- include('../partials/cityCard'); %>
-            <%- include('../partials/cityCard'); %>
-            <%- include('../partials/cityCard'); %> 
-
+            <% if (destinations && destinations.length > 0) { %>
+              <% destinations.forEach(destination => { %>
+                <article class="V3cityCard">
+                  <div class="V3cityCardImage">
+                    <img src="<%= destination.img %>" alt="<%= destination.city %>">
+                    <label class="heart" for="fav-<%= destination._id %>">
+                      <input type="checkbox" id="fav-<%= destination._id %>" name="fav" value="<%= destination.city %>">
+                      <img src="../static/images/heart.svg" alt="Heart">
+                    </label>
+                    <button class="heartFill">
+                      <img src="../static/images/heartfil.svg" alt="Heart Filled">
+                    </button>
+                  </div>
+                  <div class="V3cityCardInfo">
+                    <div class="V3cityCardTitle">
+                      <h3><%= destination.city %></h3>
+                      <p><%= destination.country %></p>
+                    </div>
+                    <p><%= destination.description %></p>
+                  </div>
+                </article>
+              <% }) %>
+            <% } else { %>
+              <p>Geen bestemmingen gevonden.</p>
+            <% } %>
         </div>
     </section>
-
-
 
     
     <footer>

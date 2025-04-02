@@ -12,6 +12,8 @@ const app = express();
 const port = 8000;
 app.use(express.static('static'));
 app.use('/uploads', express.static('uploads'));
+app.use('/static', express.static('static'));
+app.use('/static', express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -44,8 +46,20 @@ app.use(session({
   }
 }));
 
-app.get('/', function(req, res) {
-  res.render('pages/index');
+app.get('/', async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+
+    // Haal alle bestemmingen op uit de database
+    const destinations = await destinationsCollection.find().toArray();
+
+    // Render de index pagina met de bestemmingen
+    res.render('pages/index', { destinations });
+  } catch (error) {
+    console.error("Error fetching destinations:", error);
+    res.status(500).send("Error fetching destinations");
+  }
 });
 
 app.get('/fav', valiadateCookie, async (req, res) => {
@@ -114,6 +128,25 @@ app.get('/locaties', async function(req, res){
   const cityData = await fetchdbdata("Amsterdam");
   const dataString = await travelguideapi(cityData); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
   res.render('pages/locaties' , { dataString: dataString })
+});
+
+app.get('/gids', async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+
+    // Haal alle bestemmingen op uit de database
+    const destinations = await destinationsCollection.find().toArray();
+
+    // Log de data om te controleren
+    console.log(destinations);
+
+    // Render de gids pagina met de bestemmingen
+    res.render('pages/gids', { destinations });
+  } catch (error) {
+    console.error("Error fetching destinations:", error);
+    res.status(500).send("Error fetching destinations");
+  }
 });
 
 //travel guide api
