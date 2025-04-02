@@ -858,6 +858,10 @@ input[type=checkbox] {
     padding: 0 var(--size-lg) var(--size-2xl) var(--size-lg);
 }
 
+.searchBody .V3cityCardImage {
+    height: 25vh;
+}
+
 /* login styling */
 
 .loginBody header{
@@ -1199,6 +1203,16 @@ ul.food li:not(.food) {
     display: flex;
     align-items: center;
     gap: var(--size-base);
+    flex-wrap: wrap;
+}
+
+#theList{
+    width: 100%;
+}
+
+.searchResultdiv{
+    margin: var(--size-2xl) 0 0 0;
+    padding: 0;
 }
 
 
@@ -1401,6 +1415,15 @@ ul.food li:not(.food) {
         padding-top: var(--size-base);
     }
 
+
+    .searchBody .V3cityCardImage {
+        height: 35vh;
+    }
+
+    .searchResultdiv .V3cityCard{
+        max-width: 28vw;
+    }
+
 }
 
 /* lg */
@@ -1554,6 +1577,14 @@ ul.food li:not(.food) {
         width: 30vw;
     } 
 
+    .searchBody .V3cityCardImage {
+        height: 38vh;
+    }
+
+    .searchResultdiv .V3cityCard{
+        max-width: 20vw;
+    }
+
 }
 
 /* xl */
@@ -1568,7 +1599,9 @@ ul.food li:not(.food) {
         height: 92vh;
     }
 
-
+    .searchBody .V3cityCardImage {
+        height: 45vh;
+    }
 }
 
 /* 2xl */
@@ -1591,7 +1624,7 @@ ul.food li:not(.food) {
 	
 
 	h3{
-		font-size: 1.953vw;
+		font-size: 1.7vw;
 	}
 	
 
