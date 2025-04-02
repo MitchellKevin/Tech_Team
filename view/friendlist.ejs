@@ -10,11 +10,16 @@
 <ul>
   <% potentialMatches.forEach(match => { %>
     <li>
-      <strong><%= match.name %></strong> - Favorites: <%= match.fav.join(", ") %>
+      <strong><%= match.name %></strong> - Favorites: 
+      <% if (match.fav && Array.isArray(match.fav)) { %>
+        <%= match.fav.join(", ") %>
+      <% } else { %>
+        Geen favorieten
+      <% } %>
       <form action="/friendrequest/respond" method="POST">
         <input type="hidden" name="requesterId" value="<%= match._id %>">
-        <button type="submit" name="action" value="accept">Accept</button>
-        <button type="submit" name="action" value="reject">Reject</button>
+        <button type="submit" name="action" value="accept">Accepteer</button>
+        <button type="submit" name="action" value="reject">Weiger</button>
       </form>
     </li>
   <% }) %>

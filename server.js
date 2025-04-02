@@ -12,6 +12,7 @@ const app = express();
 const port = 8000;
 app.use(express.static('static'));
 app.use('/uploads', express.static('uploads'));
+app.use('/static', express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -44,30 +45,45 @@ app.use(session({
   }
 }));
 
-app.get('/', function(req, res) {
-  res.render('pages/index');
-});
-
-app.get('/fav', valiadateCookie, async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
     const usersCollection = database.collection("users");
 
-    // Retrieve the logged-in user's data
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+    const destinations = await destinationsCollection.find().toArray();
 
-    if (!user) {
-      console.log("User not found");
-      return res.status(404).send("User not found");
+    let favorites = [];
+    if (req.session.user) {
+      const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+      favorites = user.fav || [];
     }
 
-    // Pass the user's favorites to the template
-    res.render("fav", { user: user, favorites: user.fav || [] });
+    res.render('pages/index', { destinations, favorites });
   } catch (error) {
-    console.error("Error fetching user favorites:", error);
-    res.status(500).send("Error fetching user favorites");
+    console.error("Error fetching destinations or favorites:", error);
+    res.status(500).send("Error fetching destinations or favorites");
   }
 });
+
+// app.get('/fav', valiadateCookie, async (req, res) => {
+//   try {
+//     const database = client.db(process.env.DB_NAME);
+//     const usersCollection = database.collection("users");
+
+//     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+//     if (!user) {
+//       console.log("User not found");
+//       return res.status(404).send("User not found");
+//     }
+
+//     res.render("fav", { user: user, favorites: user.fav || [] });
+//   } catch (error) {
+//     console.error("Error fetching user favorites:", error);
+//     res.status(500).send("Error fetching user favorites");
+//   }
+// });
 
 app.get('/search', async (req, res) => {
   try {
@@ -100,7 +116,7 @@ app.get('/searchResult', function(req, res) {
 });
 
 app.get('/quiz', function(req,res){
-  res.render('pages/quiz.ejs');// dotenv
+  res.render('pages/quiz.ejs');
 });
 
 app.get('/details', function(req, res) {
@@ -111,9 +127,35 @@ app.get('/details', function(req, res) {
   res.render('pages/matchpersoon.ejs');
 });
 
+
+
+app.get("/dashboardSettings", (req, res) => {
+  if (!req.session.user) {
+    return res.render("pages/logIn")
+  } else {
+    res.render('dashboardSettings', { user: req.session.user });
+  }
+});
+
 app.get('/locaties', async function(req, res){
   res.render('pages/locaties')
 });
+
+// app.get('/gids', async (req, res) => {
+//   try {
+//     const database = client.db(process.env.DB_NAME);
+//     const destinationsCollection = database.collection("destinations");
+
+//     const destinations = await destinationsCollection.find().toArray();
+
+//     console.log(destinations);
+
+//     res.render('pages/gids', { destinations });
+//   } catch (error) {
+//     console.error("Error fetching destinations:", error);
+//     res.status(500).send("Error fetching destinations");
+//   }
+// });
 
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
@@ -206,7 +248,7 @@ function valiadateCookie(req, res, next) {
       console.log("Session authenticated");
       next();
     } else {
-      res.status(401).send("Invalid session_id");
+      res.render("pages/logIn");
     }
   } else {
     res.status(401).send("No session_id cookie found");
@@ -267,8 +309,6 @@ app.post("/login", async (req, res) => {
       console.log("User not found");
       return res.status(404).send("User not found");
     }
-
-    // Vergelijk het ingevoerde wachtwoord met de opgeslagen hash
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     if (isMatch) {
@@ -290,52 +330,35 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/fav", valiadateCookie, async (req, res) => {
+app.post('/fav', async (req, res) => {
   try {
+    const { city, checked } = req.body;
+
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Je moet ingelogd zijn om een stad te liken." });
+    }
+
+    const userId = req.session.user._id;
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Vind de huidige gebruiker
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
-
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-
-    const { fav, checked } = req.body;
-    let favs = user.fav || [];
-
     if (checked) {
-      // Voeg toe aan favorieten als het is aangevinkt
-      if (!favs.includes(fav)) {
-        favs.push(fav);
-      }
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $addToSet: { fav: city } } 
+      );
     } else {
-      // Verwijder uit favorieten als het is uitgevinkt
-      favs = favs.filter(item => item !== fav);
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $pull: { fav: city } }
+      );
     }
 
-    // Update de favorieten in de database
-    await usersCollection.updateOne(
-      { _id: new ObjectId(req.session.user._id) },
-      { $set: { fav: favs } }
-    );
-
-    // Bereken de nieuwe matches
-    const potentialMatches = await usersCollection
-      .find({
-        _id: { $ne: new ObjectId(req.session.user._id) },
-        fav: { $in: favs }, 
-        friends: { $ne: new ObjectId(req.session.user._id) },
-        friendRequests: { $ne: new ObjectId(req.session.user._id) } 
-      })
-      .project({ name: 1, fav: 1 }) 
-      .toArray();
-
-    res.json({ message: "Favorites updated successfully", favs, potentialMatches });
+    const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+    res.json({ favorites: user.fav });
   } catch (error) {
     console.error("Error updating favorites:", error);
-    res.status(500).json({ message: "Error updating favorites" });
+    res.status(500).json({ message: "Er is een fout opgetreden bij het bijwerken van favorieten." });
   }
 });
 
@@ -350,7 +373,6 @@ app.post("/fav/users", valiadateCookie, async (req, res) => {
       return res.status(400).json({ message: "No favorites provided" });
     }
 
-    // Find users who have all the selected favorites
     const usersWithFavorites = await usersCollection
       .find({ fav: { $all: favs } }) 
       .project({ name: 1, _id: 0 }) 
@@ -388,7 +410,7 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    res.send("Je bent uitgelogd.");
+    res.redirect("/")
   });
 });
 
@@ -405,7 +427,6 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Zoek gebruikers met dezelfde locatievoorkeuren, exclusief de huidige gebruiker
     const potentialMatches = await usersCollection
       .find({
         _id: { $ne: new ObjectId(req.session.user._id) },
@@ -430,13 +451,11 @@ app.post("/friendrequest", valiadateCookie, async (req, res) => {
     const database = client.db(process.env.DB_NAME);
     const usersCollection = database.collection("users");
 
-    // Voeg de huidige gebruiker toe aan de friendRequests van de target user
     await usersCollection.updateOne(
       { _id: new ObjectId(targetUserId) },
       { $addToSet: { friendRequests: new ObjectId(req.session.user._id) } }
     );
 
-    res.json({ message: "Friend request sent successfully" });
   } catch (error) {
     console.error("Error sending friend request:", error);
     res.status(500).json({ message: "Error sending friend request" });
@@ -451,7 +470,6 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
     const usersCollection = database.collection("users");
 
     if (action === "accept") {
-      // Voeg de requester toe aan de vriendenlijst
       await usersCollection.updateOne(
         { _id: new ObjectId(req.session.user._id) },
         {
@@ -460,20 +478,16 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
         }
       );
 
-      // Voeg de huidige gebruiker toe aan de vriendenlijst van de requester
       await usersCollection.updateOne(
         { _id: new ObjectId(requesterId) },
         { $addToSet: { friends: new ObjectId(req.session.user._id) } }
       );
     } else if (action === "reject") {
-      // Verwijder de requester uit de friendRequests
       await usersCollection.updateOne(
         { _id: new ObjectId(req.session.user._id) },
         { $pull: { friendRequests: new ObjectId(requesterId) } }
       );
     }
-
-    res.json({ message: `Friend request ${action}ed successfully` });
   } catch (error) {
     console.error("Error responding to friend request:", error);
     res.status(500).json({ message: "Error responding to friend request" });
@@ -491,7 +505,6 @@ app.get("/friends", valiadateCookie, async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Haal de vrienden op
     const friends = await usersCollection
       .find({ _id: { $in: user.friends } })
       .project({ name: 1 })
@@ -504,93 +517,28 @@ app.get("/friends", valiadateCookie, async (req, res) => {
   }
 });
 
-app.post("/delete-account", valiadateCookie, async (req, res) => {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const usersCollection = database.collection("users");
+// // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
+// const encryptWithSecretKey = (text) => {
+//   const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
 
-    // Verwijder de gebruiker uit de database
-    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+//   // Generate a random Initialization Vector (IV) for security
+//   const iv = CryptoJS.lib.WordArray.random(16);
 
-    // Vernietig de sessie
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("Error destroying session:", err);
-        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
-      }
+//   // Encrypt the text using AES with CBC mode and the secret key
+//   const encrypted = CryptoJS.AES.encrypt(
+//     text,
+//     CryptoJS.enc.Hex.parse(secretKey),
+//     {
+//       iv: iv,
+//       padding: CryptoJS.pad.Pkcs7,
+//       mode: CryptoJS.mode.CBC,
+//     }
+//   );
 
-      // Stuur een bevestiging naar de gebruiker
-      res.send("Je account is succesvol verwijderd.");
-    });
-  } catch (error) {
-    console.error("Error deleting account:", error);
-    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
-  }
-});
+//   // Concatenate IV and ciphertext and encode in Base64 format
+//   const encryptedBase64 = CryptoJS.enc.Base64.stringify(
+//     iv.concat(encrypted.ciphertext)
+//   );
 
-app.post("/change-password", valiadateCookie, async (req, res) => {
-  try {
-    const { currentPassword, newPassword, confirmPassword } = req.body;
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
-    }
-
-    const database = client.db(process.env.DB_NAME);
-    const usersCollection = database.collection("users");
-
-    // Vind de huidige gebruiker
-    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
-
-    if (!user) {
-      return res.status(404).send("Gebruiker niet gevonden.");
-    }
-
-    // Controleer of het huidige wachtwoord correct is
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) {
-      return res.status(401).send("Huidig wachtwoord is onjuist.");
-    }
-
-    // Hash het nieuwe wachtwoord
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-
-    // Update het wachtwoord in de database
-    await usersCollection.updateOne(
-      { _id: new ObjectId(req.session.user._id) },
-      { $set: { password: hashedPassword } }
-    );
-
-    res.send("Wachtwoord succesvol gewijzigd.");
-  } catch (error) {
-    console.error("Error changing password:", error);
-    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
-  }
-});
-
-// https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
-const encryptWithSecretKey = (text) => {
-  const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
-
-  // Generate a random Initialization Vector (IV) for security
-  const iv = CryptoJS.lib.WordArray.random(16);
-
-  // Encrypt the text using AES with CBC mode and the secret key
-  const encrypted = CryptoJS.AES.encrypt(
-    text,
-    CryptoJS.enc.Hex.parse(secretKey),
-    {
-      iv: iv,
-      padding: CryptoJS.pad.Pkcs7,
-      mode: CryptoJS.mode.CBC,
-    }
-  );
-
-  // Concatenate IV and ciphertext and encode in Base64 format
-  const encryptedBase64 = CryptoJS.enc.Base64.stringify(
-    iv.concat(encrypted.ciphertext)
-  );
-
-  return encryptedBase64;
-};
+//   return encryptedBase64;
+// };
