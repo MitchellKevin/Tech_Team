@@ -641,10 +641,8 @@ div#searchdiv{
     display: flex;
     flex-direction: row;
     gap: var(--size-sm);
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: scroll;
     width: 100%;
-    /* overflow-x: hidden; */
 }
 
 .cardScroll::-webkit-scrollbar{
@@ -1117,6 +1115,14 @@ button.ActiveButton{
     background-color: #F7F7F9;
     padding: var(--size-xs);
     border-radius: 8px;
+    
+    margin: var(--size-xxs) 0;
+    padding: var(--size-xs) var(--size-lg);
+}
+
+.wachtwoordWijzigen div input {
+    width: 100%;
+    outline: 1px solid #CFCFCF;
 }
 
 input.deleteButton{
@@ -1124,7 +1130,7 @@ input.deleteButton{
 
     border: none;
     background-color: #F95B5B;
-    padding: var(--size-xs);
+    /* padding: var(--size-xs); */
     border-radius: 8px;
 
     color: var(--color-bg);
@@ -1140,6 +1146,50 @@ input.inputbutton{
 input.wachtwoordWijzigen:focus{
     outline: 1px solid var(--color-darkblue);
 }
+
+.accountname{
+    margin: var(--size-xxs) 0;
+    padding: var(--size-xs) var(--size-lg);
+    outline: 1px solid #CFCFCF;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.dashboard{
+    margin-bottom: var(--size-7xl);
+}
+
+/* sorting */
+button.sort.asc,
+button.sort.desc {
+  font-weight:bold;
+}
+
+button.sort.asc::after {
+  content: "(az↓)";
+  padding-left: .25em;
+  font-weight:normal;
+}
+
+button.sort.desc::after {
+  content: "(za↓)";
+  padding-left: .25em;
+  font-weight:normal;
+} 
+
+/* filter */
+ul.food li:not(.food) {
+    display:none;
+}
+  
+  ul.cultural li:not(.cultural) {
+    display:none;
+}
+  
+  ul.historical li:not(.historical) {
+    display:none;
+}
+
 
 
 /* MEDIA QUERIES .container{} */
@@ -1490,6 +1540,9 @@ input.wachtwoordWijzigen:focus{
         padding-top: var(--size-base);
     }
 
+    .wachtwoordWijzigen div input, .accountInfo{
+        width: 30vw;
+    } 
 
 }
 
@@ -1739,13 +1792,15 @@ input.wachtwoordWijzigen:focus{
 	}
 }
 
-button:hover{
-	background-color: var(--color-lightblue);
+button:hover:not(.sort){
 	animation-name: scaling-hover-button-normal;
 	animation-duration: 0.6s;
 	animation-fill-mode: forwards;
+}
 
-	cursor: pointer;
+button:hover{
+    background-color: var(--color-lightblue);
+    cursor: pointer;
 }
 
 .heart:hover, .heartFill:hover{
