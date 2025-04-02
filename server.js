@@ -237,7 +237,7 @@ function valiadateCookie(req, res, next) {
       console.log("Session authenticated");
       next();
     } else {
-      res.status(401).send("Invalid session_id");
+      res.render("pages/logIn");
     }
   } else {
     res.status(401).send("No session_id cookie found");

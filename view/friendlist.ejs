@@ -19,6 +19,7 @@
       <form action="/friendrequest/respond" method="POST">
         <input type="hidden" name="requesterId" value="<%= match._id %>">
         <button type="submit" name="action" value="accept">Accepteer</button>
+        <button type="submit" name="action" value="reject">Weiger</button>
       </form>
     </li>
   <% }) %>
