@@ -155,11 +155,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const vraagTeller = document.getElementById("vraag-teller");
 
     //  Functie om de vraag teller bij te werken (Vraag X van 6)
-    function updateVraagTeller(vraagNummer) {
+    async function updateVraagTeller(vraagNummer) {
         if (vraagTeller) {
             vraagTeller.textContent = `Vraag ${vraagNummer} van ${totaalVragen}`;
+            const selectedOption = document.querySelector(`input[name="vraag${vraagNummer - 1}"]:checked`);
+            JSON.stringify(selectedOption.value);
+            const jsonArray = [{quizanswer: selectedOption.value }];
+            console.log(jsonArray);
         }
-    }
+        try{
+            const response = await fetch('/quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  answer: selectedOption.value  // The selected answer
+                })
+              });
+              console.log(await response.json());
+        }catch (error) {
+            console.error("fout bij verzenden", error)
+        }}
 
     //  Functie om de progress bar bij te werken
     function updateProgress(vraagNummer) {

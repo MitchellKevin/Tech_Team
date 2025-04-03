@@ -157,6 +157,19 @@ app.get('/locaties', async function(req, res){
 //   }
 // });
 
+
+//quiz data ophalen
+function vraag(vraagNummer){
+  const selected = document.querySelector('input[name="vraag1"]:checked');
+
+    if(selected){
+      const selectedValue = selectedOption.value;
+
+      console.log("Selected value for Vraag " + vraagNummer + ": " + selectedValue);
+
+    }
+}
+
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
@@ -266,6 +279,17 @@ async function connectDB() {
 }
 
 connectDB();
+
+app.post("/quiz", async (req,res) => {
+  try{
+  const userCollection = db.collection("users");
+  await userCollection.insertOne({
+    answer: req.body.answer
+  });
+}catch (error){
+  console.log("answer data error");
+}
+})
 
 app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
