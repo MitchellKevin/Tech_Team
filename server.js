@@ -558,13 +558,13 @@ app.get("/friends", valiadateCookie, async (req, res) => {
   }
 });
 
-app.get('/api-results', async (req, res) => {
+app.get('/result', async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const destinationsCollection = database.collection("destinations");
 
     const city = req.query.city || "Paris";
-    const category = req.query.category || "historical"; // standaard "historical"
+    const category = req.query.category || "historical";
 
     // Haal de bestemming op op basis van de stadsnaam
     let destination = await destinationsCollection.findOne({ 
