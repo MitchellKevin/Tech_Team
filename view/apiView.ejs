@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>API Resultaten</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <header>
+    <%- include('../partials/header'); %>
+</header>
+
+
+  <div class="view">
   <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
   <pre><%= JSON.stringify(apiData, null, 2) %></pre>
   
@@ -21,5 +29,11 @@
   <% } else { %>
     <p>Geen resultaten gevonden.</p>
   <% } %>
+</div>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
 </body>
 </html>
