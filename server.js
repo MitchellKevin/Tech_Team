@@ -81,7 +81,10 @@ app.get('/quizresult', async (req, res) => {
       favorites = user.fav || [];
     }
 
-    res.render('pages/quizResult', { destinations, favorites });
+    // Select random destination
+    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
+
+    res.render('pages/quizResult', { randomDestination, destinations, favorites });
   } catch (error) {
     console.error("Error fetching destinations or favorites:", error);
     res.status(500).send("Error fetching destinations or favorites");
