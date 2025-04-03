@@ -161,35 +161,36 @@ app.get('/locaties', async function(req, res){
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
 
-async function travelguideapi(cityData){ /*request gespecificerde data en return naar een json*/
+async function travelguideapi(region) {
   const options = {
     method: "POST",
-    url: 'https://travel-guide-api-city-guide-top-places.p.rapidapi.com/check',
-params: {noqueue: '1'},
+    url: "https://travel-guide-api-city-guide-top-places.p.rapidapi.com/check",
+    params: { noqueue: "1" },
     headers: {
-        'x-rapidapi-host': host,
-        'x-rapidapi-key': apikey,
-        'Content-Type': 'application/json'
-      },
+      "x-rapidapi-host": process.env.API_HOST,
+      "x-rapidapi-key": process.env.API_KEY,
+      "Content-Type": "application/json"
+    },
     data: {
-        region: cityData ,
-        language: 'en',
-        interests: [
-          'historical',
-          'cultural',
-          'food'
-        ]
+      region: region,
+      language: "en",
+      interests: ["historical", "cultural", "food"]
     }
-};
-console.log(options);
-  try{
-      const response = await axios.request(options);
-      console.log(response.data);
-      return JSON.stringify(response.data);
-  }catch(error){
-      console.error(error)
+  };
+
+  console.log("API options:", options);
+  try {
+    const response = await axios.request(options);
+    console.log("API response data:", response.data);
+
+    // Zorg dat je altijd een JSON-string retourneert:
+    return JSON.stringify(response.data);
+  } catch (error) {
+    console.error("Error in travelguideapi:", error);
+    // Kies: geef een default lege json-string terug of gooi een error op
+    // Bijvoorbeeld:
+    throw new Error("API call failed");
   }
-  console.log(options);
 }
 
 async function fetchdbdata(cityName) {
@@ -251,7 +252,7 @@ function valiadateCookie(req, res, next) {
       res.render("pages/logIn");
     }
   } else {
-    res.status(401).send("No session_id cookie found");
+    res.render('pages/logIn');
   }
 }
 
@@ -403,19 +404,15 @@ app.get("/dashboard", valiadateCookie, async (req, res) => {
     const usersCollection = database.collection("users");
     const destinationsCollection = database.collection("destinations");
 
-    // Haal de ingelogde gebruiker op
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
     if (!user) {
       return res.status(404).send("User not found");
     }
     
-    // Stel favorieten vast, bijvoorbeeld: ["Rome", "Amsterdam"]
     const favCities = user.fav || [];
     
-    // Zoek in de destinations-collectie naar records waarvan de 'city' voorkomt in favCities
     const favDestinations = await destinationsCollection.find({ city: { $in: favCities } }).toArray();
 
-    // Geef de user en favDestinations door aan de dashboard view
     res.render('dashboard', { user: req.session.user, favDestinations });
   } catch (error) {
     console.error("Error rendering dashboard:", error);
@@ -536,28 +533,23 @@ app.get("/friends", valiadateCookie, async (req, res) => {
   }
 });
 
-// // https://dev.to/shubhamkhan/beginners-guide-to-aes-encryption-and-decryption-in-javascript-using-cryptojs-592
-// const encryptWithSecretKey = (text) => {
-//   const secretKey = process.env.SECURITY_KEY?.replace(/\\n/g, "\n");
-
-//   // Generate a random Initialization Vector (IV) for security
-//   const iv = CryptoJS.lib.WordArray.random(16);
-
-//   // Encrypt the text using AES with CBC mode and the secret key
-//   const encrypted = CryptoJS.AES.encrypt(
-//     text,
-//     CryptoJS.enc.Hex.parse(secretKey),
-//     {
-//       iv: iv,
-//       padding: CryptoJS.pad.Pkcs7,
-//       mode: CryptoJS.mode.CBC,
-//     }
-//   );
-
-//   // Concatenate IV and ciphertext and encode in Base64 format
-//   const encryptedBase64 = CryptoJS.enc.Base64.stringify(
-//     iv.concat(encrypted.ciphertext)
-//   );
-
-//   return encryptedBase64;
-// };
+app.get('/api-results', async (req, res) => {
+  try {
+    const city = req.query.city || "Paris";
+    const dataString = await travelguideapi(city);
+    const apiDataRaw = JSON.parse(dataString);
+    
+    const filteredResults = apiDataRaw.result.filter(place => {
+      return place.type && place.type.toLowerCase() === "historical";
+    });
+    const apiData = {
+      region: apiDataRaw.region || city,
+      result: filteredResults
+    };
+    
+    res.render('apiView', { apiData });
+  } catch (error) {
+    console.error("Error fetching API data:", error);
+    res.status(500).send("Er is een fout opgetreden bij het ophalen van de API data.");
+  }
+});
