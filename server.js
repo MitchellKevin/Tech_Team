@@ -369,7 +369,7 @@ app.post("/delete-account", valiadateCookie, async (req, res) => {
         return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
       }
 
-      res.send("Je account is succesvol verwijderd.");
+      res.redirect("/");
     });
   } catch (error) {
     console.error("Error deleting account:", error);
@@ -407,7 +407,7 @@ app.post("/change-password", valiadateCookie, async (req, res) => {
       { $set: { password: hashedPassword } }
     );
 
-    res.send("Wachtwoord succesvol gewijzigd.");
+    res.redirect("/dashboardSettings");
   } catch (error) {
     console.error("Error changing password:", error);
     res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
