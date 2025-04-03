@@ -2133,6 +2133,10 @@ button:hover{
     color: #485EA1;
 }
 
+.quiz h2 {
+    font-size: var(--size-3xl);
+}
+
 .vraag-teller {
     font-size: 0.9rem; /* Kleinere tekst */
     color: gray; /* Grijs maken zoals in jouw afbeelding */
