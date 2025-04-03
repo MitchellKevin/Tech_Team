@@ -182,6 +182,19 @@ app.get('/locaties', async function(req, res){
 //   }
 // });
 
+
+//quiz data ophalen
+function vraag(vraagNummer){
+  const selected = document.querySelector('input[name="vraag1"]:checked');
+
+    if(selected){
+      const selectedValue = selectedOption.value;
+
+      console.log("Selected value for Vraag " + vraagNummer + ": " + selectedValue);
+
+    }
+}
+
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
@@ -229,9 +242,26 @@ async function fetchdbdata(cityName) {
 }
 
 
-// app.get('/quizresult', async function(req, res) {
-//   res.render('pages/quizResult.ejs',{ destinations, favorites });
-// });
+app.get('/quizresult', async function(req, res) {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+    const usersCollection = database.collection("users");
+
+    // Fetch all destinations en convert naar array
+    const destinations = await destinationsCollection.find().toArray();
+
+    // Select random destination
+    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
+    console.log(randomDestination);
+    // Render de view met random destination
+    res.redirect(`/results?city=${randomDestination.city}`)
+
+  } catch (error) {
+    console.error("Error fetching destinations", error);
+    res.status(500).send("Error fetching destinations");
+  }
+});
 
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
@@ -292,6 +322,28 @@ async function connectDB() {
 }
 
 connectDB();
+
+app.post("/quiz", async (req,res) => {
+  try{
+    const userId = req.session.user._id;
+    const database = client.db(process.env.DB_NAME);
+    const userCollection = database.collection("users");
+    const answer = req.body.answer;
+    const result = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },  // Vind user door ID
+      { 
+        $addToSet: { 
+          answer: answer
+        }
+      }
+    
+  );
+  console.log(result);
+  console.log("userid",userId)
+}catch (error){
+  console.log(error);
+}
+});
 
 app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
