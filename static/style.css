@@ -2047,7 +2047,7 @@ button:hover {
 }
 
 /* Afbeelding */
-.image {
+.imagePlaats {
     flex: 1;
     max-width: 50%;
     text-align: right;
@@ -2055,7 +2055,7 @@ button:hover {
 
 }
 
-.image img {
+.imagePlaats img {
     width: 100%;
     max-width: 500px;
     /* Zorgt dat de afbeelding niet te groot wordt */
@@ -2110,17 +2110,35 @@ button:hover {
     }
 
     .intro,
-    .image {
+    .imagePlaats {
         max-width: 100%;
-        text-align: center;
+       
     }
 
     .categories {
-        gap: 1.042vw;
+        
         /* Kleine afstand tussen categorieën op mobiel */
         align-items: center;
         /* Centreert de tekst */
     }
+
+    .intro h1 {
+        color: var(--color-darkblue);
+        /* Juiste blauwe kleur */
+        font-size: 2rem;
+    }
+
+    .favorite {
+        background-color: var(--color-darkblue);
+        color: var(--color-bg);
+        border: none;
+        padding: 0.521vw 0.781vw;
+        border-radius: 0.26vw;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 0.800vw;
+    }
+    
 }
 
 
@@ -2519,4 +2537,26 @@ progress::-moz-progress-bar {
 .view strong {
     font-size: 1.5vw;
     color: var(--color-brightblue);
+}
+
+/* Media Query voor kleinere schermen */
+@media (max-width: 768px) {
+    .view h1 {
+        font-size: var(--size-3xl);
+    }
+
+    .view pre {
+        padding: 2vw;
+        font-size: 0.9em;
+    }
+
+    .view li {
+        margin: 2vw 0;
+        padding: 2vw;
+        border-left-width: 0.6vw;
+    }
+
+    .view strong {
+        font-size: 4vw;
+    }
 }
