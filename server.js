@@ -169,22 +169,6 @@ app.get('/locaties', async function(req, res){
   res.render('pages/locaties')
 });
 
-// app.get('/gids', async (req, res) => {
-//   try {
-//     const database = client.db(process.env.DB_NAME);
-//     const destinationsCollection = database.collection("destinations");
-
-//     const destinations = await destinationsCollection.find().toArray();
-
-//     console.log(destinations);
-
-//     res.render('pages/gids', { destinations });
-//   } catch (error) {
-//     console.error("Error fetching destinations:", error);
-//     res.status(500).send("Error fetching destinations");
-//   }
-// });
-
 
 //quiz data ophalen
 function vraag(vraagNummer){
@@ -265,17 +249,6 @@ function authentiacteToken(req, res, next) {
     next();
   });
 }
-
-// function authentiacteToken(req, res, next) {
-//   const token = req.headers['authorization'];
-//   if (!token) return res.status(401).send("Access denied");
-
-//   jwt.verify(token, process.env.session_key, (err, user) => {
-//     if (err) return res.status(403).send("Invalid token");
-//     req.user = user;
-//     next();
-//   });
-// }
 
 function valiadateCookie(req, res, next) {
   const { cookies } = req;
