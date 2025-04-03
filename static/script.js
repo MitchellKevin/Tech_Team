@@ -205,62 +205,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
- function toonOverzicht() {
-    let overzichtContainer = document.getElementById("overzicht-container");
-    let overzichtLijst = document.getElementById("overzicht-lijst");
-
-    overzichtLijst.innerHTML = ""; // Leegmaken voor nieuwe inhoud
-
-    for (let i = 1; i <= totaalVragen; i++) {
-        let lijstItem = document.createElement("li");
-
-        if (i === 4) { // Speciale behandeling voor vraag 4 (budget slider)
-            let budget = document.getElementById("budget").value;
-            lijstItem.textContent = `Vraag ${i}: Budget per dag is €${budget}`;
-        } else {
+    function toonOverzicht() {
+        let overzichtContainer = document.getElementById("overzicht-container");
+        let overzichtLijst = document.getElementById("overzicht-lijst");
+        let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
+    
+        overzichtLijst.innerHTML = ""; // Leegmaken voor nieuwe inhoud
+    
+        for (let i = 1; i <= totaalVragen; i++) {
+            let lijstItem = document.createElement("li");
             let antwoord = document.querySelector(`input[name="vraag${i}"]:checked`);
+    
             if (antwoord) {
                 lijstItem.textContent = `Vraag ${i}: ${antwoord.value}`;
             } else {
                 lijstItem.textContent = `Vraag ${i}: Geen antwoord geselecteerd`;
             }
+            overzichtLijst.appendChild(lijstItem);
         }
-
-        overzichtLijst.appendChild(lijstItem);
-    }
-
-    //  Overschakelen naar overzichtspagina
-    let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
-    if (laatsteVraagContainer) {
-        laatsteVraagContainer.classList.remove("actief");
-    }
-    overzichtContainer.classList.add("actief");
-}
-
-    //  Functie om terug te gaan naar de vragen vanuit het overzicht
-    function terugNaarVragen() {
-        let overzichtContainer = document.getElementById("overzicht-container");
-        let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
-
-        overzichtContainer.classList.remove("actief");
-        laatsteVraagContainer.classList.add("actief");
-    }
-
-    // Budget slider functionaliteit
-    const budgetSlider = document.getElementById("budget");
-    const budgetValue = document.getElementById("budgetValue");
-
-    if (budgetSlider && budgetValue) {
-        budgetSlider.addEventListener("input", function () {
-            let value = this.value;
-            if (value <= 30) {
-                budgetValue.textContent = "Minder dan €30";
-            } else if (value <= 60) {
-                budgetValue.textContent = "€30 - €60";
-            } else {
-                budgetValue.textContent = "Meer dan €60";
-            }
-        });
+    
+        // Laatste vraag verbergen
+        if (laatsteVraagContainer) {
+            laatsteVraagContainer.classList.remove("actief");
+            laatsteVraagContainer.style.opacity = 0;
+        }
+    
+        // Overzicht tonen
+        overzichtContainer.classList.add("actief");
+        overzichtContainer.style.opacity = 1; // Zorg dat het zichtbaar wordt
     }
 
     //  Maak functies beschikbaar voor de HTML-knoppen

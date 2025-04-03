@@ -94,9 +94,12 @@
                 <label for="vraag4">Wat is je budget (per dag)?</label>
                 <br><br>
                 <div id="vraag4">
-                    <input type="range" id="budget" name="budget" min="0" max="100" step="1">
-                    <br>
-                    <span id="budgetValue"></span>
+                    <input type="radio" id="vraag4-optie1" name="vraag4" value="Minder dan €30">
+                    <label for="vraag4-optie1">Minder dan €30</label><br>
+                    <input type="radio" id="vraag4-optie2" name="vraag4" value="€30 - €60">
+                    <label for="vraag4-optie2">€30 - €60</label><br>
+                    <input type="radio" id="vraag4-optie3" name="vraag4" value="Meer dan €60">
+                    <label for="vraag4-optie3">Meer dan €60</label>
                 </div>
                 <br>
                 <button type="button" onclick="vorigeVraag(4)">⬅ Terug</button>
@@ -138,7 +141,7 @@
                     <label for="vraag6-optie3">Met auto</label>
                 </div>
                 <br>
-                <button type="button" onclick="vorigeVraag(6)">⬅️ Terug</button>
+                <button type="button" onclick="vorigeVraag(6)">⬅ Terug</button>
                 <button type="button" class="volgende" onclick="toonOverzicht()">Toon overzicht</button>
             </div>
 
