@@ -28,10 +28,24 @@
         <a href="#">Natuur</a>
         <a href="#">Sport</a>
     </section>
-    <section class="filters">
-        <button>Sorteren A-Z 🔽</button>
-        <button>Filteren ⚙️</button>
-    </section>
+    <div class="view">
+        <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
+        <!-- <pre><%= JSON.stringify(apiData, null, 2) %></pre> -->
+        
+        <% if(apiData.result && apiData.result.length) { %>
+          <ul>
+            <% apiData.result.forEach(place => { %>
+              <li>
+                <strong><%= place.name %></strong><br>
+                <%= place.description %><br>
+                Coördinaten: <%= place.coordinates.latitude %>, <%= place.coordinates.longitude %>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>Geen resultaten gevonden.</p>
+        <% } %>
+      </div>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>

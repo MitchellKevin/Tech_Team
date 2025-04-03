@@ -13,6 +13,7 @@ const port = 8000;
 app.use(express.static('static'));
 app.use('/uploads', express.static('uploads'));
 app.use('/static', express.static('static'));
+app.use('/static', express.static('static'));
 const CryptoJS = require("crypto-js");
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -559,10 +560,19 @@ app.get("/friends", valiadateCookie, async (req, res) => {
 
 app.get('/api-results', async (req, res) => {
   try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+
     const city = req.query.city || "Paris";
     const dataString = await travelguideapi(city);
     const apiDataRaw = JSON.parse(dataString);
     
+
+    const destinations = await destinationsCollection.find().toArray();
+    // Stel dat je de eerste bestemming wilt gebruiken in de intro
+    let destination = await destinationsCollection.findOne({ 
+      city: { $regex: `^${city}$`, $options: 'i' } 
+    });
     const filteredResults = apiDataRaw.result.filter(place => {
       return place.type && place.type.toLowerCase() === "historical";
     });
@@ -571,7 +581,7 @@ app.get('/api-results', async (req, res) => {
       result: filteredResults
     };
     
-    res.render('apiView', { apiData });
+    res.render('apiView', { apiData, destination, destinations });
   } catch (error) {
     console.error("Error fetching API data:", error);
     res.status(500).send("Er is een fout opgetreden bij het ophalen van de API data.");

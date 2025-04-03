@@ -1,39 +1,53 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>API Resultaten</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <header>
-    <%- include('./partials/header'); %>
-</header>
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+    <div class="content">
+        <section class="intro">
+            <h1>Jouw match - <%=destination.city%></h1>
+            <h2>€€</h2>
+            <p><%=destination.description%>></p>
+            <button class="favorite">Voeg toe aan favorieten ❤️</button>
+        </section>
 
-
-  <div class="view">
-  <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
-  <!-- <pre><%= JSON.stringify(apiData, null, 2) %></pre> -->
-  
-  <% if(apiData.result && apiData.result.length) { %>
-    <ul>
-      <% apiData.result.forEach(place => { %>
-        <li>
-          <strong><%= place.name %></strong><br>
-          <%= place.description %><br>
-          Coördinaten: <%= place.coordinates.latitude %>, <%= place.coordinates.longitude %>
-        </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>Geen resultaten gevonden.</p>
-  <% } %>
-</div>
-
-<footer>
-  <%- include('./partials/footer'); %>
-</footer>
-
+        <section class="image">
+            <img src="<%= destination.img %>" alt=''>
+        </section>
+    </div>
+    <section class="categories">
+        <a href="#" class="active">Cultuur</a>
+        <a href="#">Eten</a>
+        <a href="#">Natuur</a>
+        <a href="#">Sport</a>
+    </section>
+    <div class="view">
+        <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
+        <!-- <pre><%= JSON.stringify(apiData, null, 2) %></pre> -->
+        
+        <% if(apiData.result && apiData.result.length) { %>
+          <ul>
+            <% apiData.result.forEach(place => { %>
+              <li>
+                <strong><%= place.name %></strong><br>
+                <%= place.description %><br>
+                Coördinaten: <%= place.coordinates.latitude %>, <%= place.coordinates.longitude %>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>Geen resultaten gevonden.</p>
+        <% } %>
+      </div>
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
 </body>
 </html>
