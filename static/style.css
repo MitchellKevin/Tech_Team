@@ -1169,7 +1169,8 @@ input.wachtwoordWijzigen:focus{
 }
 
 .dashboard{
-    margin-bottom: var(--size-7xl);
+    /* margin-bottom: var(--size-xl); */
+    margin-bottom: 0;
 }
 
 /* sorting */
@@ -1239,6 +1240,11 @@ button.sort.desc::after {
     /* background-color: #f8f8f8; */
     padding: var(--size-xs) var(--size-base);
     border-radius: 8px;
+}
+
+.friendlist .profileImage{
+    width: 18vw;
+    height: 18vw;
 }
 
 /* MEDIA QUERIES .container{} */
