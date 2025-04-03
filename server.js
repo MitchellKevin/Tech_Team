@@ -315,7 +315,7 @@ app.post("/signup", upload.single('avatar'), async (req, res, next) => {
 
     // await usersCollection.deleteMany({});
     await usersCollection.insertOne(newUser);
-    res.render("dashboard.ejs", { user: newUser });
+    res.redirect("/dashboard")
     console.log("New user inserted:", newUser);
   } catch (error) {
     console.error("Error inserting new user:", error);
