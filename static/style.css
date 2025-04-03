@@ -988,7 +988,7 @@ input[type=checkbox] {
     margin-bottom: 0;
 }
 
-.dashboardbody h1{
+.dashboardbody h1, .friendlist h1{
     text-align: center;
     font-size: 7.5vw;
     font-weight: 800;
@@ -1224,6 +1224,21 @@ ul.food li:not(.food) {
     padding: 0;
 }
 
+/* friendlist styling */
+.friendlist section{
+    padding:0 var(--size-lg) var(--size-4xl) var(--size-lg);
+}
+
+.friendlistSection ul {
+    padding: 0;
+    margin-top: var(--size-xl);
+}
+
+.friendlist .profileDiv{
+    background-color: rgb(179, 190, 225, 0.3);
+    padding: var(--size-xs) var(--size-base);
+    border-radius: 8px;
+}
 
 /* MEDIA QUERIES .container{} */
 
@@ -1293,6 +1308,10 @@ ul.food li:not(.food) {
 
     .landing, .aanbevolen, .aboutUs, .polaroids,div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section{
         padding: var(--size-7xl) var(--size-4xl);
+    }
+
+    .friendlist section{
+        padding: var(--size-4xl) var(--size-4xl);
     }
 
     .searchBody div#searchdiv {
@@ -1457,9 +1476,11 @@ ul.food li:not(.food) {
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section {
+	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section, .friendlist section {
         padding: var(--size-7xl) var(--size-7xl);
     }
+
+    
 
     .searchBody div#searchdiv{
         padding-bottom: 0;
@@ -1657,7 +1678,7 @@ ul.food li:not(.food) {
         padding: var(--size-10xl) var(--size-10xl);
     }
 
-    .landing{
+    .landing, .friendlist section{
         padding: var(--size-8xl) var(--size-10xl) var(--size-10xl) var(--size-10xl);
     }
 
