@@ -356,6 +356,64 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/delete-account", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+      }
+
+      res.send("Je account is succesvol verwijderd.");
+    });
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+  }
+});
+
+app.post("/change-password", valiadateCookie, async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
+    }
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("Gebruiker niet gevonden.");
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Huidig wachtwoord is onjuist.");
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { password: hashedPassword } }
+    );
+
+    res.send("Wachtwoord succesvol gewijzigd.");
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
+  }
+});
+
 app.post('/fav', async (req, res) => {
   try {
     const { city, checked } = req.body;
