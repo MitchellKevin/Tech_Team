@@ -66,6 +66,30 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/quizresult', async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+    const usersCollection = database.collection("users");
+
+    const destinations = await destinationsCollection.find().toArray();
+
+    let favorites = [];
+    if (req.session.user) {
+      const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+      favorites = user.fav || [];
+    }
+
+    res.render('pages/quizResult', { destinations, favorites });
+  } catch (error) {
+    console.error("Error fetching destinations or favorites:", error);
+    res.status(500).send("Error fetching destinations or favorites");
+  }
+});
+
+// app.get('/quizresult', async function(req, res) {
+//   res.render('pages/quizResult.ejs',{ destinations, favorites });
+// });
 // app.get('/fav', valiadateCookie, async (req, res) => {
 //   try {
 //     const database = client.db(process.env.DB_NAME);
@@ -204,9 +228,9 @@ async function fetchdbdata(cityName) {
 }
 
 
-app.get('/quizresult', function(req, res) {
-  res.render('pages/quizResult.ejs');
-});
+// app.get('/quizresult', async function(req, res) {
+//   res.render('pages/quizResult.ejs',{ destinations, favorites });
+// });
 
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
