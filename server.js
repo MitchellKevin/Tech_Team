@@ -244,28 +244,6 @@ async function fetchdbdata(cityName) {
   }
 }
 
-
-app.get('/quizresult', async function(req, res) {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const destinationsCollection = database.collection("destinations");
-    const usersCollection = database.collection("users");
-
-    // Fetch all destinations en convert naar array
-    const destinations = await destinationsCollection.find().toArray();
-
-    // Select random destination
-    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
-    console.log(randomDestination);
-    // Render de view met random destination
-    res.redirect(`/results?city=${randomDestination.city}`)
-
-  } catch (error) {
-    console.error("Error fetching destinations", error);
-    res.status(500).send("Error fetching destinations");
-  }
-});
-
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const { json } = require('stream/consumers');
