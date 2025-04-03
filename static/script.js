@@ -269,3 +269,4 @@ charactersList.sort('name', { order: "asc" });
 //   deLijst.className = "";
 //   deLijst.classList.add(nieuweFilter);
 // }
+

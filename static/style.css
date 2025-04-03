@@ -2084,7 +2084,6 @@ button:hover {
 .categories a.active,
 .categories a:hover {
     color: var(--color-darkblue);
-    /* Blauwe kleur */
     border-bottom: 0.052vw solid var(--color-darkblue);
 }
 
