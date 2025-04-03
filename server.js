@@ -81,7 +81,10 @@ app.get('/quizresult', async (req, res) => {
       favorites = user.fav || [];
     }
 
-    res.render('pages/quizResult', { destinations, favorites });
+    // Select random destination
+    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
+
+    res.render('pages/quizResult', { randomDestination, destinations, favorites });
   } catch (error) {
     console.error("Error fetching destinations or favorites:", error);
     res.status(500).send("Error fetching destinations or favorites");
@@ -166,22 +169,6 @@ app.get('/locaties', async function(req, res){
   res.render('pages/locaties')
 });
 
-// app.get('/gids', async (req, res) => {
-//   try {
-//     const database = client.db(process.env.DB_NAME);
-//     const destinationsCollection = database.collection("destinations");
-
-//     const destinations = await destinationsCollection.find().toArray();
-
-//     console.log(destinations);
-
-//     res.render('pages/gids', { destinations });
-//   } catch (error) {
-//     console.error("Error fetching destinations:", error);
-//     res.status(500).send("Error fetching destinations");
-//   }
-// });
-
 
 //quiz data ophalen
 function vraag(vraagNummer){
@@ -241,28 +228,6 @@ async function fetchdbdata(cityName) {
   }
 }
 
-
-app.get('/quizresult', async function(req, res) {
-  try {
-    const database = client.db(process.env.DB_NAME);
-    const destinationsCollection = database.collection("destinations");
-    const usersCollection = database.collection("users");
-
-    // Fetch all destinations en convert naar array
-    const destinations = await destinationsCollection.find().toArray();
-
-    // Select random destination
-    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
-    console.log(randomDestination);
-    // Render de view met random destination
-    res.redirect(`/results?city=${randomDestination.city}`)
-
-  } catch (error) {
-    console.error("Error fetching destinations", error);
-    res.status(500).send("Error fetching destinations");
-  }
-});
-
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
 const { json } = require('stream/consumers');
@@ -284,17 +249,6 @@ function authentiacteToken(req, res, next) {
     next();
   });
 }
-
-// function authentiacteToken(req, res, next) {
-//   const token = req.headers['authorization'];
-//   if (!token) return res.status(401).send("Access denied");
-
-//   jwt.verify(token, process.env.session_key, (err, user) => {
-//     if (err) return res.status(403).send("Invalid token");
-//     req.user = user;
-//     next();
-//   });
-// }
 
 function valiadateCookie(req, res, next) {
   const { cookies } = req;
