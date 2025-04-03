@@ -720,7 +720,7 @@ div#searchdiv {
     background-color: transparent;
 }
 
-.heart:hover, input.inputbutton:hover, input.deleteButton:hover {
+.heart:hover {
     cursor: pointer;
 }
 
