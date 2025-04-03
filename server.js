@@ -526,7 +526,7 @@ app.get("/friends", valiadateCookie, async (req, res) => {
 
     const friends = await usersCollection
       .find({ _id: { $in: user.friends } })
-      .project({ name: 1 })
+      .project({ name: 1, avatar: 1, tele:1})
       .toArray();
 
     res.render("friends", { user, friends });
