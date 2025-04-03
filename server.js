@@ -554,7 +554,7 @@ app.get("/friends", valiadateCookie, async (req, res) => {
     res.render("friends", { user, friends });
   } catch (error) {
     console.error("Error fetching friends:", error);
-    res.status(500).send("Error fetching friends");
+    res.render("friends", { user: req.session.user, friends: [] });
   }
 });
 
