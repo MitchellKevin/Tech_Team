@@ -75,6 +75,8 @@ console.log ("hoi");
 
 // heart.addEventListener('click',clickHeart)
 
+
+// de code heb ik in combinatie met chatgpt en met wat ik all had. Nolivin
 document.addEventListener('DOMContentLoaded', () => {
   const usersList = document.getElementById('users-list'); // Div waar matches worden weergegeven
 
