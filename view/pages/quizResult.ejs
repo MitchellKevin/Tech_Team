@@ -21,22 +21,22 @@
     
     <section class="matchResult">
         <h1>
-            Jouw beste match - <span>Rome</span>
+            Jouw beste match - <span><%- randomDestination.city -%></span>
         </h1>
 
         <div class="matchResultdiv">
-            <img class="fotoResult" src="../static/images/rome.png" alt="">
+            <img class="fotoResult" src=<%- randomDestination.img -%> alt="">
 
             <div>
                 <p>
-                    Rome, de hoofdstad van Italië, is een stad vol geschiedenis, cultuur en charme. Wandel door de eeuwenoude straten en bewonder iconische bezienswaardigheden zoals het Colosseum, de Trevifontein en het Vaticaan. 
+                    <%- randomDestination.description -%> 
                 </p>
                 <p>
                     Geniet van heerlijke Italiaanse gerechten op sfeervolle pleinen en ervaar de unieke mix van oud en modern. Of je nu komt voor kunst, architectuur of gastronomie, Rome betovert elke bezoeker. Een reis naar deze tijdloze stad is een ervaring om nooit te vergeten!
                 </p>
         
                 <button>
-                    Lees meer over Rome
+                    Lees meer over <%- randomDestination.city -%>
                 </button>
             </div>
 

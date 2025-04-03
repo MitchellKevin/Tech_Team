@@ -81,7 +81,10 @@ app.get('/quizresult', async (req, res) => {
       favorites = user.fav || [];
     }
 
-    res.render('pages/quizResult', { destinations, favorites });
+    // Select random destination
+    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
+
+    res.render('pages/quizResult', { randomDestination, destinations, favorites });
   } catch (error) {
     console.error("Error fetching destinations or favorites:", error);
     res.status(500).send("Error fetching destinations or favorites");
@@ -182,6 +185,19 @@ app.get('/locaties', async function(req, res){
 //   }
 // });
 
+
+//quiz data ophalen
+function vraag(vraagNummer){
+  const selected = document.querySelector('input[name="vraag1"]:checked');
+
+    if(selected){
+      const selectedValue = selectedOption.value;
+
+      console.log("Selected value for Vraag " + vraagNummer + ": " + selectedValue);
+
+    }
+}
+
 //travel guide api
 const host = process.env.API_HOST;/*roep de api host aan in de dot env file*/
 const apikey = process.env.API_KEY;/*roep de api key aan in de dot env file*/
@@ -227,11 +243,6 @@ async function fetchdbdata(cityName) {
     console.error(error)
   }
 }
-
-
-// app.get('/quizresult', async function(req, res) {
-//   res.render('pages/quizResult.ejs',{ destinations, favorites });
-// });
 
 // mongodb
 const { MongoClient, ObjectId, Collection } = require("mongodb");
@@ -293,6 +304,28 @@ async function connectDB() {
 
 connectDB();
 
+app.post("/quiz", async (req,res) => {
+  try{
+    const userId = req.session.user._id;
+    const database = client.db(process.env.DB_NAME);
+    const userCollection = database.collection("users");
+    const answer = req.body.answer;
+    const result = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },  // Vind user door ID
+      { 
+        $addToSet: { 
+          answer: answer
+        }
+      }
+    
+  );
+  console.log(result);
+  console.log("userid",userId)
+}catch (error){
+  console.log(error);
+}
+});
+
 app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
     const database = client.db(process.env.DB_NAME);
@@ -353,6 +386,64 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error finding user:", error);
     res.status(500).send("Error finding user");
+  }
+});
+
+app.post("/delete-account", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    await usersCollection.deleteOne({ _id: new ObjectId(req.session.user._id) });
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+      }
+
+      res.redirect("/");
+    });
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    res.status(500).send("Er is een fout opgetreden bij het verwijderen van je account.");
+  }
+});
+
+app.post("/change-password", valiadateCookie, async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send("Het nieuwe wachtwoord komt niet overeen met de bevestiging.");
+    }
+
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+
+    if (!user) {
+      return res.status(404).send("Gebruiker niet gevonden.");
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).send("Huidig wachtwoord is onjuist.");
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    await usersCollection.updateOne(
+      { _id: new ObjectId(req.session.user._id) },
+      { $set: { password: hashedPassword } }
+    );
+
+    res.redirect("/dashboardSettings");
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).send("Er is een fout opgetreden bij het wijzigen van je wachtwoord.");
   }
 });
 
@@ -554,34 +645,46 @@ app.get("/friends", valiadateCookie, async (req, res) => {
     res.render("friends", { user, friends });
   } catch (error) {
     console.error("Error fetching friends:", error);
-    res.status(500).send("Error fetching friends");
+    res.render("friends", { user: req.session.user, friends: [] });
   }
 });
 
-app.get('/api-results', async (req, res) => {
+app.get('/result', async (req, res) => {
   try {
     const database = client.db(process.env.DB_NAME);
     const destinationsCollection = database.collection("destinations");
 
     const city = req.query.city || "Paris";
-    const dataString = await travelguideapi(city);
-    const apiDataRaw = JSON.parse(dataString);
-    
+    const category = req.query.category || "historical";
 
-    const destinations = await destinationsCollection.find().toArray();
-    // Stel dat je de eerste bestemming wilt gebruiken in de intro
+    // Haal de bestemming op op basis van de stadsnaam
     let destination = await destinationsCollection.findOne({ 
       city: { $regex: `^${city}$`, $options: 'i' } 
     });
+    if (!destination) {
+      // fallback als er niks is gevonden
+      const destinations = await destinationsCollection.find().toArray();
+      destination = destinations[0];
+    }
+    
+    // Haal de API-data op
+    const dataString = await travelguideapi(city);
+    const apiDataRaw = JSON.parse(dataString);
+    
+    // Pas de filtering aan zodat deze de doorgegeven categorie gebruikt
     const filteredResults = apiDataRaw.result.filter(place => {
-      return place.type && place.type.toLowerCase() === "historical";
+      return place.type && place.type.toLowerCase() === category.toLowerCase();
     });
+    
     const apiData = {
       region: apiDataRaw.region || city,
       result: filteredResults
     };
-    
-    res.render('apiView', { apiData, destination, destinations });
+
+    // Haal eventueel alle bestemmingen op als je die ook wilt meegeven
+    const destinations = await destinationsCollection.find().toArray();
+
+    res.render('apiView', { apiData, destination, destinations, category });
   } catch (error) {
     console.error("Error fetching API data:", error);
     res.status(500).send("Er is een fout opgetreden bij het ophalen van de API data.");
