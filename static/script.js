@@ -158,19 +158,18 @@ document.addEventListener("DOMContentLoaded", function () {
     async function updateVraagTeller(vraagNummer) {
         if (vraagTeller) {
             vraagTeller.textContent = `Vraag ${vraagNummer} van ${totaalVragen}`;
-            const selectedOption = document.querySelector(`input[name="vraag${vraagNummer - 1}"]:checked`);
-            JSON.stringify(selectedOption.value);
-            const jsonArray = [{quizanswer: selectedOption.value }];
-            console.log(jsonArray);
         }
         try{
+            const selectedOption = document.querySelector(`input[name="vraag${vraagNummer - 1}"]:checked`);
             const response = await fetch('/quiz', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  answer: selectedOption.value  // The selected answer
+                  answer : selectedOption.value,  // De selected answer
                 })
+                
               });
+              
               console.log(await response.json());
         }catch (error) {
             console.error("fout bij verzenden", error)

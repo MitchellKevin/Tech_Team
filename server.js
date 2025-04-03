@@ -216,8 +216,25 @@ async function fetchdbdata(cityName) {
 }
 
 
-app.get('/quizresult', function(req, res) {
-  res.render('pages/quizResult.ejs');
+app.get('/quizresult', async function(req, res) {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const destinationsCollection = database.collection("destinations");
+    const usersCollection = database.collection("users");
+
+    // Fetch all destinations en convert naar array
+    const destinations = await destinationsCollection.find().toArray();
+
+    // Select random destination
+    const randomDestination = destinations[Math.floor(Math.random() * destinations.length)];
+    console.log(randomDestination);
+    // Render de view met random destination
+    res.redirect(`/results?city=${randomDestination.city}`)
+
+  } catch (error) {
+    console.error("Error fetching destinations", error);
+    res.status(500).send("Error fetching destinations");
+  }
 });
 
 // mongodb
@@ -282,14 +299,25 @@ connectDB();
 
 app.post("/quiz", async (req,res) => {
   try{
-  const userCollection = db.collection("users");
-  await userCollection.insertOne({
-    answer: req.body.answer
-  });
+    const userId = req.session.user._id;
+    const database = client.db(process.env.DB_NAME);
+    const userCollection = database.collection("users");
+    const answer = req.body.answer;
+    const result = await userCollection.updateOne(
+      { _id: new ObjectId(userId) },  // Vind user door ID
+      { 
+        $addToSet: { 
+          answer: answer
+        }
+      }
+    
+  );
+  console.log(result);
+  console.log("userid",userId)
 }catch (error){
-  console.log("answer data error");
+  console.log(error);
 }
-})
+});
 
 app.post("/signup", upload.single('avatar'), async (req, res, next) => {
   try {
