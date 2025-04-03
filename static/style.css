@@ -2020,7 +2020,7 @@ button:hover {
     /* Zorgt dat tekst en afbeelding netjes uitgelijnd zijn */
     justify-content: space-between;
     /* Houdt wat ruimte tussen de tekst en afbeelding */
-    max-width: 1200px;
+    max-width: 62.5vw;
     /* Voorkomt dat het te breed wordt */
     margin: 0 auto;
     /* Centreert de content op de pagina */
@@ -2066,7 +2066,7 @@ button:hover {
 /* Categorieën */
 .categories {
     display: flex;
-    gap: 400px;
+    gap: 20.833vw;
     /* Grote afstand tussen categorieën op desktop */
     justify-content: center;
     margin-top: 1.042vw;
@@ -2075,7 +2075,7 @@ button:hover {
 .categories a {
     text-decoration: none;
     font-size: 1.2em;
-    color: black;
+    color: var(--color-text);
     font-weight: bold;
     padding-bottom: 0.26vw;
     transition: 0.3s;
@@ -2087,34 +2087,10 @@ button:hover {
     border-bottom: 0.052vw solid var(--color-darkblue);
 }
 
-/* Filter opties */
-.filters {
-    display: flex;
-    gap: 0.781vw;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.filters button {
-    background-color: var(--color-darkblue);
-    /* Blauwe kleur */
-    color: white;
-    border: none;
-    padding: 0.521vw 0.781vw;
-    border-radius: 0.26vw;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.filters button:hover {
-    background-color: #3b4e8c;
-    /* Iets donkerdere tint bij hover */
-}
-
 /* Favorieten knop */
 .favorite {
-    background-color: #485EA1;
-    color: white;
+    background-color: var(--color-darkblue);
+    color: var(--color-bg);
     border: none;
     padding: 0.521vw 0.781vw;
     border-radius: 0.26vw;
@@ -2124,7 +2100,7 @@ button:hover {
 }
 
 .favorite:hover {
-    background-color: #3b4e8c;
+    background-color: var(--color-darkblue);
 }
 
 @media (max-width: 768px) {
@@ -2140,7 +2116,7 @@ button:hover {
     }
 
     .categories {
-        gap: 20px;
+        gap: 1.042vw;
         /* Kleine afstand tussen categorieën op mobiel */
         align-items: center;
         /* Centreert de tekst */
@@ -2158,7 +2134,7 @@ button:hover {
     margin: 10px auto;
     padding: 10px;
     background-color: var(--color-darkblue);
-    color: white;
+    color: var(--color-bg);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -2211,7 +2187,7 @@ button:hover {
     margin-top: 1.042vw;
     font-size: var(--size-6xl);
     text-align: center;
-    color: #485EA1;
+    color: var(--color-darkblue);
 }
 
 .quiz h2 {
@@ -2240,7 +2216,7 @@ button:hover {
 }
 
 #vragenlijst {
-    background-color: white;
+    background-color: var(--color-bg);
     width: 100%;
     max-width: 60vw;
     margin: auto;
@@ -2278,17 +2254,17 @@ button:hover {
 }
 
 .quiz button:first-of-type {
-    background-color: white;
+    background-color: var(--color-bg);
     color: #3b5998;
     border: 2px solid #3b5998;
 }
 
 .quiz button:last-of-type {
     background-color: var(--color-darkblue);
-    color: white;
+    color: var(--color-bg);
 }
 
-.progress-container {
+.progressContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2352,7 +2328,7 @@ progress::-moz-progress-bar {
         /* Meer ruimte binnen de knop */
     }
 
-    .progress-container {
+    .progressContainer {
         width: 90%;
     }
 
@@ -2366,13 +2342,15 @@ progress::-moz-progress-bar {
 
 }
 
-.overzicht-container h2 {
+.overzichtContainer h2 {
     font-size: var(--size-3xl);
 
 }
 
 
-.match-container {
+/* Friendlist page */
+
+.matchContainer {
     width: 80vw;
     max-width: 50rem;
     margin: 0 auto;
@@ -2383,31 +2361,31 @@ progress::-moz-progress-bar {
 }
 
 /* Gebruikersprofiel bovenaan */
-.user-info {
+.userinfo {
     width: 100%;
     display: flex;
     align-items: center;
     gap: 1rem;
-    background-color: #f8f8f8;
+    background-color: var(--color-bg);
     padding: 1rem;
     border-radius: 0.5rem;
     margin-bottom: 2rem;
     flex-wrap: wrap; /* Zorgt ervoor dat content goed blijft op mobiel */
 }
 
-#user-photo {
+#userphoto {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
 }
 
-#user-name {
+#username {
     margin: 0;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
-#user-country {
+#usercountry {
     font-size: 1rem;
     color: gray;
 }
@@ -2415,7 +2393,7 @@ progress::-moz-progress-bar {
 /* Matches sectie */
 .matches {
     width: 100%;
-    background: #fff;
+    background: var(--color-bg);
     padding: 2rem;
     border-radius: 0.5rem;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -2439,7 +2417,7 @@ progress::-moz-progress-bar {
 
 /* Knoppen styling */
 .matches button:first-of-type {
-    background-color: white;
+    background-color: var(--color-bg);
     color: #3b5998;
     border: 2px solid var(--color-darkblue);
     padding: 0.521vw 0.781vw;
@@ -2464,18 +2442,18 @@ progress::-moz-progress-bar {
 
 /* 🚀 MEDIA QUERY voor telefoonschermen */
 @media (max-width: 600px) {
-    .match-container {
+    .matchContainer {
         width: 90vw; /* Maak het breder op mobiel voor betere weergave */
         padding: 1.5rem;
     }
 
-    .user-info {
+    .userinfo {
         flex-direction: column; /* Zet de items onder elkaar */
         align-items: center;
         text-align: center;
     }
 
-    #user-photo {
+    #userphoto {
         width: 4rem;
         height: 4rem;
     }
@@ -2530,7 +2508,7 @@ progress::-moz-progress-bar {
 }
 
 .view li {
-    background: #fff;
+    background: var(--color-bg);
     margin: 1vw 0;
     padding: 1vw;
     border-left: 0.4vw solid var(--color-brightblue);
