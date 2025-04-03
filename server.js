@@ -94,8 +94,8 @@ app.get('/search', async (req, res) => {
     const results = await destinationsCollection
       .find({ city: { $regex: query, $options: "i" } })
       .toArray();
-        const cityData = await fetchdbdata(results[0].city);//zoek naar results en de city naam in de database
-        const dataString = await travelguideapi(cityData.city); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+        const cityData = await fetchdbdata(results[0].city);
+        const dataString = await travelguideapi(cityData.city);
     res.render("searchResults", { dataString: dataString , query, results });
   } catch (error) {
     console.error("Error handling search:", error);
