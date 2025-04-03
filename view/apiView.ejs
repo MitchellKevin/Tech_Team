@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>API Resultaten</title>
+</head>
+<body>
+  <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
+  <pre><%= JSON.stringify(apiData, null, 2) %></pre>
+  
+  <% if(apiData.result && apiData.result.length) { %>
+    <ul>
+      <% apiData.result.forEach(place => { %>
+        <li>
+          <strong><%= place.name %></strong><br>
+          <%= place.description %><br>
+          Coördinaten: <%= place.coordinates.latitude %>, <%= place.coordinates.longitude %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>Geen resultaten gevonden.</p>
+  <% } %>
+</body>
+</html>
