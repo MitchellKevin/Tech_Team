@@ -23,12 +23,11 @@
         </section>
     </div>
     <section class="categories">
-        <a href="/api-results?city=<%= destination.city %>&category=cultural">Cultural</a>
-        <a href="/api-results?city=<%= destination.city %>&category=food">Food</a>
-        <a href="/api-results?city=<%= destination.city %>&category=historical">History</a>
+        <a href="/results?city=<%= destination.city %>&category=cultural" class="active">Cultural</a>
+        <a href="/results?city=<%= destination.city %>&category=food">Food</a>
+        <a href="/results?city=<%= destination.city %>&category=historical">History</a>
     </section>
     <div class="view">
-        <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
         <!-- <pre><%= JSON.stringify(apiData, null, 2) %></pre> -->
         
         <% if(apiData.result && apiData.result.length) { %>
