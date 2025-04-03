@@ -564,24 +564,36 @@ app.get('/api-results', async (req, res) => {
     const destinationsCollection = database.collection("destinations");
 
     const city = req.query.city || "Paris";
-    const dataString = await travelguideapi(city);
-    const apiDataRaw = JSON.parse(dataString);
-    
+    const category = req.query.category || "historical"; // standaard "historical"
 
-    const destinations = await destinationsCollection.find().toArray();
-    // Stel dat je de eerste bestemming wilt gebruiken in de intro
+    // Haal de bestemming op op basis van de stadsnaam
     let destination = await destinationsCollection.findOne({ 
       city: { $regex: `^${city}$`, $options: 'i' } 
     });
+    if (!destination) {
+      // fallback als er niks is gevonden
+      const destinations = await destinationsCollection.find().toArray();
+      destination = destinations[0];
+    }
+    
+    // Haal de API-data op
+    const dataString = await travelguideapi(city);
+    const apiDataRaw = JSON.parse(dataString);
+    
+    // Pas de filtering aan zodat deze de doorgegeven categorie gebruikt
     const filteredResults = apiDataRaw.result.filter(place => {
-      return place.type && place.type.toLowerCase() === "historical";
+      return place.type && place.type.toLowerCase() === category.toLowerCase();
     });
+    
     const apiData = {
       region: apiDataRaw.region || city,
       result: filteredResults
     };
-    
-    res.render('apiView', { apiData, destination, destinations });
+
+    // Haal eventueel alle bestemmingen op als je die ook wilt meegeven
+    const destinations = await destinationsCollection.find().toArray();
+
+    res.render('apiView', { apiData, destination, destinations, category });
   } catch (error) {
     console.error("Error fetching API data:", error);
     res.status(500).send("Er is een fout opgetreden bij het ophalen van de API data.");

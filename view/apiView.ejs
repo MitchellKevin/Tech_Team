@@ -14,7 +14,7 @@
         <section class="intro">
             <h1>Jouw match - <%=destination.city%></h1>
             <h2>€€</h2>
-            <p><%=destination.description%>></p>
+            <p><%=destination.description%></p>
             <button class="favorite">Voeg toe aan favorieten ❤️</button>
         </section>
 
@@ -23,10 +23,9 @@
         </section>
     </div>
     <section class="categories">
-        <a href="#" class="active">Cultuur</a>
-        <a href="#">Eten</a>
-        <a href="#">Natuur</a>
-        <a href="#">Sport</a>
+        <a href="/api-results?city=<%= destination.city %>&category=cultural" class="active">Cultural</a>
+        <a href="/api-results?city=<%= destination.city %>&category=food">Food</a>
+        <a href="/api-results?city=<%= destination.city %>&category=historical">History</a>
     </section>
     <div class="view">
         <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
