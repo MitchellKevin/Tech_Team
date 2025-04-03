@@ -1,80 +1,83 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Sora:wght@100..800&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-*, *::after, *::before {
-    box-sizing:border-box;  
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
 }
 
 :root {
-	--color-text:#040316;
-	--color-bg:#FFFCF8;
-	/* --color-darkblue: #0F3A6D;
+    --color-text: #040316;
+    --color-bg: #FFFCF8;
+    /* --color-darkblue: #0F3A6D;
     --color-brightblue: #0F3A6D; */
-	--color-lightblue: #2994D7;
-	--color-mutedblue: #B3BEE1;
-	--color-gray: #7D848D;
+    --color-lightblue: #2994D7;
+    --color-mutedblue: #B3BEE1;
+    --color-gray: #7D848D;
 
     /* #0F3A6D */
     --color-brightblue: #2E4EAE;
     --color-darkblue: #485EA1;
 
 
-    
-	--size-xxs: 0.5rem;
-	--size-xs: 0.75rem;
-	--size-sm: 0.875rem;
-	--size-base: 1rem;
-	--size-lg: 1.125rem;
-	--size-xl: 1.25rem;
-	--size-2xl: 1.5rem;
-	--size-3xl: 1.875rem;
-	--size-4xl: 2.25rem;
-	--size-5xl: 3rem;
-	--size-6xl: 3.75rem;
-	--size-7xl: 4.5rem;
-	--size-8xl: 6rem;
-	--size-9xl: 8rem;
-	--size-10xl: 10rem;
+
+    --size-xxs: 0.5rem;
+    --size-xs: 0.75rem;
+    --size-sm: 0.875rem;
+    --size-base: 1rem;
+    --size-lg: 1.125rem;
+    --size-xl: 1.25rem;
+    --size-2xl: 1.5rem;
+    --size-3xl: 1.875rem;
+    --size-4xl: 2.25rem;
+    --size-5xl: 3rem;
+    --size-6xl: 3.75rem;
+    --size-7xl: 4.5rem;
+    --size-8xl: 6rem;
+    --size-9xl: 8rem;
+    --size-10xl: 10rem;
 }
 
-*{
-	margin: 0;
+* {
+    margin: 0;
 }
 
 html {
-	scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 
-body{
-	font-family: 'Urbanist', Times New Roman ;
-	color:var(--color-text);
+body {
+    font-family: 'Urbanist', Times New Roman;
+    color: var(--color-text);
     background-color: var(--color-bg);
 }
 
-body h1{
+body h1 {
     color: var(--color-darkblue);
     font-size: var(--size-4xl);
 }
 
-h3{
+h3 {
     color: var(--color-darkblue);
 }
 
-body h2{
+body h2 {
     color: var(--color-darkblue);
 }
 
-body p{
+body p {
     font-size: 4.375vw;
 }
 
-img,svg {
-	display: block;
-	max-width: 100%;
-	height: auto;
+img,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
-button{
+button {
     background-color: var(--color-darkblue);
     color: var(--color-bg);
     width: fit-content;
@@ -87,71 +90,71 @@ button{
 
 
 .container {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	/* padding-left: 0.5rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-left: 0.5rem;
 	padding-right: 0.5rem; */
-	/* border: solid 1px red; */
+    /* border: solid 1px red; */
 }
 
 /* header */
 header {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
     padding: var(--size-4xl) var(--size-lg) 0 var(--size-lg);
     max-width: 100vw;
-    
+
 }
 
-nav{
+nav {
     display: flex;
     width: 100%;
-	justify-content: flex-end;
+    justify-content: flex-end;
 }
 
-nav ul{
-	display: flex;
-	align-items: center;
-	list-style: none;
-	gap: 2em;
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2em;
     justify-content: center;
-	background-color: var(--color-bg);
+    background-color: var(--color-bg);
 
     align-items: center;
 }
 
 
-li{
+li {
     list-style: none;
-    
+
 }
 
 nav a {
     text-decoration: none;
-	color: var(--color-gray);
+    color: var(--color-gray);
 }
 
-.navPhone{
-	display: none;
-	position: absolute;
+.navPhone {
+    display: none;
+    position: absolute;
 }
 
-.nav-search div{
-	background-color: #485EA1;
-	padding: 1em;
-	border-radius: 50%;
+.nav-search div {
+    background-color: #485EA1;
+    padding: 1em;
+    border-radius: 50%;
 }
 
-li a{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-nav img{
-	width: 24px;
-	height: auto;
+nav img {
+    width: 24px;
+    height: auto;
 }
 
 .searchBar {
@@ -162,14 +165,15 @@ nav img{
     background-color: var(--color-bg);
     padding: var(--size-xxs) var(--size-sm);
     display: flex;
-    box-shadow: 0px 4px 10px 0px rgba(72,102,193,0.4);;
+    box-shadow: 0px 4px 10px 0px rgba(72, 102, 193, 0.4);
+    ;
 
     display: flex;
     align-items: center;
     gap: 0.5em;
 }
 
-.searchBar button{
+.searchBar button {
     font-size: var(--size-xs);
     padding: var(--size-xxs) var(--size-base);
 }
@@ -177,101 +181,101 @@ nav img{
 .search {
     width: 100%;
     border: none;
-	background-color: var(--color-bg);
+    background-color: var(--color-bg);
 }
 
-.searchBar form{
+.searchBar form {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 
-.search::placeholder{
-    color:#485EA1 ;
+.search::placeholder {
+    color: #485EA1;
     opacity: 0.7;
     font-size: var(--size-xs);
-    z-index: 1; 
+    z-index: 1;
 }
 
-.search:focus{
+.search:focus {
     outline: none;
 }
 
 
 
 @media (max-width: 425px) {
-	/* .container{
+    /* .container{
 		max-width: 320px;
 	} */
 
-	header{
-		position: fixed;
-		background-color: var(--color-bg);
-		bottom: 0;
-		padding-bottom: 1em;
-		font-size: var(--size-xs);
-		border-top-left-radius: 25px;
-		border-top-right-radius: 25px;
-		width: 100%;
-		padding-top: 1.5em;
-		z-index: 100;
+    header {
+        position: fixed;
+        background-color: var(--color-bg);
+        bottom: 0;
+        padding-bottom: 1em;
+        font-size: var(--size-xs);
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        width: 100%;
+        padding-top: 1.5em;
+        z-index: 100;
 
-		box-shadow:  0px 0px 17px 0px rgba(72,94,161,0.4);
-	}
+        box-shadow: 0px 0px 17px 0px rgba(72, 94, 161, 0.4);
+    }
 
-	nav{
-		justify-content: center;
-	}
+    nav {
+        justify-content: center;
+    }
 
-	nav ul{
-		display: flex;
-		/* justify-content: space-between; */
+    nav ul {
+        display: flex;
+        /* justify-content: space-between; */
         justify-content: space-around;
-		padding: 0;
-    	list-style-type: none;
-		gap: 0;
-		width: 100%;
-	}
-	
-	nav div{
-		width: 52px;
-		height: 52px;
+        padding: 0;
+        list-style-type: none;
+        gap: 0;
+        width: 100%;
+    }
 
-	}
+    nav div {
+        width: 52px;
+        height: 52px;
 
-	.navPhoneWeg{
-		display: none;
-		position: absolute;
-	}
+    }
 
-	.navPhone{
-		position: static;
-		display: block;
-	}
+    .navPhoneWeg {
+        display: none;
+        position: absolute;
+    }
+
+    .navPhone {
+        position: static;
+        display: block;
+    }
 
 
-	.navPhone img{
-		display: block;
-		width: 24px;
-		height: 24px;
-		margin-left: auto;
-		margin-right: auto;
-	}
+    .navPhone img {
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
 }
 
 
 /* homepage */
-section{
+section {
     margin-bottom: var(--size-6xl);
 }
 
-#searchdiv{
-	padding: var(--size-4xl) var(--size-lg);
+#searchdiv {
+    padding: var(--size-4xl) var(--size-lg);
 }
 
-div#searchdiv{
+div#searchdiv {
     padding: var(--size-4xl) var(--size-lg) 0 var(--size-lg);
 }
 
@@ -283,7 +287,7 @@ div#searchdiv{
     /* background-color: #2994D7; */
 }
 
-.landing div{
+.landing div {
     display: flex;
     flex-direction: column;
     gap: var(--size-xs);
@@ -293,26 +297,26 @@ div#searchdiv{
     border-radius: 10px;
 }
 
-.polaroid{
+.polaroid {
     width: 30vw;
 }
 
-.polaroids h2{
+.polaroids h2 {
     color: var(--color-bg);
 }
 
-.polaroids div{
+.polaroids div {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
 }
 
-.polaroids span{
+.polaroids span {
     font-weight: 100;
     font-style: italic;
 }
 
-.polaroids{
+.polaroids {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -323,12 +327,12 @@ div#searchdiv{
     padding: var(--size-4xl) var(--size-lg);
 }
 
-.index nav ul li a:nth-of-type(1){
+.index nav ul li a:nth-of-type(1) {
     color: var(--color-darkblue);
 }
 
 /* aanbevolen */
-.aanbevolen{
+.aanbevolen {
     padding: var(--size-4xl) var(--size-lg);
 }
 
@@ -345,7 +349,7 @@ div#searchdiv{
     width: 100%;
 }
 
-[class^="cityCard"]{
+[class^="cityCard"] {
     position: relative;
     border-radius: 5px;
     overflow: hidden;
@@ -360,36 +364,36 @@ div#searchdiv{
     object-position: center center;
 }
 
-.cityCard1{
+.cityCard1 {
     grid-row: 1 / 2;
-    grid-column: 1 / 8; 
+    grid-column: 1 / 8;
 }
 
-.cityCard2{
+.cityCard2 {
     grid-row: 1/ 2;
-    grid-column:  8 / 13; 
+    grid-column: 8 / 13;
 }
 
-.cityCard3{
+.cityCard3 {
     grid-row: 2/3;
-    grid-column: 1 / 6; 
+    grid-column: 1 / 6;
 }
 
-.cityCard4{
+.cityCard4 {
     grid-row: 2/3;
-    grid-column: 6 / 13; 
+    grid-column: 6 / 13;
 }
 
-.cityCard5{
+.cityCard5 {
     height: 27vh;
     grid-row: 3/4;
-    grid-column: 1 / 8; 
+    grid-column: 1 / 8;
 }
 
-.cityCard6{
+.cityCard6 {
     height: 27vh;
     grid-row: 3/4;
-    grid-column: 8 / 13; 
+    grid-column: 8 / 13;
 }
 
 .gradientOverlay {
@@ -398,36 +402,36 @@ div#searchdiv{
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,0) 50%);
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(0, 0, 0, 0) 50%);
     border-radius: 5px;
 }
 
 .cityButton {
-	color: var(--color-bg);
+    color: var(--color-bg);
     background-color: var(--color-lightblue);
     border-radius: 50em;
     padding: var(--size-xxs);
 
-	width: var(--size-3xl);
-	height: var(--size-3xl);
+    width: var(--size-3xl);
+    height: var(--size-3xl);
 
-	position:absolute;
-	z-index: 10;
+    position: absolute;
+    z-index: 10;
     border: none;
     right: 1em;
     bottom: 1em
 }
 
-.cityButton svg{
+.cityButton svg {
     width: var(--size-xs);
-	height: var(--size-xs);
+    height: var(--size-xs);
     display: block;
 
     margin-right: auto;
     margin-left: auto;
 }
 
-.cityInfo{
+.cityInfo {
     position: absolute;
     z-index: 100;
     font-weight: 600;
@@ -442,7 +446,7 @@ div#searchdiv{
     margin-bottom: var(--size-base);
 }
 
-.aanbevolen a{
+.aanbevolen a {
     text-decoration: none;
     display: flex;
     justify-content: end;
@@ -457,13 +461,13 @@ div#searchdiv{
 }
 
 @media (min-width: 768px) {
-    .aanbevolen{
+    .aanbevolen {
         max-width: 768px;
 
         margin-right: auto;
         margin-left: auto;
     }
-    
+
     .gridContainer {
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: repeat(4, auto);
@@ -478,28 +482,28 @@ div#searchdiv{
         grid-row: 1 / 3;
         grid-column: 1/6;
     }
-    
+
     .cityCard2 {
         grid-row: 1/3;
         grid-column: 6/9;
     }
-    
+
     .cityCard3 {
         max-height: 60vh;
         grid-row: 1/4;
         grid-column: 9/13;
     }
-    
+
     .cityCard4 {
         grid-row: 3/5;
         grid-column: 1/4;
     }
-    
+
     .cityCard5 {
         grid-row: 3/5;
         grid-column: 4/9;
     }
-    
+
     .cityCard6 {
         grid-row: 4/5;
         grid-column: 9/13;
@@ -507,7 +511,7 @@ div#searchdiv{
 }
 
 /* about us */
-.aboutUs{
+.aboutUs {
     display: flex;
     flex-direction: column;
     gap: var(--size-base);
@@ -517,43 +521,43 @@ div#searchdiv{
     text-align: center;
 }
 
-.aboutUs p{
+.aboutUs p {
     font-weight: 200;
     font-size: var(--size-xs);
 }
 
-.aboutUs h2{
+.aboutUs h2 {
     color: var(--color-bg);
 }
 
-.aboutUsDiv{
+.aboutUsDiv {
     display: flex;
     justify-content: space-between;
 }
 
 
-.aboutUsDiv div{ 
+.aboutUsDiv div {
     display: flex;
     flex-direction: column;
-	
+
 
     align-items: center;
     gap: var(--size-xxs);
     width: 32vw;
-	
+
 }
 
-.aboutUsDiv p{
+.aboutUsDiv p {
     font-size: var(--size-xs);
     font-weight: 600;
 
-	align-self: center;
+    align-self: center;
 }
 
 /* gids */
-.gids{
+.gids {
     /* padding: var(--size-4xl) var(--size-lg); */
-    padding: var(--size-4xl) 0 var(--size-4xl) var(--size-lg) ;
+    padding: var(--size-4xl) 0 var(--size-4xl) var(--size-lg);
     display: flex;
     flex-direction: column;
     gap: var(--size-base);
@@ -609,35 +613,35 @@ div#searchdiv{
 } */
 
 .cityButton2 {
-	color: var(--color-bg);
+    color: var(--color-bg);
     background-color: var(--color-lightblue);
     border-radius: 50%;
     /* outline: var(--size-xxs) solid var(--color-bg); */
 
     padding: var(--size-xxs);
 
-	width: var(--size-3xl);
-	height: var(--size-3xl);
+    width: var(--size-3xl);
+    height: var(--size-3xl);
 
-    box-shadow: 0px 2px 10px 0px rgba(72,102,193,0.4);
+    box-shadow: 0px 2px 10px 0px rgba(72, 102, 193, 0.4);
 
-	position:absolute;
-	z-index: 10;
+    position: absolute;
+    z-index: 10;
     border: none;
     right: 0.3em;
-    bottom: 0.3em    
+    bottom: 0.3em
 }
 
-.cityButton2 svg{
+.cityButton2 svg {
     width: var(--size-xs);
-	height: var(--size-xs);
+    height: var(--size-xs);
     display: block;
 
     margin-right: auto;
     margin-left: auto;
 }
 
-.cardScroll{
+.cardScroll {
     display: flex;
     flex-direction: row;
     gap: var(--size-sm);
@@ -645,16 +649,16 @@ div#searchdiv{
     width: 100%;
 }
 
-.cardScroll::-webkit-scrollbar{
+.cardScroll::-webkit-scrollbar {
     color: transparent;
 }
 
 
 /* V3citycard */
-.V3cityCard{
-    display: flex;    
+.V3cityCard {
+    display: flex;
     flex-direction: column;
-    
+
     min-width: 50vw;
     gap: 0.2em;
     border-radius: 5px;
@@ -668,16 +672,16 @@ div#searchdiv{
     border-radius: 12px;
 }
 
-.V3cityCardButton img{
+.V3cityCardButton img {
     border-radius: 0;
 }
 
-.V3cityCardImage{
+.V3cityCardImage {
     position: relative;
     height: 40vh;
 }
 
-.V3cityCardButton{
+.V3cityCardButton {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -685,30 +689,30 @@ div#searchdiv{
 }
 
 
-.V3cityCardTitle{
+.V3cityCardTitle {
     display: flex;
     flex-direction: column;
 }
 
-.V3cityCardTitle div{
+.V3cityCardTitle div {
     display: flex;
     align-items: center;
 }
 
-.V3cityCard p{
+.V3cityCard p {
     font-size: var(--size-xs);
     font-weight: 400;
 }
 
-.V3cityCardTitle h3{
+.V3cityCardTitle h3 {
     font-weight: 800;
 }
 
-.V3cityCardTitle p:nth-child(2){
-    font-weight:normal;
+.V3cityCardTitle p:nth-child(2) {
+    font-weight: normal;
 }
 
-.heart{
+.heart {
     position: absolute;
     top: 0;
     right: 0;
@@ -716,19 +720,19 @@ div#searchdiv{
     background-color: transparent;
 }
 
-.heart:hover{
+.heart:hover {
     cursor: pointer;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     display: none;
 }
 
 input[type=checkbox] {
-    display:none;
+    display: none;
 }
 
-.heartFill{
+.heartFill {
     position: absolute;
     top: 0;
     right: 0;
@@ -738,44 +742,49 @@ input[type=checkbox] {
     opacity: 0%;
 }
 
-.heartFilled{
+.heartFilled {
     opacity: 100%;
 }
 
 /* quizResult */
-.matchResult, .matchResult div, .otherMatches{
-	display: flex;
-	flex-direction: column;
-	gap: var(--size-base);
+.matchResult,
+.matchResult div,
+.otherMatches {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-base);
 }
 
 
-.matchResult{
-	padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
+.matchResult {
+    padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
 }
 
-.otherMatches{
-	padding: var(--size-4xl) 0 var(--size-4xl) var(--size-lg);
-	background-color: var(--color-brightblue);
+.otherMatches {
+    padding: var(--size-4xl) 0 var(--size-4xl) var(--size-lg);
+    background-color: var(--color-brightblue);
 }
 
-.quizResult h1{
-	font-size: var(--size-3xl);
+.quizResult h1 {
+    font-size: var(--size-3xl);
 }
 
-.otherMatches h2, .otherMatches p, .otherMatches h3, .otherMatches svg{
-	color: var(--color-bg);
-	fill: var(--color-bg);
+.otherMatches h2,
+.otherMatches p,
+.otherMatches h3,
+.otherMatches svg {
+    color: var(--color-bg);
+    fill: var(--color-bg);
 }
 
-.otherMatches .V3cityCardButton img{
-	filter: brightness(0) saturate(100%) invert(23%) sepia(24%) saturate(5277%) hue-rotate(213deg) brightness(97%) contrast(88%);
+.otherMatches .V3cityCardButton img {
+    filter: brightness(0) saturate(100%) invert(23%) sepia(24%) saturate(5277%) hue-rotate(213deg) brightness(97%) contrast(88%);
 
     /* filter: brightness(0) saturate(100%) invert(16%) sepia(82%) saturate(1234%) hue-rotate(191deg) brightness(95%) contrast(97%); */
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: transparent ; 
+    background-color: transparent;
 }
 
 /* .quizResult span{
@@ -786,33 +795,34 @@ input[type=checkbox] {
 	);
 } */
 
-.otherMatches h1{
-	color: var(--color-bg);
+.otherMatches h1 {
+    color: var(--color-bg);
 }
 
-.quizResult .cityButton2 svg{
-	stroke: var(--color-brightblue);
+.quizResult .cityButton2 svg {
+    stroke: var(--color-brightblue);
 }
 
-.cityButton2 svg, .cityButton svg{
-	stroke-width: 3;
+.cityButton2 svg,
+.cityButton svg {
+    stroke-width: 3;
 }
 
-.quizResult .cityButton2{
-	background-color: var(--color-bg);
+.quizResult .cityButton2 {
+    background-color: var(--color-bg);
 }
 
-.quizResult .cityButton2:hover{
-	background-color: var(--color-bg);
+.quizResult .cityButton2:hover {
+    background-color: var(--color-bg);
 }
 
 
 /* searchResult */
-.searchResult{
-	padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
+.searchResult {
+    padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
 }
 
-.searchResultImg{
+.searchResultImg {
     margin: var(--size-4xl) var(--size-lg) 0 var(--size-lg);
     margin-bottom: 0;
     border-radius: 8px;
@@ -827,11 +837,11 @@ input[type=checkbox] {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(2,0,36,0.6) 0%, rgba(2,0,36,0) 40%);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 0.6) 0%, rgba(2, 0, 36, 0) 40%);
     z-index: 5;
 }
 
-.searchResultImg img{
+.searchResultImg img {
     position: absolute;
     top: 0;
     left: 0;
@@ -840,24 +850,25 @@ input[type=checkbox] {
     object-fit: cover;
 }
 
-.searchResultImg p, .searchResultImg h1{
+.searchResultImg p,
+.searchResultImg h1 {
     position: relative;
     z-index: 10;
     color: var(--color-bg);
 }
 
-.searchResultImg h1{
+.searchResultImg h1 {
     font-size: 8vw;
 }
 
-.searchResultdiv{
+.searchResultdiv {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(40vw, 1fr));
     grid-template-rows: auto;
     gap: var(--size-base);
 }
 
-.searchResultdiv .V3cityCard{
+.searchResultdiv .V3cityCard {
     min-width: 0;
     width: auto;
     max-width: none;
@@ -867,81 +878,84 @@ input[type=checkbox] {
     padding: 0 var(--size-lg) var(--size-2xl) var(--size-lg);
 }
 
-.searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage  {
+.searchBody .V3cityCardImage,
+.dashboardbody .V3cityCardImage {
     height: 25vh;
 }
 
 /* login styling */
 
-.loginBody header{
+.loginBody header {
     display: none;
 }
 
-.loginDiv{
+.loginDiv {
     margin-bottom: 0;
 }
 
-.formInputs, .formInputs div, .loginform{
+.formInputs,
+.formInputs div,
+.loginform {
     display: flex;
     flex-direction: column;
     gap: var(--size-xxs);
 }
 
-.loginform{
+.loginform {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    
+
     align-items: center;
     justify-content: center;
-    
+
     gap: var(--size-xl);
     padding-bottom: var(--size-4xl);
 }
 
-.loginform p{
+.loginform p {
     color: var(--color-gray);
 }
 
 
-.forminput{
+.forminput {
     border: none;
     background-color: #F7F7F9;
     padding: var(--size-xs);
     border-radius: 8px;
 }
 
-.forminput:focus{
+.forminput:focus {
     outline: 1px solid var(--color-darkblue);
 }
 
-.formInputs{
+.formInputs {
     align-items: center;
     margin-top: auto;
     width: 100%;
     gap: var(--size-xl)
 }
 
-.formInputs div{
+.formInputs div {
     width: 100%;
     padding: 0 var(--size-xl);
 }
 
-.formInputs div:nth-child(1){
+.formInputs div:nth-child(1) {
     width: 80%;
     text-align: center;
 }
 
-.formInputs div label{
+.formInputs div label {
     font-weight: 600;
 }
 
-.loginButtonDiv{
+.loginButtonDiv {
     margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: var(--size-base);
-    
+
     padding: 0 var(--size-xl);
     width: 100%;
 }
@@ -951,18 +965,19 @@ input[type=checkbox] {
     font-weight: 600;
 }
 
-.loginButtonDiv p{
+.loginButtonDiv p {
     text-align: center;
 }
 
-.loginSide{
-    display:none;
+.loginSide {
+    display: none;
 
     /* background-color: var(--color-darkblue); */
     width: 100%;
 }
 
-::file-selector-button, button input {
+::file-selector-button,
+button input {
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -972,7 +987,7 @@ input[type=checkbox] {
     font-family: urbanist;
 }
 
-.backArrow{
+.backArrow {
     position: absolute;
     top: 0;
     left: 0;
@@ -980,7 +995,9 @@ input[type=checkbox] {
 }
 
 /* dashboard css */
-.dashboard, .laatstBezochtSection, .laatstBezochtDiv{
+.dashboard,
+.laatstBezochtSection,
+.laatstBezochtDiv {
     display: flex;
     flex-direction: column;
     gap: var(--size-xxs);
@@ -988,7 +1005,8 @@ input[type=checkbox] {
     margin-bottom: 0;
 }
 
-.dashboardbody h1, .friendlist h1{
+.dashboardbody h1,
+.friendlist h1 {
     text-align: center;
     font-size: 7.5vw;
     font-weight: 800;
@@ -996,47 +1014,48 @@ input[type=checkbox] {
     color: var(--color-text);
 }
 
-.profileImage{
+.profileImage {
     overflow: hidden;
     object-fit: cover;
     width: 20vw;
     height: 20vw;
 }
 
-.profileImage img{
+.profileImage img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
 
-.profileDiv{
+.profileDiv {
     display: flex;
     gap: var(--size-base);
     align-items: center;
     margin-bottom: var(--size-xl);
 }
 
-.dashboardbody h2{
+.dashboardbody h2 {
     color: var(--color-text);
     font-size: 6.25vw;
 }
-.dashboardbody h3{
+
+.dashboardbody h3 {
     color: var(--color-text);
     font-size: 5vw;
 }
 
-.dashboardbody hr{
+.dashboardbody hr {
     border: 1px solid #CFCFCF;
 }
 
-.dashboardDiv{
+.dashboardDiv {
     display: flex;
     gap: var(--size-base);
     margin: var(--size-xxs) 0;
     position: relative;
 }
 
-.dashboardsvg{
+.dashboardsvg {
     display: flex;
     align-self: center;
 
@@ -1044,11 +1063,11 @@ input[type=checkbox] {
     height: 8vw;
 }
 
-.dashboardDiv p{
+.dashboardDiv p {
     color: var(--color-gray);
 }
 
-.arrow{
+.arrow {
     position: absolute;
     right: 0;
 
@@ -1059,44 +1078,44 @@ input[type=checkbox] {
     align-self: center;
 }
 
-.laatstBezochtSection div{
+.laatstBezochtSection div {
     display: flex;
     align-items: center;
     gap: var(--size-xxs);
 }
 
-.laatstBezochtSection img{
+.laatstBezochtSection img {
     width: 6vw;
     height: auto;
 }
 
-.laatstBezochtButton button{
+.laatstBezochtButton button {
     background-color: var(--color-gray);
     font-weight: 600;
     padding: var(--size-xxs) var(--size-lg);
 }
 
-button.ActiveButton{
+button.ActiveButton {
     background-color: var(--color-darkblue);
 }
 
-.laatstBezochtDiv{
+.laatstBezochtDiv {
     margin-bottom: 7em;
 }
 
-.laatstBezochtDiv h3{
+.laatstBezochtDiv h3 {
     color: var(--color-darkblue);
 }
 
-.logoutButton{
+.logoutButton {
     margin-top: var(--size-xl);
 }
 
-.logoutButton:hover{
+.logoutButton:hover {
     background-color: var(--color-darkblue);
 }
 
-.dashboardDiv a{
+.dashboardDiv a {
     text-decoration: none;
 }
 
@@ -1107,13 +1126,13 @@ button.ActiveButton{
     margin-top: var(--size-xxs);
 }
 
-.wachtwoordWijzigen{
+.wachtwoordWijzigen {
     display: flex;
     flex-direction: column;
     gap: var(--size-xs);
 }
 
-.wachtwoordWijzigen div{
+.wachtwoordWijzigen div {
     margin-top: 0.4em;
     display: flex;
     flex-direction: column;
@@ -1121,14 +1140,14 @@ button.ActiveButton{
     font-weight: 600;
 }
 
-.dashboard input{
+.dashboard input {
     width: fit-content;
 
     border: none;
     background-color: #F7F7F9;
     padding: var(--size-xs);
     border-radius: 8px;
-    
+
     margin: var(--size-xxs) 0;
     padding: var(--size-xs) var(--size-lg);
 }
@@ -1138,7 +1157,7 @@ button.ActiveButton{
     outline: 1px solid #CFCFCF;
 }
 
-input.deleteButton{
+input.deleteButton {
     width: fit-content;
 
     border: none;
@@ -1150,17 +1169,17 @@ input.deleteButton{
     font-weight: 600;
 }
 
-input.inputbutton{
+input.inputbutton {
     background-color: var(--color-darkblue);
     color: var(--color-bg);
     font-weight: 600;
 }
 
-input.wachtwoordWijzigen:focus{
+input.wachtwoordWijzigen:focus {
     outline: 1px solid var(--color-darkblue);
 }
 
-.accountname{
+.accountname {
     margin: var(--size-xxs) 0;
     padding: var(--size-xs) var(--size-lg);
     outline: 1px solid #CFCFCF;
@@ -1168,7 +1187,7 @@ input.wachtwoordWijzigen:focus{
     border-radius: 8px;
 }
 
-.dashboard{
+.dashboard {
     /* margin-bottom: var(--size-xl); */
     margin-bottom: 0;
 }
@@ -1176,20 +1195,20 @@ input.wachtwoordWijzigen:focus{
 /* sorting */
 button.sort.asc,
 button.sort.desc {
-  font-weight:bold;
+    font-weight: bold;
 }
 
 button.sort.asc::after {
-  content: "(az↓)";
-  padding-left: .25em;
-  font-weight:normal;
+    content: "(az↓)";
+    padding-left: .25em;
+    font-weight: normal;
 }
 
 button.sort.desc::after {
-  content: "(za↓)";
-  padding-left: .25em;
-  font-weight:normal;
-} 
+    content: "(za↓)";
+    padding-left: .25em;
+    font-weight: normal;
+}
 
 /* filter */
 /* ul.food li:not(.food) {
@@ -1220,14 +1239,14 @@ button.sort.desc::after {
     width: 100%;
 } */
 
-.searchResultdiv{
+.searchResultdiv {
     margin: var(--size-2xl) 0 0 0;
     padding: 0;
 }
 
 /* friendlist styling */
-.friendlist section{
-    padding:0 var(--size-lg) var(--size-4xl) var(--size-lg);
+.friendlist section {
+    padding: 0 var(--size-lg) var(--size-4xl) var(--size-lg);
 }
 
 .friendlistSection ul {
@@ -1235,14 +1254,14 @@ button.sort.desc::after {
     margin-top: var(--size-xl);
 }
 
-.friendlist .profileDiv{
+.friendlist .profileDiv {
     background-color: rgb(179, 190, 225, 0.25);
     /* background-color: #f8f8f8; */
     padding: var(--size-xs) var(--size-base);
     border-radius: 8px;
 }
 
-.friendlist .profileImage{
+.friendlist .profileImage {
     width: 18vw;
     height: 18vw;
 }
@@ -1251,11 +1270,11 @@ button.sort.desc::after {
 
 /* xs */
 @media (min-width: 475px) {
-	.container{
-		max-width: 475px;
-	}
+    .container {
+        max-width: 475px;
+    }
 
-    .V3cityCard{
+    .V3cityCard {
         min-width: 40vw;
         max-width: 40vw;
     }
@@ -1263,11 +1282,11 @@ button.sort.desc::after {
 
 /* sm */
 @media (min-width: 640px) {
-	.container{
-		max-width: 640px;
-	}
+    .container {
+        max-width: 640px;
+    }
 
-    .V3cityCard{
+    .V3cityCard {
         min-width: 30vw;
         max-width: 30vw;
     }
@@ -1275,11 +1294,12 @@ button.sort.desc::after {
 
 /* md */
 @media (min-width: 768px) {
-	.container{
-		max-width: 768px;
-	}
+    .container {
+        max-width: 768px;
+    }
 
-    body p, .aboutUs p {
+    body p,
+    .aboutUs p {
         font-size: 2.083vw;
     }
 
@@ -1287,37 +1307,46 @@ button.sort.desc::after {
         font-size: 1.823vw;
     }
 
-    body h1, .searchResultImg h1{
+    body h1,
+    .searchResultImg h1 {
         font-size: 6.25vw;
     }
-    
-    body h2{
+
+    body h2 {
         font-size: 4.688vw;
     }
 
 
-    .V3cityCard{
+    .V3cityCard {
         min-width: 25vw;
         max-width: 25vw;
     }
 
-    .landing{
+    .landing {
         display: flex;
         flex-direction: row-reverse;
         position: relative;
         gap: var(--size-5xl);
 
     }
-    
-    .landing div{
+
+    .landing div {
         justify-content: space-between;
     }
 
-    .landing, .aanbevolen, .aboutUs, .polaroids,div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section{
+    .landing,
+    .aanbevolen,
+    .aboutUs,
+    .polaroids,
+    div#searchdiv,
+    .matchResult,
+    .otherMatches,
+    .searchResult,
+    .dashboardbody section {
         padding: var(--size-7xl) var(--size-4xl);
     }
 
-    .friendlist section{
+    .friendlist section {
         padding: var(--size-4xl) var(--size-4xl);
     }
 
@@ -1329,422 +1358,464 @@ button.sort.desc::after {
         z-index: 20;
     }
 
-    div#searchdiv{
+    div#searchdiv {
         padding-top: var(--size-2xl);
         padding-bottom: 0;
     }
 
-    .searchResultImg{
+    .searchResultImg {
         margin: var(--size-3xl) var(--size-4xl) var(--size-2xl) var(--size-4xl);
-        
+
         padding: var(--size-6xl) var(--size-4xl);
     }
 
-    .gids{
-        padding:var(--size-7xl) var(--size-xl) var(--size-7xl) var(--size-4xl);
+    .gids {
+        padding: var(--size-7xl) var(--size-xl) var(--size-7xl) var(--size-4xl);
     }
 
     header {
         padding: var(--size-4xl) var(--size-4xl) 0 var(--size-4xl);
     }
 
-    .aboutUsDiv{
+    .aboutUsDiv {
         margin-top: var(--size-3xl);
     }
-    
-    .polaroids div{
+
+    .polaroids div {
         max-width: 60vw;
     }
 
-	.fotoResult{
-		height: 60vh;
-		object-fit: cover;
-		border-radius: 16px;
-	}
-	
-	.otherMatches{
-		margin-bottom: 0;
-	}
+    .fotoResult {
+        height: 60vh;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .otherMatches {
+        margin-bottom: 0;
+    }
 
 
-    .searchResultdiv{
+    .searchResultdiv {
         grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
         gap: var(--size-3xl);
     }
 
     /* login */
-    .loginDiv{
+    .loginDiv {
         display: flex;
         flex-direction: row;
     }
 
-    .loginform{
+    .loginform {
         margin: 0 auto;
         height: 90vh;
     }
 
-    .loginSide{
+    .loginSide {
         display: block;
         width: 45vw;
         margin: var(--size-base);
         border-radius: 8px;
         overflow: hidden;
         max-height: 88vh;
-        
+
     }
 
-    .loginSide img{
+    .loginSide img {
         height: 90vh;
         object-fit: cover;
     }
 
-    .loginButtonDiv, .formInputs{
+    .loginButtonDiv,
+    .formInputs {
         margin-top: 0;
     }
 
-    .loginBody header{
+    .loginBody header {
         display: block;
     }
 
-    .loginBody h1{
+    .loginBody h1 {
         font-size: 4.2vw;
     }
 
     /* dashboard */
-    .dashboardbody h1{
+    .dashboardbody h1 {
         display: none;
     }
 
-    .profileImage{
+    .profileImage {
         width: 15vw;
         height: 15vw;
     }
-    
-    .dashboardbody h3{
+
+    .dashboardbody h3 {
         font-size: 3vw;
     }
 
-    .dashboardDiv div:nth-child(2){
+    .dashboardDiv div:nth-child(2) {
         align-self: center;
     }
 
-    .dashboardbody p{
+    .dashboardbody p {
         font-size: 1.823vw;
     }
 
-    .dashboardsvg{
+    .dashboardsvg {
         width: 6vw;
         height: 6vw;
     }
 
-    .arrow, .laatstBezochtSection img{
+    .arrow,
+    .laatstBezochtSection img {
         width: 4vw;
         height: 4vw;
     }
 
-    section.dashboard, section.laatstBezochtSection{
+    section.dashboard,
+    section.laatstBezochtSection {
         padding-bottom: 0;
     }
 
-    section.laatstBezochtDiv{
+    section.laatstBezochtDiv {
         padding-top: var(--size-base);
     }
 
 
-    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage  {
+    .searchBody .V3cityCardImage,
+    .dashboardbody .V3cityCardImage {
         height: 35vh;
     }
 
-    .searchResultdiv .V3cityCard{
+    .searchResultdiv .V3cityCard {
         max-width: 28vw;
     }
 
-    .friendlist .profileImage{
+    .friendlist .profileImage {
         width: 10vw;
         height: 10vw;
     }
 
-    .friendlist h1{
+    .friendlist h1 {
         font-size: 5vw;
     }
 }
 
 /* lg */
 @media (min-width: 1024px) {
-	.container{
-		max-width: 1024px;
-	}
+    .container {
+        max-width: 1024px;
+    }
 
-    body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p, .quizResult, .otherMatches p, .searchResult p {
+    body p,
+    .aboutUs p,
+    .gids p,
+    p.cityInfo,
+    .aanbevolen a p,
+    .quizResult,
+    .otherMatches p,
+    .searchResult p {
         font-size: 1.563vw;
     }
 
-	h3{
-		font-size: 1.953vw;
-	}
-	
-	.landing img {
-		width: 50vw;
-	}
+    h3 {
+        font-size: 1.953vw;
+    }
 
-	.aanbevolen{
-		max-width: none;
-	}
+    .landing img {
+        width: 50vw;
+    }
 
-	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section, .friendlist section {
+    .aanbevolen {
+        max-width: none;
+    }
+
+    .landing,
+    .aanbevolen,
+    .polaroids,
+    div#searchdiv,
+    .matchResult,
+    .otherMatches,
+    .searchResult,
+    .dashboardbody section,
+    .friendlist section {
         padding: var(--size-7xl) var(--size-7xl);
     }
 
-    
 
-    .searchBody div#searchdiv{
+
+    .searchBody div#searchdiv {
         padding-bottom: 0;
         transform: translate(12%, -100%);
     }
 
-    div#searchdiv{
+    div#searchdiv {
         padding-bottom: 0;
     }
 
 
-    .searchResultImg{
+    .searchResultImg {
         margin: var(--size-5xl) var(--size-7xl) var(--size-3xl) var(--size-7xl);
         padding: var(--size-8xl) var(--size-6xl);
     }
 
-	.aboutUs{
-		padding: var(--size-7xl) var(--size-10xl);
-	}
+    .aboutUs {
+        padding: var(--size-7xl) var(--size-10xl);
+    }
 
-    .gids{
-        padding:var(--size-7xl) var(--size-5xl) var(--size-7xl) var(--size-7xl);
+    .gids {
+        padding: var(--size-7xl) var(--size-5xl) var(--size-7xl) var(--size-7xl);
     }
 
     header {
         padding: var(--size-4xl) var(--size-7xl) 0 var(--size-7xl);
     }
 
-	.V3cityCard{
+    .V3cityCard {
         min-width: 20vw;
         max-width: 20vw;
     }
 
-	.cityButton {
-		scale: 1.5;
-		bottom: 1.5em;
-		right: 1.5em;
-	}
+    .cityButton {
+        scale: 1.5;
+        bottom: 1.5em;
+        right: 1.5em;
+    }
 
-	.V3cityCardButton{
-		scale: 1.5;
-		bottom: 0.8em;
-		right: 0.8em;
-	}
+    .V3cityCardButton {
+        scale: 1.5;
+        bottom: 0.8em;
+        right: 0.8em;
+    }
 
-	.cityButton, .V3cityCardButton {
-		animation-name: scaling-unhover-city-button;
-		animation-duration: 0.6s;
-		animation-fill-mode: forwards;
-	}	
+    .cityButton,
+    .V3cityCardButton {
+        animation-name: scaling-unhover-city-button;
+        animation-duration: 0.6s;
+        animation-fill-mode: forwards;
+    }
 
-	.cityButton:hover, .V3cityCardButton:hover{
-	    animation-name: scaling-hover-city-button;
-	    animation-duration: 0.6s;
-	    animation-fill-mode: forwards;
-	}
+    .cityButton:hover,
+    .V3cityCardButton:hover {
+        animation-name: scaling-hover-city-button;
+        animation-duration: 0.6s;
+        animation-fill-mode: forwards;
+    }
 
-	/* quizresult */
-	div.matchResultdiv {
-		display: flex;
-		flex-direction: row;
-		gap: var(--size-4xl);
+    /* quizresult */
+    div.matchResultdiv {
+        display: flex;
+        flex-direction: row;
+        gap: var(--size-4xl);
 
-		position: relative;
-	}
+        position: relative;
+    }
 
-	.matchResultdiv button{
-		position: absolute;
-		bottom: 0;
-		right: 0;
-	}
+    .matchResultdiv button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
 
-	.matchResult h1{
-		display: block;
-		margin: 0 auto var(--size-4xl) auto;
-	}
+    .matchResult h1 {
+        display: block;
+        margin: 0 auto var(--size-4xl) auto;
+    }
 
     /* searchresult */
-    .searchResultdiv{
+    .searchResultdiv {
         grid-template-columns: repeat(auto-fit, minmax(18vw, 1fr));
         gap: var(--size-7xl) var(--size-3xl);
     }
 
     /* dashboard */
-    .profileImage{
+    .profileImage {
         width: 10vw;
         height: 10vw;
     }
-    .dashboardbody h2{
+
+    .dashboardbody h2 {
         font-size: 4vw;
     }
-    
-    .dashboardbody h3{
+
+    .dashboardbody h3 {
         font-size: 2vw;
     }
 
-    .dashboardDiv div:nth-child(2){
+    .dashboardDiv div:nth-child(2) {
         align-self: center;
     }
 
-    .dashboardsvg{
+    .dashboardsvg {
         width: 4vw;
         height: 4vw;
     }
 
-    .dashboardbody p{
+    .dashboardbody p {
         font-size: 1.563vw;
     }
 
-    .arrow, .laatstBezochtSection img{
+    .arrow,
+    .laatstBezochtSection img {
         width: 3vw;
         height: 3vw;
     }
 
-    section.dashboard, section.laatstBezochtSection{
+    section.dashboard,
+    section.laatstBezochtSection {
         padding-bottom: 0;
     }
 
-    section.laatstBezochtDiv{
+    section.laatstBezochtDiv {
         padding-top: var(--size-base);
     }
 
-    .wachtwoordWijzigen div input, .accountInfo{
+    .wachtwoordWijzigen div input,
+    .accountInfo {
         width: 30vw;
-    } 
+    }
 
-    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage   {
+    .searchBody .V3cityCardImage,
+    .dashboardbody .V3cityCardImage {
         height: 38vh;
     }
 
-    .searchResultdiv .V3cityCard{
+    .searchResultdiv .V3cityCard {
         max-width: 20vw;
     }
 
-    .friendlist .profileImage{
+    .friendlist .profileImage {
         width: 8vw;
         height: 8vw;
     }
 
-    .friendlist h1{
+    .friendlist h1 {
         font-size: 3.5vw;
     }
 }
 
 /* xl */
 @media (min-width: 1280px) {
-	.container{
-		max-width: 1280px;
-	}
-    
+    .container {
+        max-width: 1280px;
+    }
+
     /* forminput */
-    .loginform{
+    .loginform {
         margin: 0 auto;
         height: 92vh;
     }
 
-    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage {
+    .searchBody .V3cityCardImage,
+    .dashboardbody .V3cityCardImage {
         height: 45vh;
     }
 }
 
 /* 2xl */
 @media (min-width: 1440px) {
-	.container{
-		max-width: 1440px;
-	}
+    .container {
+        max-width: 1440px;
+    }
 
-	body p, .aboutUs p, .gids p, p.cityInfo, .aanbevolen a p, .quizResult, .otherMatches p, .searchResult p{
+    body p,
+    .aboutUs p,
+    .gids p,
+    p.cityInfo,
+    .aanbevolen a p,
+    .quizResult,
+    .otherMatches p,
+    .searchResult p {
         font-size: 1.25vw;
     }
 
-	body h2{
-		font-size: 3.472vw;
-	}
+    body h2 {
+        font-size: 3.472vw;
+    }
 
-	.quizResult h1, .searchResultImg h1{
-		font-size: 2.7vw;
-	}
-	
+    .quizResult h1,
+    .searchResultImg h1 {
+        font-size: 2.7vw;
+    }
 
-	h3{
-		font-size: 1.7vw;
-	}
-	
 
-	.landing div{
-		width: 40vw;
-	}
+    h3 {
+        font-size: 1.7vw;
+    }
 
-	.landing{
-		gap: var(--size-10xl);
-	}
-	
-	.landing img {
-		width: 50vw;
-	}
 
-	.aanbevolen{
-		max-width: none;
-	}
+    .landing div {
+        width: 40vw;
+    }
 
-	.aanbevolen, .polaroids, div#searchdiv, .gids, .matchResult, .otherMatches, .dashboardbody section{
+    .landing {
+        gap: var(--size-10xl);
+    }
+
+    .landing img {
+        width: 50vw;
+    }
+
+    .aanbevolen {
+        max-width: none;
+    }
+
+    .aanbevolen,
+    .polaroids,
+    div#searchdiv,
+    .gids,
+    .matchResult,
+    .otherMatches,
+    .dashboardbody section {
         padding: var(--size-10xl) var(--size-10xl);
     }
 
-    .landing, .friendlist section{
+    .landing,
+    .friendlist section {
         padding: var(--size-8xl) var(--size-10xl) var(--size-10xl) var(--size-10xl);
     }
 
-    div#searchdiv{
+    div#searchdiv {
         padding-bottom: 0;
         padding-top: var(--size-2xl);
     }
 
-    .searchBody div#searchdiv{
+    .searchBody div#searchdiv {
         margin-top: var(--size-5xl);
         padding-bottom: 0;
     }
 
 
-    .searchResult{
+    .searchResult {
         padding: var(--size-5xl) var(--size-10xl) var(--size-10xl) var(--size-10xl);
     }
 
-    .searchResultImg{
+    .searchResultImg {
         margin: var(--size-7xl) var(--size-10xl) var(--size-5xl) var(--size-10xl);
 
         padding: var(--size-9xl) var(--size-8xl);
-   }
+    }
 
-   .searchBody div#searchdiv{
-		padding: var(--size-5xl) var(--size-10xl) 0 var(--size-10xl);
+    .searchBody div#searchdiv {
+        padding: var(--size-5xl) var(--size-10xl) 0 var(--size-10xl);
         transform: translate(12%, -170%);
-	}
-    
+    }
 
-	.aboutUs{
-		padding: var(--size-10xl) 12rem;
-		gap: var(--size-5xl);
-	}
 
-	div.aboutusdivp{
-		padding: 0 10em 0 10em;
-	}
+    .aboutUs {
+        padding: var(--size-10xl) 12rem;
+        gap: var(--size-5xl);
+    }
 
-	.aboutUsDiv img{
-		scale: 1.5;
-		padding: 1.5em;
-	}
+    div.aboutusdivp {
+        padding: 0 10em 0 10em;
+    }
+
+    .aboutUsDiv img {
+        scale: 1.5;
+        padding: 1.5em;
+    }
 
 
     header {
@@ -1752,176 +1823,183 @@ button.sort.desc::after {
     }
 
 
-	.V3cityCard{
+    .V3cityCard {
         min-width: 15vw;
         max-width: 15vw;
     }
 
-	.cardScroll{
-		gap: var(--size-3xl);
-	}
+    .cardScroll {
+        gap: var(--size-3xl);
+    }
 
-	.cityButton {
-		scale: 1.5;
-		bottom: 2em;
-		right: 2em;
-	}
+    .cityButton {
+        scale: 1.5;
+        bottom: 2em;
+        right: 2em;
+    }
 
-	.V3cityCardButton{
-		scale: 1.5;
-		bottom: 0.65em;
-		right: 0.65em;
-	}
+    .V3cityCardButton {
+        scale: 1.5;
+        bottom: 0.65em;
+        right: 0.65em;
+    }
 
-	.polaroids{
-		gap: var(--size-xl);
-	}
+    .polaroids {
+        gap: var(--size-xl);
+    }
 
-	.polaroids div{
-		max-width: 60vw;
-		grid-gap: 2em;
-	}
+    .polaroids div {
+        max-width: 60vw;
+        grid-gap: 2em;
+    }
 
-    
+
     .cityCard4 {
         grid-row: 3/5;
         grid-column: 1/4;
-		max-height: 52vh;
+        max-height: 52vh;
     }
-    
+
     .cityCard5 {
         grid-row: 3/5;
         grid-column: 4/9;
-		max-height: 52vh;
+        max-height: 52vh;
     }
 
     /* searchresult */
-    .searchResultdiv{   
+    .searchResultdiv {
         gap: var(--size-7xl) var(--size-3xl);
     }
 
     /* login */
-    .loginDiv p{
+    .loginDiv p {
         font-size: 1.111vw;
     }
 
     /* dashboard */
-    .profileImage{
+    .profileImage {
         width: 7vw;
         height: 7vw;
     }
-    .dashboardbody h2{
+
+    .dashboardbody h2 {
         font-size: 3vw;
     }
-    
-    .dashboardbody h3{
+
+    .dashboardbody h3 {
         font-size: 1.5vw;
     }
 
-    .dashboardDiv div:nth-child(2){
+    .dashboardDiv div:nth-child(2) {
         align-self: center;
     }
 
-    .dashboardsvg{
+    .dashboardsvg {
         width: 2.5vw;
         height: 2.5vw;
     }
 
-    .arrow, .laatstBezochtSection img{
+    .arrow,
+    .laatstBezochtSection img {
         width: 1.7vw;
         height: 1.7vw;
     }
 
-    .dashboardbody p{
+    .dashboardbody p {
         font-size: 1.25vw;
     }
 
-    section.dashboard, section.laatstBezochtSection{
+    section.dashboard,
+    section.laatstBezochtSection {
         padding-bottom: 0;
         padding-top: var(--size-8xl);
     }
 
-    section.laatstBezochtDiv{
+    section.laatstBezochtDiv {
         padding-top: var(--size-base);
     }
 
-    .friendlist .profileImage{
+    .friendlist .profileImage {
         width: 6vw;
         height: 6vw;
     }
 
-    .friendlist h2{
+    .friendlist h2 {
         font-size: 2.5vw;
     }
 
-    .friendlist h1{
+    .friendlist h1 {
         font-size: 3vw;
     }
-	
+
 }
 
 /* 3xl */
 @media (min-width: 1536px) {
-	.container{
-		max-width: 1536px;
-	}
+    .container {
+        max-width: 1536px;
+    }
 }
 
 
 /* animatie */
-@keyframes scaling-hover-button-normal{
-	0%{
-		scale: 100%;
-	}
-	
-	100%{
-		scale: 110%;
-	}
+@keyframes scaling-hover-button-normal {
+    0% {
+        scale: 100%;
+    }
+
+    100% {
+        scale: 110%;
+    }
 }
 
-@keyframes scaling-hover-city-button{
-	0%{
-		scale: 150%;
-	}
-	
-	100%{
-		scale: 170%;
-	}
+@keyframes scaling-hover-city-button {
+    0% {
+        scale: 150%;
+    }
+
+    100% {
+        scale: 170%;
+    }
 }
 
-@keyframes appear{
-	0%{
-		opacity: 0%;
-		scale: 0.1;
-	}
-	
-	100%{
-		opacity: 1;
-		scale: 1;
-	}
+@keyframes appear {
+    0% {
+        opacity: 0%;
+        scale: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
 }
 
-button:hover{
-	animation-name: scaling-hover-button-normal;
-	animation-duration: 0.6s;
-	animation-fill-mode: forwards;
+button:hover {
+    animation-name: scaling-hover-button-normal;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
 }
 
-button:hover{
+button:hover {
     background-color: var(--color-lightblue);
     cursor: pointer;
 }
 
-.heart:hover, .heartFill:hover{
-	background-color: transparent;
+.heart:hover,
+.heartFill:hover {
+    background-color: transparent;
 }
 
-.polaroids img, .aanbevolen img , [class^="cityCard"], .V3cityCard{
-	animation-name: appear;
-	animation-duration: 0.6s;
-	animation-fill-mode: forwards;
-	animation-timeline: view();
-	animation-range: entry 0%;
+.polaroids img,
+.aanbevolen img,
+[class^="cityCard"],
+.V3cityCard {
+    animation-name: appear;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-timeline: view();
+    animation-range: entry 0%;
 }
 
 
@@ -1929,7 +2007,7 @@ button:hover{
     0% {
         scale: 170%;
     }
-    
+
     100% {
         scale: 150%;
     }
@@ -1958,7 +2036,7 @@ button:hover{
 }
 
 .intro h1 {
-   color: var(--color-darkblue);
+    color: var(--color-darkblue);
     /* Juiste blauwe kleur */
     font-size: 2.2em;
 }
@@ -2005,11 +2083,9 @@ button:hover{
 
 .categories a.active,
 .categories a:hover {
-    color:var(--color-darkblue);
+    color: var(--color-darkblue);
     /* Blauwe kleur */
-    border-bottom: 0.052vw
-
-    solid var(--color-darkblue);
+    border-bottom: 0.052vw solid var(--color-darkblue);
 }
 
 /* Filter opties */
@@ -2041,7 +2117,7 @@ button:hover{
     background-color: #485EA1;
     color: white;
     border: none;
-    padding:  0.521vw 0.781vw;
+    padding: 0.521vw 0.781vw;
     border-radius: 0.26vw;
     cursor: pointer;
     font-size: 1em;
@@ -2114,8 +2190,8 @@ button:hover{
     display: flex;
     align-items: center;
     font-size: 1rem;
-   margin-top: 2vw;
-   margin-left: 2vw;
+    margin-top: 2vw;
+    margin-left: 2vw;
     color: #3b5998;
 }
 
@@ -2144,8 +2220,10 @@ button:hover{
 }
 
 .vraag-teller {
-    font-size: 0.9rem; /* Kleinere tekst */
-    color: gray; /* Grijs maken zoals in jouw afbeelding */
+    font-size: 0.9rem;
+    /* Kleinere tekst */
+    color: gray;
+    /* Grijs maken zoals in jouw afbeelding */
     margin-bottom: 5px;
 }
 
@@ -2169,27 +2247,26 @@ button:hover{
     margin: auto;
     padding: 1.042vw;
     border-radius: 0.521vw;
-    box-shadow: 0vw 0.208vw 0.417vw
-
-    rgba(0, 0, 0, 0.2);
+    box-shadow: 0vw 0.208vw 0.417vw rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
 .quiz label {
-     text-align: center;
+    text-align: center;
     font-size: var(--size-xl);
     line-height: 2vw;
 }
 
 .vraag label {
-    font-size: var(--size-2xl); /* Maak de vraag groter (1.5rem = 24px) */
-   
-   
-   
+    font-size: var(--size-2xl);
+    /* Maak de vraag groter (1.5rem = 24px) */
+
+
+
 }
 
-.vraag input + label {
-    font-size: var(--size-lg); 
+.vraag input+label {
+    font-size: var(--size-lg);
 }
 
 
@@ -2208,7 +2285,7 @@ button:hover{
 }
 
 .quiz button:last-of-type {
-    background-color:var(--color-darkblue);
+    background-color: var(--color-darkblue);
     color: white;
 }
 
@@ -2219,24 +2296,30 @@ button:hover{
     justify-content: center;
     text-align: center;
     margin: 1.042vw auto;
-    width: 50%; /* Zorgt dat het niet te lang is */
+    width: 50%;
+    /* Zorgt dat het niet te lang is */
 }
 
 progress {
-    width: 80%; /* Past de lengte aan */
-    height: 0.781vw; /* Maakt de balk compacter */
+    width: 80%;
+    /* Past de lengte aan */
+    height: 0.781vw;
+    /* Maakt de balk compacter */
     border-radius: 0.521vw;
     overflow: hidden;
-    appearance: none; /* Verwijdert standaardstijl */
+    appearance: none;
+    /* Verwijdert standaardstijl */
 }
 
 progress::-webkit-progress-bar {
-    background-color: #B3BEE1; /* Achtergrond */
+    background-color: #B3BEE1;
+    /* Achtergrond */
     border-radius: 0.521vw;
 }
 
 progress::-webkit-progress-value {
-    background-color: #3b5998; /* Kleur van de progress */
+    background-color: #3b5998;
+    /* Kleur van de progress */
     border-radius: 0.521vw;
 }
 
@@ -2264,8 +2347,10 @@ progress::-moz-progress-bar {
 
     /* 🔹 Knoppen groter en beter klikbaar */
     .quiz button {
-        font-size: 3vw;  /* Grotere tekst */
-        padding: 1vw 3vw; /* Meer ruimte binnen de knop */
+        font-size: 3vw;
+        /* Grotere tekst */
+        padding: 1vw 3vw;
+        /* Meer ruimte binnen de knop */
     }
 
     .progress-container {
@@ -2288,7 +2373,6 @@ progress::-moz-progress-bar {
 }
 
 
-/* Algemene container */
 .match-container {
     width: 80vw;
     max-width: 50rem;
@@ -2309,6 +2393,7 @@ progress::-moz-progress-bar {
     padding: 1rem;
     border-radius: 0.5rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap; /* Zorgt ervoor dat content goed blijft op mobiel */
 }
 
 #user-photo {
@@ -2343,6 +2428,80 @@ progress::-moz-progress-bar {
     border-bottom: 0.1rem solid #ddd;
 }
 
+.matches h1 {
+    color: var(--color-darkblue);
+    font-size: 2.2em;
+}
+
+.matches h2 {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Knoppen styling */
+.matches button:first-of-type {
+    background-color: white;
+    color: #3b5998;
+    border: 2px solid var(--color-darkblue);
+    padding: 0.521vw 0.781vw;
+    font-size: 0.8rem;
+    border-radius: 0.26vw;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.matches button:nth-of-type(2) {
+    padding: 0.521vw 0.781vw;
+    border: none;
+    border-radius: 0.26vw;
+    cursor: pointer;
+    color: white;
+    background-color: var(--color-darkblue);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+/* 🚀 MEDIA QUERY voor telefoonschermen */
+@media (max-width: 600px) {
+    .match-container {
+        width: 90vw; /* Maak het breder op mobiel voor betere weergave */
+        padding: 1.5rem;
+    }
+
+    .user-info {
+        flex-direction: column; /* Zet de items onder elkaar */
+        align-items: center;
+        text-align: center;
+    }
+
+    #user-photo {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .matches {
+        padding: 1.5rem;
+    }
+
+    .matches h1 {
+        font-size: 1.8em;
+    }
+
+    .matches h2 {
+        font-size: 1.1em;
+    }
+
+    .matches button {
+        width: 100%;
+        padding: 9rem; /* Extra padding op mobiel zodat de knop dikker is */
+        font-size: 1.1rem;
+
+    }
+}
+
+
 /* Optionele afbeelding */
 .destination-img {
     width: 100%;
@@ -2354,8 +2513,8 @@ progress::-moz-progress-bar {
 /* details view (api views) */
 
 .view h1 {
- font-size: var(--size-5xl);
- color: var(--color-brightblue);
+    font-size: var(--size-5xl);
+    color: var(--color-brightblue);
 }
 
 
@@ -2364,23 +2523,23 @@ progress::-moz-progress-bar {
     padding: 1vw;
     border-radius: 0.5vw;
     overflow-x: auto;
-  }
-  
-  .view ul {
+}
+
+.view ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .view li {
+}
+
+.view li {
     background: #fff;
     margin: 1vw 0;
     padding: 1vw;
     border-left: 0.4vw solid var(--color-brightblue);
     border-radius: 0.5vw;
     box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
-  }
-  
-  .view strong {
+}
+
+.view strong {
     font-size: 1.5vw;
     color: var(--color-brightblue);
-  }
+}
