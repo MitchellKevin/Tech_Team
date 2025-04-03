@@ -28,7 +28,7 @@
             <progress id="progressBar" value="0" max="100"></progress>
         </div>
 
-        <form action="#" method="post" id="vragenlijst">
+        <form action="/quizResult" method="GET" id="vragenlijst">
             <!-- Vraag 1 -->
             <div class="vraag actief" id="vraag1-container">
                 <p class="vraag-teller" id="vraag-teller">Vraag 1 van 6</p>
@@ -151,7 +151,7 @@
                 <ul id="overzicht-lijst"></ul>
                 <br>
 
-                <button type="button" class="vorige" onclick="terugNaarVragen()">⬅️ Terug</button>
+                <button type="button" class="vorige" onclick="terugNaarVragen">⬅️ Terug</button>
                 <button type="submit" class="volgende">Verzenden</button>
 
         </form>
