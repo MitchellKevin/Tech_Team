@@ -867,7 +867,7 @@ input[type=checkbox] {
     padding: 0 var(--size-lg) var(--size-2xl) var(--size-lg);
 }
 
-.searchBody .V3cityCardImage {
+.searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage  {
     height: 25vh;
 }
 
@@ -988,7 +988,7 @@ input[type=checkbox] {
     margin-bottom: 0;
 }
 
-.dashboardbody h1{
+.dashboardbody h1, .friendlist h1{
     text-align: center;
     font-size: 7.5vw;
     font-weight: 800;
@@ -1191,7 +1191,7 @@ button.sort.desc::after {
 } 
 
 /* filter */
-ul.food li:not(.food) {
+/* ul.food li:not(.food) {
     display:none;
 }
   
@@ -1217,13 +1217,29 @@ ul.food li:not(.food) {
 
 #theList{
     width: 100%;
-}
+} */
 
 .searchResultdiv{
     margin: var(--size-2xl) 0 0 0;
     padding: 0;
 }
 
+/* friendlist styling */
+.friendlist section{
+    padding:0 var(--size-lg) var(--size-4xl) var(--size-lg);
+}
+
+.friendlistSection ul {
+    padding: 0;
+    margin-top: var(--size-xl);
+}
+
+.friendlist .profileDiv{
+    background-color: rgb(179, 190, 225, 0.25);
+    /* background-color: #f8f8f8; */
+    padding: var(--size-xs) var(--size-base);
+    border-radius: 8px;
+}
 
 /* MEDIA QUERIES .container{} */
 
@@ -1293,6 +1309,10 @@ ul.food li:not(.food) {
 
     .landing, .aanbevolen, .aboutUs, .polaroids,div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section{
         padding: var(--size-7xl) var(--size-4xl);
+    }
+
+    .friendlist section{
+        padding: var(--size-4xl) var(--size-4xl);
     }
 
     .searchBody div#searchdiv {
@@ -1425,7 +1445,7 @@ ul.food li:not(.food) {
     }
 
 
-    .searchBody .V3cityCardImage {
+    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage  {
         height: 35vh;
     }
 
@@ -1433,6 +1453,14 @@ ul.food li:not(.food) {
         max-width: 28vw;
     }
 
+    .friendlist .profileImage{
+        width: 10vw;
+        height: 10vw;
+    }
+
+    .friendlist h1{
+        font-size: 5vw;
+    }
 }
 
 /* lg */
@@ -1457,9 +1485,11 @@ ul.food li:not(.food) {
 		max-width: none;
 	}
 
-	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section {
+	.landing, .aanbevolen, .polaroids, div#searchdiv, .matchResult, .otherMatches, .searchResult, .dashboardbody section, .friendlist section {
         padding: var(--size-7xl) var(--size-7xl);
     }
+
+    
 
     .searchBody div#searchdiv{
         padding-bottom: 0;
@@ -1586,7 +1616,7 @@ ul.food li:not(.food) {
         width: 30vw;
     } 
 
-    .searchBody .V3cityCardImage {
+    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage   {
         height: 38vh;
     }
 
@@ -1594,6 +1624,14 @@ ul.food li:not(.food) {
         max-width: 20vw;
     }
 
+    .friendlist .profileImage{
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .friendlist h1{
+        font-size: 3.5vw;
+    }
 }
 
 /* xl */
@@ -1608,7 +1646,7 @@ ul.food li:not(.food) {
         height: 92vh;
     }
 
-    .searchBody .V3cityCardImage {
+    .searchBody .V3cityCardImage, .dashboardbody .V3cityCardImage {
         height: 45vh;
     }
 }
@@ -1657,7 +1695,7 @@ ul.food li:not(.food) {
         padding: var(--size-10xl) var(--size-10xl);
     }
 
-    .landing{
+    .landing, .friendlist section{
         padding: var(--size-8xl) var(--size-10xl) var(--size-10xl) var(--size-10xl);
     }
 
@@ -1799,6 +1837,19 @@ ul.food li:not(.food) {
 
     section.laatstBezochtDiv{
         padding-top: var(--size-base);
+    }
+
+    .friendlist .profileImage{
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .friendlist h2{
+        font-size: 2.5vw;
+    }
+
+    .friendlist h1{
+        font-size: 3vw;
     }
 	
 }
@@ -2044,9 +2095,9 @@ button:hover{
     background-color: #485EA1;
 }
 
-button {
+/* button {
     margin-top: 10px;
-}
+} */
 
 
 

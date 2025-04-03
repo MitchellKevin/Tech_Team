@@ -65,8 +65,15 @@
     </section>
 
     <section class="laatstBezochtDiv">
-
-
+        <div class="searchResultdiv">
+            <% if(favDestinations && favDestinations.length) { %>
+                <% favDestinations.forEach(function(destination) { %>
+                <%- include('./partials/cityCard', { destination: destination, favorites: user.fav }) %>
+                <% }); %>
+            <% } else { %>
+                <p>Geen favorieten gevonden.</p>
+            <% } %>
+        </div>
         <button class="logoutButton">
             <form action="/logout" method="post">
                 <input type="submit" value="Uitloggen">

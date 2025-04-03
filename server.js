@@ -94,8 +94,8 @@ app.get('/search', async (req, res) => {
     const results = await destinationsCollection
       .find({ city: { $regex: query, $options: "i" } })
       .toArray();
-        const cityData = await fetchdbdata(results[0].city);//zoek naar results en de city naam in de database
-        const dataString = await travelguideapi(cityData.city); // fetch de api data uit de travelguideapi functie als je dataString variable aanroept
+        const cityData = await fetchdbdata(results[0].city);
+        const dataString = await travelguideapi(cityData.city);
     res.render("searchResults", { dataString: dataString , query, results });
   } catch (error) {
     console.error("Error handling search:", error);
@@ -318,7 +318,7 @@ app.post("/login", async (req, res) => {
       req.session.user = user;
       req.session.authenticated = true;
       res.cookie("session_id", req.sessionID, { maxAge: 1000 * 60 * 60 });
-      res.render("dashboard.ejs", { user: user});
+      res.redirect("/dashboard");
       console.log(token);
     } else {
       console.log("Incorrect password");
@@ -397,11 +397,29 @@ app.post('/cool-profile', cpUpload, (req, res, next) => {
   res.send('Files uploaded');
 });
 
-app.get("/dashboard", (req, res) => {
-  if (!req.session.user) {
-    return res.render("pages/logIn")
-  } else {
-    res.render('dashboard', { user: req.session.user, avvatar: req.session.user.path });
+app.get("/dashboard", valiadateCookie, async (req, res) => {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const usersCollection = database.collection("users");
+    const destinationsCollection = database.collection("destinations");
+
+    // Haal de ingelogde gebruiker op
+    const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    
+    // Stel favorieten vast, bijvoorbeeld: ["Rome", "Amsterdam"]
+    const favCities = user.fav || [];
+    
+    // Zoek in de destinations-collectie naar records waarvan de 'city' voorkomt in favCities
+    const favDestinations = await destinationsCollection.find({ city: { $in: favCities } }).toArray();
+
+    // Geef de user en favDestinations door aan de dashboard view
+    res.render('dashboard', { user: req.session.user, favDestinations });
+  } catch (error) {
+    console.error("Error rendering dashboard:", error);
+    res.status(500).send("Er is een fout opgetreden");
   }
 });
 
@@ -488,6 +506,7 @@ app.post("/friendrequest/respond", valiadateCookie, async (req, res) => {
         { $pull: { friendRequests: new ObjectId(requesterId) } }
       );
     }
+    res.redirect("/friends");
   } catch (error) {
     console.error("Error responding to friend request:", error);
     res.status(500).json({ message: "Error responding to friend request" });
@@ -507,7 +526,7 @@ app.get("/friends", valiadateCookie, async (req, res) => {
 
     const friends = await usersCollection
       .find({ _id: { $in: user.friends } })
-      .project({ name: 1 })
+      .project({ name: 1, avatar: 1, tele:1})
       .toArray();
 
     res.render("friends", { user, friends });

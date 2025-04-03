@@ -1,16 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('./partials/head'); %>
 </head>
-<body>
-    <h1>Your Friends</h1>
-<ul>
-  <% friends.forEach(friend => { %>
-    <li><%= friend.name %></li>
-  <% }) %>
-</ul>
+
+<body class="friendlist container">
+    <header>
+        <%- include('./partials/header'); %>
+    </header>
+
+    <section class="friendlistSection">
+      <h1>Your Friends</h1>
+      <ul>
+        <% friends.forEach(friend => { %>
+          <li>
+            <div class="profileDiv">
+              <div class="profileImage">
+                <img src="<%= friend.avatar %>" alt="">
+              </div>
+              <div>
+                <h2><%= friend.name %></h2>
+                <p>Nederland</p>
+                <p><%= friend.tele %></p>
+              </div>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+
+    </div>
+    </section>
+    
+    <footer>
+        <%- include('./partials/footer'); %>
+    </footer>
+
+    <script src="../static/script.js"></script>
 </body>
 </html>
