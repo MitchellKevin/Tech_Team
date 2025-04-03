@@ -44,13 +44,13 @@
         <p>De meest gezochte steden</p>
 
         <div>
-          <a href="/">
+          <a href="/result?city=Paris">
             <img class = "polaroid" src="../static/images/polaroid.png" alt="">
           </a>
-          <a href="/">
+          <a href="/result?city=Berlin">
             <img class = "polaroid" src="../static/images/polaroid2.png" alt="">
           </a>
-          <a href="/">
+          <a href="/result?city=London">
             <img class = "polaroid" src="../static/images/polaroid3.png" alt="">
           </a>
         </div>
@@ -65,11 +65,13 @@
 
                 <p class="cityInfo">Amsterdam</p>
 
-                <button class="cityButton">
+                <a href="/result?city=Amsterdam">
+                  <button class="cityButton">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                  </button>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                    </button>
+                  </a>
             </div>
 
             <div class="cityCard2">
@@ -78,7 +80,7 @@
 
                 <p class="cityInfo">Parijs</p>
                 
-                <button class="cityButton">
+                <button class="cityButton" href="/result?city=Paris">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
@@ -91,7 +93,7 @@
 
                 <p class="cityInfo">Berlijn</p>
                 
-                <button class="cityButton">
+                <button class="cityButton" href="/result?city=Berlin">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
@@ -99,12 +101,12 @@
             </div>
 
             <div class="cityCard4">
-                <img src="../static/images/brussel.png" alt="">
+                <img src="../static/images/destinations/kopenhagen.jpeg" alt="">
                 <div class="gradientOverlay"></div>
 
-                <p class="cityInfo">Brussel</p>
+                <p class="cityInfo">Copenhagen</p>
                 
-                <button class="cityButton">
+                <button class="cityButton" href="/result?city=Copenhagen">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
@@ -117,7 +119,7 @@
 
                 <p class="cityInfo">London</p>
                 
-                <button class="cityButton">
+                <button class="cityButton" href="/result?city=London">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
@@ -125,12 +127,12 @@
             </div>
 
             <div class="cityCard6">
-                <img src="../static/images/madrid.png" alt="">
+                <img src="../static/images/destinations/helsinki.jpg" alt="">
                 <div class="gradientOverlay"></div>
 
-                <p class="cityInfo">Madrid</p>
+                <p class="cityInfo">Helsinki</p>
                 
-                <button class="cityButton">
+                <button class="cityButton" href="/result?city=Helsinki">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
@@ -138,10 +140,10 @@
             </div>
         </div>
 
-        <a href="/friendlist">
+        <!-- <a href="/friendlist">
             <p>Ga naar jouw matches</p>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#485EA1"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-        </a>
+        </a> -->
     </section>
 
     <section class="aboutUs">
@@ -198,7 +200,7 @@
                     </label>
 
                     <div class="V3cityCardButton">
-                        <button class="cityButton2">
+                        <button class="cityButton2" href="/result?city=amsterdam>">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                             </svg>
