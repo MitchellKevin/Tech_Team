@@ -480,7 +480,7 @@ app.get("/friendlist", valiadateCookie, async (req, res) => {
     res.render("friendlist", { user, potentialMatches, destination });
   } catch (error) {
     console.error("Error fetching friendlist:", error);
-    res.redirect("/friendlist");
+    res.status(500).send("Error fetching friendlist");
   }
 });
 
