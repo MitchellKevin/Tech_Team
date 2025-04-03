@@ -150,122 +150,126 @@ console.log ("hoi");
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const totaalVragen = 6; // Aantal vragen
-  const progressBar = document.getElementById("progressBar");
-  const vraagTeller = document.getElementById("vraag-teller");
+    const totaalVragen = 6; // Aantal vragen
+    const progressBar = document.getElementById("progressBar");
+    const vraagTeller = document.getElementById("vraag-teller");
 
-  //  Functie om de vraag teller bij te werken (Vraag X van 6)
-  function updateVraagTeller(vraagNummer) {
-      if (vraagTeller) {
-          vraagTeller.textContent = `Vraag ${vraagNummer} van ${totaalVragen}`;
-      }
-  }
+    //  Functie om de vraag teller bij te werken (Vraag X van 6)
+    function updateVraagTeller(vraagNummer) {
+        if (vraagTeller) {
+            vraagTeller.textContent = `Vraag ${vraagNummer} van ${totaalVragen}`;
+        }
+    }
 
-  //  Functie om de progress bar bij te werken
-  function updateProgress(vraagNummer) {
-      let percentage = ((vraagNummer - 1) / totaalVragen) * 100;
-      progressBar.value = percentage;
-  }
+    //  Functie om de progress bar bij te werken
+    function updateProgress(vraagNummer) {
+        let percentage = ((vraagNummer - 1) / totaalVragen) * 100;
+        progressBar.value = percentage;
+    }
 
-  // ✅ Fade-in/Fade-out effect bij wisselen van vragen
-  function wisselVraag(huidige, volgende) {
-      let huidigeContainer = document.getElementById(`vraag${huidige}-container`);
-      let volgendeContainer = document.getElementById(`vraag${volgende}-container`);
+    // ✅ Fade-in/Fade-out effect bij wisselen van vragen
+    function wisselVraag(huidige, volgende) {
+        let huidigeContainer = document.getElementById(`vraag${huidige}-container`);
+        let volgendeContainer = document.getElementById(`vraag${volgende}-container`);
 
-      if (huidigeContainer && volgendeContainer) {
-          // Fade-out huidige vraag
-          huidigeContainer.style.opacity = 0;
-          setTimeout(() => {
-              huidigeContainer.classList.remove("actief");
-              volgendeContainer.classList.add("actief");
-              updateVraagTeller(volgende);
-              updateProgress(volgende);
-              
-              // Fade-in nieuwe vraag
-              setTimeout(() => {
-                  volgendeContainer.style.opacity = 1;
-              }, 100);
-          }, 300);
-      }
-  }
+        if (huidigeContainer && volgendeContainer) {
+            // Fade-out huidige vraag
+            huidigeContainer.style.opacity = 0;
+            setTimeout(() => {
+                huidigeContainer.classList.remove("actief");
+                volgendeContainer.classList.add("actief");
+                updateVraagTeller(volgende);
+                updateProgress(volgende);
+                
+                // Fade-in nieuwe vraag
+                setTimeout(() => {
+                    volgendeContainer.style.opacity = 1;
+                }, 100);
+            }, 300);
+        }
+    }
 
-  // Functie om naar de volgende vraag te gaan
-  function volgendeVraag(vraagNummer) {
-      if (vraagNummer < totaalVragen) {
-          wisselVraag(vraagNummer, vraagNummer + 1);
-      } else {
-          toonOverzicht(); // Ga naar overzicht als laatste vraag klaar is
-      }
-  }
+    // Functie om naar de volgende vraag te gaan
+    function volgendeVraag(vraagNummer) {
+        if (vraagNummer < totaalVragen) {
+            wisselVraag(vraagNummer, vraagNummer + 1);
+        } else {
+            toonOverzicht(); // Ga naar overzicht als laatste vraag klaar is
+        }
+    }
 
-  //  Functie om naar de vorige vraag te gaan
-  function vorigeVraag(vraagNummer) {
-      if (vraagNummer > 1) {
-          wisselVraag(vraagNummer, vraagNummer - 1);
-      }
-  }
+    //  Functie om naar de vorige vraag te gaan
+    function vorigeVraag(vraagNummer) {
+        if (vraagNummer > 1) {
+            wisselVraag(vraagNummer, vraagNummer - 1);
+        }
+    }
 
-  //  Functie om het overzicht van de antwoorden te tonen
-  function toonOverzicht() {
-      let overzichtContainer = document.getElementById("overzicht-container");
-      let overzichtLijst = document.getElementById("overzicht-lijst");
+ function toonOverzicht() {
+    let overzichtContainer = document.getElementById("overzicht-container");
+    let overzichtLijst = document.getElementById("overzicht-lijst");
 
-      overzichtLijst.innerHTML = ""; // Leegmaken voor nieuwe inhoud
+    overzichtLijst.innerHTML = ""; // Leegmaken voor nieuwe inhoud
 
-      for (let i = 1; i <= totaalVragen; i++) {
-          let antwoord = document.querySelector(`input[name="vraag${i}"]:checked`);
-          let lijstItem = document.createElement("li");
+    for (let i = 1; i <= totaalVragen; i++) {
+        let lijstItem = document.createElement("li");
 
-          if (antwoord) {
-              lijstItem.textContent = `Vraag ${i}: ${antwoord.value}`;
-          } else {
-              lijstItem.textContent = `Vraag ${i}: Geen antwoord geselecteerd`;
-          }
+        if (i === 4) { // Speciale behandeling voor vraag 4 (budget slider)
+            let budget = document.getElementById("budget").value;
+            lijstItem.textContent = `Vraag ${i}: Budget per dag is €${budget}`;
+        } else {
+            let antwoord = document.querySelector(`input[name="vraag${i}"]:checked`);
+            if (antwoord) {
+                lijstItem.textContent = `Vraag ${i}: ${antwoord.value}`;
+            } else {
+                lijstItem.textContent = `Vraag ${i}: Geen antwoord geselecteerd`;
+            }
+        }
 
-          overzichtLijst.appendChild(lijstItem);
-      }
+        overzichtLijst.appendChild(lijstItem);
+    }
 
-      //  Overschakelen naar overzichtspagina
-      let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
-      if (laatsteVraagContainer) {
-          laatsteVraagContainer.classList.remove("actief");
-      }
-      overzichtContainer.classList.add("actief");
-  }
+    //  Overschakelen naar overzichtspagina
+    let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
+    if (laatsteVraagContainer) {
+        laatsteVraagContainer.classList.remove("actief");
+    }
+    overzichtContainer.classList.add("actief");
+}
 
-  //  Functie om terug te gaan naar de vragen vanuit het overzicht
-  function terugNaarVragen() {
-      let overzichtContainer = document.getElementById("overzicht-container");
-      let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
+    //  Functie om terug te gaan naar de vragen vanuit het overzicht
+    function terugNaarVragen() {
+        let overzichtContainer = document.getElementById("overzicht-container");
+        let laatsteVraagContainer = document.getElementById(`vraag${totaalVragen}-container`);
 
-      overzichtContainer.classList.remove("actief");
-      laatsteVraagContainer.classList.add("actief");
-  }
+        overzichtContainer.classList.remove("actief");
+        laatsteVraagContainer.classList.add("actief");
+    }
 
-  // Budget slider functionaliteit
-  const budgetSlider = document.getElementById("budget");
-  const budgetValue = document.getElementById("budgetValue");
+    // Budget slider functionaliteit
+    const budgetSlider = document.getElementById("budget");
+    const budgetValue = document.getElementById("budgetValue");
 
-  if (budgetSlider && budgetValue) {
-      budgetSlider.addEventListener("input", function () {
-          let value = this.value;
-          if (value <= 30) {
-              budgetValue.textContent = "Minder dan €30";
-          } else if (value <= 60) {
-              budgetValue.textContent = "€30 - €60";
-          } else {
-              budgetValue.textContent = "Meer dan €60";
-          }
-      });
-  }
+    if (budgetSlider && budgetValue) {
+        budgetSlider.addEventListener("input", function () {
+            let value = this.value;
+            if (value <= 30) {
+                budgetValue.textContent = "Minder dan €30";
+            } else if (value <= 60) {
+                budgetValue.textContent = "€30 - €60";
+            } else {
+                budgetValue.textContent = "Meer dan €60";
+            }
+        });
+    }
 
-  //  Maak functies beschikbaar voor de HTML-knoppen
-  window.volgendeVraag = volgendeVraag;
-  window.vorigeVraag = vorigeVraag;
-  window.toonOverzicht = toonOverzicht;
-  window.terugNaarVragen = terugNaarVragen;
+    //  Maak functies beschikbaar voor de HTML-knoppen
+    window.volgendeVraag = volgendeVraag;
+    window.vorigeVraag = vorigeVraag;
+    window.toonOverzicht = toonOverzicht;
+    window.terugNaarVragen = terugNaarVragen;
 
-  console.log("Script correct geladen!");
+    console.log("Script correct geladen!");
 });
 // sorteren
 var options = {
