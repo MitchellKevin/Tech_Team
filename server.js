@@ -539,9 +539,22 @@ app.get("/friends", valiadateCookie, async (req, res) => {
 
 app.get('/api-results', async (req, res) => {
   try {
-    const city = "Amsterdam";
+    // Gebruik als default stad bijvoorbeeld "Paris"
+    const city = req.query.city || "Paris";
     const dataString = await travelguideapi(city);
-    const apiData = JSON.parse(dataString); // Dit moet nu geldige JSON zijn
+    const apiDataRaw = JSON.parse(dataString);
+    
+    // Filter de resultaten zodat alleen items met type "historical" overblijven.
+    const filteredResults = apiDataRaw.result.filter(place => {
+      return place.type && place.type.toLowerCase() === "historical";
+    });
+    
+    // Bouw een nieuw object op met de gefilterde resultaten.
+    const apiData = {
+      region: apiDataRaw.region || city,
+      result: filteredResults
+    };
+    
     res.render('apiView', { apiData });
   } catch (error) {
     console.error("Error fetching API data:", error);

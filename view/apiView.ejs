@@ -2,30 +2,24 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>API via AJAX</title>
+  <title>API Resultaten</title>
 </head>
 <body>
-  <h1>API Resultaten</h1>
-  <div id="api-results"></div>
+  <h1>API Resultaten voor <%= apiData.region || "onbekend" %></h1>
+  <pre><%= JSON.stringify(apiData, null, 2) %></pre>
   
-  <script>
-    async function fetchApiData() {
-      try {
-        const response = await fetch('/api-results');
-        if (!response.ok) {
-          throw new Error("Fout tijdens ophalen van data");
-        }
-        // Stel dat de route JSON retourneert:
-        const data = await response.json();
-        // Weergeven in de div
-        document.getElementById('api-results').innerHTML = 
-          `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-      } catch (error) {
-        console.error(error);
-        document.getElementById('api-results').textContent = "Er is een fout opgetreden bij het ophalen van de data.";
-      }
-    }
-    fetchApiData();
-  </script>
+  <% if(apiData.result && apiData.result.length) { %>
+    <ul>
+      <% apiData.result.forEach(place => { %>
+        <li>
+          <strong><%= place.name %></strong><br>
+          <%= place.description %><br>
+          Coördinaten: <%= place.coordinates.latitude %>, <%= place.coordinates.longitude %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>Geen resultaten gevonden.</p>
+  <% } %>
 </body>
 </html>
