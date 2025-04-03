@@ -404,19 +404,15 @@ app.get("/dashboard", valiadateCookie, async (req, res) => {
     const usersCollection = database.collection("users");
     const destinationsCollection = database.collection("destinations");
 
-    // Haal de ingelogde gebruiker op
     const user = await usersCollection.findOne({ _id: new ObjectId(req.session.user._id) });
     if (!user) {
       return res.status(404).send("User not found");
     }
     
-    // Stel favorieten vast, bijvoorbeeld: ["Rome", "Amsterdam"]
     const favCities = user.fav || [];
     
-    // Zoek in de destinations-collectie naar records waarvan de 'city' voorkomt in favCities
     const favDestinations = await destinationsCollection.find({ city: { $in: favCities } }).toArray();
 
-    // Geef de user en favDestinations door aan de dashboard view
     res.render('dashboard', { user: req.session.user, favDestinations });
   } catch (error) {
     console.error("Error rendering dashboard:", error);
@@ -539,17 +535,14 @@ app.get("/friends", valiadateCookie, async (req, res) => {
 
 app.get('/api-results', async (req, res) => {
   try {
-    // Gebruik als default stad bijvoorbeeld "Paris"
     const city = req.query.city || "Paris";
     const dataString = await travelguideapi(city);
     const apiDataRaw = JSON.parse(dataString);
     
-    // Filter de resultaten zodat alleen items met type "historical" overblijven.
     const filteredResults = apiDataRaw.result.filter(place => {
       return place.type && place.type.toLowerCase() === "historical";
     });
     
-    // Bouw een nieuw object op met de gefilterde resultaten.
     const apiData = {
       region: apiDataRaw.region || city,
       result: filteredResults
