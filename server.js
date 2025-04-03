@@ -103,6 +103,15 @@ app.get('/search', async (req, res) => {
   }
 });
 
+app.get('/city/:cityName', async (req, res) => {
+    const cityName = req.params.cityName;
+    const database = client.db(process.env.DB_NAME);
+    const destinationCollection = database.collection("destinations");
+    const cityData = await destinationCollection.findOne({city: cityName})
+
+    res.render("pages/details.ejs", {city: cityData});
+});
+
 app.get('/login', function(req, res) {
   res.render('pages/logIn');
 });
