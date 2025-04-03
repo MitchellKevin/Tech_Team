@@ -2275,6 +2275,11 @@ progress::-moz-progress-bar {
     progress {
         height: 2vw;
     }
+
+    .knopterug a {
+        display: none;
+    }
+
 }
 
 .overzicht-container h2 {
@@ -2345,3 +2350,37 @@ progress::-moz-progress-bar {
     margin-top: 2rem;
     border-radius: 0.5rem;
 }
+
+/* details view (api views) */
+
+.view h1 {
+ font-size: var(--size-5xl);
+ color: var(--color-brightblue);
+}
+
+
+.view pre {
+    background: #eee;
+    padding: 1vw;
+    border-radius: 0.5vw;
+    overflow-x: auto;
+  }
+  
+  .view ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .view li {
+    background: #fff;
+    margin: 1vw 0;
+    padding: 1vw;
+    border-left: 0.4vw solid var(--color-brightblue);
+    border-radius: 0.5vw;
+    box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
+  }
+  
+  .view strong {
+    font-size: 1.5vw;
+    color: var(--color-brightblue);
+  }
