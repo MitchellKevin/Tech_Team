@@ -252,7 +252,7 @@ function valiadateCookie(req, res, next) {
       res.render("pages/logIn");
     }
   } else {
-    res.status(401).send("No session_id cookie found");
+    res.render('pages/logIn');
   }
 }
 
@@ -542,7 +542,6 @@ app.get('/api-results', async (req, res) => {
     const filteredResults = apiDataRaw.result.filter(place => {
       return place.type && place.type.toLowerCase() === "historical";
     });
-    
     const apiData = {
       region: apiDataRaw.region || city,
       result: filteredResults
